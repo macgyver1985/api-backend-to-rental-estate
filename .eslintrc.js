@@ -5,15 +5,22 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'airbnb-base',
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:eslint-comments/recommended",
+    "plugin:jest/recommended",
+    "plugin:promise/recommended"
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 12,
-    sourceType: 'module',
+    project: "./tsconfig.json",
   },
   plugins: [
-    '@typescript-eslint',
+    "@typescript-eslint",
+    "eslint-comments",
+    "jest",
+    "promise",
   ],
   rules: {
     'linebreak-style': 0,

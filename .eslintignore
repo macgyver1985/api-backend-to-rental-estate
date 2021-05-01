@@ -1,4 +1,5 @@
 dist
 node_modules
 documentation
+.eslintrc.js
 jest.config.ts
