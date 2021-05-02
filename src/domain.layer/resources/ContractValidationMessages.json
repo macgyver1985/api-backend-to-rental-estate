@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "code": "LAT_REQUIRED",
+            "message": "A latitude deve ser informada."
+        },
+        {
+            "code": "LON_REQUIRED",
+            "message": "A longitude deve ser informada."
+        }
+    ]
+}

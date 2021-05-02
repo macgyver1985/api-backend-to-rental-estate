@@ -12,17 +12,20 @@
     "removeComments": true,
     "baseUrl": ".",
     "paths": {
-      "@business/*": [
-        "./src/business/*"
+      "@layer/crossCutting/*": [
+        "./src/crossCutting.layer/*"
       ],
-      "@crossCutting/*": [
-        "./src/crossCutting/*"
+      "@layer/domain/*": [
+        "./src/domain.layer/*"
       ],
-      "@adapters/*": [
-        "./src/adapters/*"
+      "@layer/application/*": [
+        "./src/application.layer/*"
       ],
-      "@main/*": [
-        "./src/main/*"
+      "@layer/adapters/*": [
+        "./src/adapters.layer/*"
+      ],
+      "@layer/main/*": [
+        "src/main.layer/*"
       ]
     },
     "typeRoots": [

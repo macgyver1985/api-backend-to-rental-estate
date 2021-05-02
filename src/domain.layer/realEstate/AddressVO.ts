@@ -1,8 +1,3 @@
-type Location = {
-  lon: number;
-  lat: number;
-};
-
 type GeoLocation = {
   precision: string;
   location: Location;

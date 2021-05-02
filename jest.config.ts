@@ -119,10 +119,11 @@ export default {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    '<rootDir>/src/adapters/_tests/',
-    '<rootDir>/src/business/_tests/',
-    '<rootDir>/src/crossCutting/_tests/',
-    '<rootDir>/src/crossCutting/_tests/',
+    '<rootDir>/src/crossCutting.layer/_tests/',
+    '<rootDir>/src/domain.layer/_tests/',
+    '<rootDir>/src/application.layer/_tests/',
+    '<rootDir>/src/adapters.layer/_tests/',
+    '<rootDir>/src/main.layer/_tests/',
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
