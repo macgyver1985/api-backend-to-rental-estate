@@ -1,9 +1,9 @@
-import INotificationDetail from './interfaces/INotificationDetail';
+import INotification from './interfaces/INotification';
 
 export default class ContractValidatorException extends Error {
   private attLayer: string;
 
-  public constructor(layer: string, notifications: INotificationDetail[]) {
+  public constructor(layer: string, notifications: INotification[]) {
     super(JSON.stringify({
       layer,
       notifications,

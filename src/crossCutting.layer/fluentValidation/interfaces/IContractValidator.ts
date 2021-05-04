@@ -1,12 +1,10 @@
-import IMessageResources from './IMessageResources';
 import INotification from './INotification';
-import INotificationDetail from './INotificationDetail';
 
 export type FirstOption = {
   context: string;
   property: string;
   value: string;
-  errorCode: string;
+  message: string;
 };
 
 export type SecondOption = {
@@ -14,7 +12,7 @@ export type SecondOption = {
   property: string;
   value: string;
   quantity: number;
-  errorCode: string;
+  message: string;
 };
 
 export type ThirdOption = {
@@ -22,36 +20,37 @@ export type ThirdOption = {
   property: string;
   value: number;
   expected: number;
-  errorCode: string;
+  message: string;
 };
 
 export default interface IContractValidator {
-  required(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  isValid(context?: (ctx: string) => boolean): boolean
 
-  hasMinLen(config: SecondOption, notifications: Array<INotification>): IContractValidator
+  getNotifications(query?: (noty: INotification) => boolean): Array<INotification>
 
-  hasMaxLen(config: SecondOption, notifications: Array<INotification>): IContractValidator
+  cleanNotifications(context?: (ctx: string) => boolean): IContractValidator
 
-  isFixedLen(config: SecondOption, notifications: Array<INotification>): IContractValidator
+  throwException(layer: string, context?: (ctx: string) => boolean): void
 
-  isGreaterThan(config: ThirdOption, notifications: Array<INotification>): IContractValidator
+  required(config: FirstOption): IContractValidator
 
-  isEmail(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  hasMinLen(config: SecondOption): IContractValidator
 
-  isIntenger(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  hasMaxLen(config: SecondOption): IContractValidator
 
-  isCellPhone(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  isFixedLen(config: SecondOption): IContractValidator
 
-  isLandline(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  isGreaterThan(config: ThirdOption): IContractValidator
 
-  isFederalTax(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  isEmail(config: FirstOption): IContractValidator
 
-  isZipCode(config: FirstOption, notifications: Array<INotification>): IContractValidator
+  isIntenger(config: FirstOption): IContractValidator
 
-  isValid(notifications: Array<INotification>): boolean
+  isCellPhone(config: FirstOption): IContractValidator
 
-  getNotificationDetails(
-    notifications: Array<INotification>,
-    resource: IMessageResources
-  ): Array<INotificationDetail>
+  isLandline(config: FirstOption): IContractValidator
+
+  isFederalTax(config: FirstOption): IContractValidator
+
+  isZipCode(config: FirstOption): IContractValidator
 }
