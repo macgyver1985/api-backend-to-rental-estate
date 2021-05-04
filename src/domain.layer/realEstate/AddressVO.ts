@@ -2,15 +2,15 @@ import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/
 import GeoLocationVO, { GeoLocationData } from './GeoLocationVO';
 
 interface IAddressVO {
-  city: string
-  neighborhood: string
-  geoLocation: GeoLocationVO
+  city: string;
+  neighborhood: string;
+  geoLocation: GeoLocationVO;
 }
 
 export type AddressData = {
-  city: string
-  neighborhood: string
-  geoLocation: GeoLocationData
+  city: string;
+  neighborhood: string;
+  geoLocation: GeoLocationData;
 };
 
 export default class AddressVO implements IAddressVO {
@@ -26,7 +26,7 @@ export default class AddressVO implements IAddressVO {
       this.#geoLocation = data.geoLocation;
     }
 
-    public create(data: AddressData, contractValidator: IContractValidator): AddressVO {
+    public static create(data: AddressData, contractValidator: IContractValidator): AddressVO {
       const geoLocation = GeoLocationVO.create(data.geoLocation, contractValidator);
 
       if (!geoLocation) {

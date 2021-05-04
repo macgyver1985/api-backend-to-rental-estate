@@ -24,33 +24,33 @@ export type ThirdOption = {
 };
 
 export default interface IContractValidator {
-  isValid(context?: (ctx: string) => boolean): boolean
+  isValid(context?: (ctx: string) => boolean): boolean;
 
-  getNotifications(query?: (noty: INotification) => boolean): Array<INotification>
+  getNotifications(query?: (noty: INotification) => boolean): Array<INotification>;
 
-  cleanNotifications(context?: (ctx: string) => boolean): IContractValidator
+  cleanNotifications(context?: (ctx: string) => boolean): IContractValidator;
 
-  throwException(layer: string, context?: (ctx: string) => boolean): void
+  throwException(layer: string, context?: (ctx: string) => boolean): void;
 
-  required(config: FirstOption): IContractValidator
+  required(config: FirstOption): IContractValidator;
 
-  hasMinLen(config: SecondOption): IContractValidator
+  hasMinLen(config: SecondOption): IContractValidator;
 
-  hasMaxLen(config: SecondOption): IContractValidator
+  hasMaxLen(config: SecondOption): IContractValidator;
 
-  isFixedLen(config: SecondOption): IContractValidator
+  isFixedLen(config: SecondOption): IContractValidator;
 
-  isGreaterThan(config: ThirdOption): IContractValidator
+  isGreaterThan(config: ThirdOption): IContractValidator;
 
-  isEmail(config: FirstOption): IContractValidator
+  isEmail(config: FirstOption): IContractValidator;
 
-  isIntenger(config: FirstOption): IContractValidator
+  isIntenger(config: FirstOption): IContractValidator;
 
-  isCellPhone(config: FirstOption): IContractValidator
+  isCellPhone(config: FirstOption): IContractValidator;
 
-  isLandline(config: FirstOption): IContractValidator
+  isLandline(config: FirstOption): IContractValidator;
 
-  isFederalTax(config: FirstOption): IContractValidator
+  isFederalTax(config: FirstOption): IContractValidator;
 
-  isZipCode(config: FirstOption): IContractValidator
+  isZipCode(config: FirstOption): IContractValidator;
 }

@@ -37,7 +37,9 @@ export default class LocationVO implements ILocationVO {
       })
       .isValid((t) => t === LocationVO.name);
 
-    if (!isValid) { return null; }
+    if (!isValid) {
+      return null;
+    }
 
     return new LocationVO(data);
   }

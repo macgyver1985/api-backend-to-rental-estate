@@ -1,5 +1,5 @@
 export default interface INotification {
-  context: string
-  property: string
-  message: string
+  context: string;
+  property: string;
+  message: string;
 }

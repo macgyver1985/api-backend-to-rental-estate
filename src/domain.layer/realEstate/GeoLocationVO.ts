@@ -4,13 +4,12 @@ import LocationVO, { LocationData } from './LocationVO';
 
 interface IGeoLocationVO {
   precision: string;
-
   location: LocationVO;
 }
 
 export type GeoLocationData = {
   precision: string;
-  location: LocationData
+  location: LocationData;
 };
 
 export default class GeoLocationVO implements IGeoLocationVO {
