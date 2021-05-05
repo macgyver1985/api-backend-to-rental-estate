@@ -1,6 +1,6 @@
 import ContractSupport from './ContractSupport';
 import ContractValidatorException from './ContractValidatorException';
-import IContractValidator, { FirstOption, SecondOption, ThirdOption } from './interfaces/IContractValidator';
+import IContractValidator from './interfaces/IContractValidator';
 import INotification from './interfaces/INotification';
 
 export default class ContractValidator implements IContractValidator {
@@ -13,7 +13,11 @@ export default class ContractValidator implements IContractValidator {
   public isValid(context?: (ctx: string) => boolean): boolean {
     if (!context) { return this.#notifications.length === 0; }
 
-    return this.#notifications.filter((t) => context(t.context)).length === 0;
+    return this.#notifications.filter((t) => context(t.context))?.length === 0;
+  }
+
+  public isValidByQuery(query: (noty: INotification) => boolean): boolean {
+    return this.#notifications.filter(query)?.length === 0;
   }
 
   public getNotifications(query?: (noty: INotification) => boolean): INotification[] {
@@ -25,7 +29,13 @@ export default class ContractValidator implements IContractValidator {
   }
 
   public cleanNotifications(context?: (ctx: string) => boolean): IContractValidator {
-    this.#notifications = context ? this.#notifications.filter((t) => context(t.context)) : [];
+    this.#notifications = context ? this.#notifications.filter((t) => !context(t.context)) : [];
+
+    return this;
+  }
+
+  public cleanNotificationsByQuery(query: (noty: INotification) => boolean): IContractValidator {
+    this.#notifications = this.#notifications.filter((t) => !query(t));
 
     return this;
   }
@@ -45,7 +55,12 @@ export default class ContractValidator implements IContractValidator {
     return value?.length > 0;
   }
 
-  public required(config: FirstOption): IContractValidator {
+  public required(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value) || Number(config.value) === 0) {
       this.#notifications.push({
         context: config.context,
@@ -57,7 +72,13 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public hasMinLen(config: SecondOption): IContractValidator {
+  public hasMinLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -73,7 +94,13 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public hasMaxLen(config: SecondOption): IContractValidator {
+  public hasMaxLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -89,7 +116,13 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isFixedLen(config: SecondOption): IContractValidator {
+  public isFixedLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -105,7 +138,13 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isGreaterThan(config: ThirdOption): IContractValidator {
+  public isGreaterThan(config: {
+    context: string;
+    property: string;
+    value: number;
+    expected: number;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value?.toString())) {
       return this;
     }
@@ -121,7 +160,12 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isEmail(config: FirstOption): IContractValidator {
+  public isEmail(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -137,7 +181,12 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isIntenger(config: FirstOption): IContractValidator {
+  public isIntenger(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -153,7 +202,12 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isCellPhone(config: FirstOption): IContractValidator {
+  public isCellPhone(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -169,7 +223,12 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isLandline(config: FirstOption): IContractValidator {
+  public isLandline(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -185,7 +244,12 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isFederalTax(config: FirstOption): IContractValidator {
+  public isFederalTax(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
@@ -219,12 +283,39 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isZipCode(config: FirstOption): IContractValidator {
+  public isZipCode(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
     if (!this.hasValue(config.value)) {
       return this;
     }
 
     if (!ContractSupport.ZIP_CODE_PARTNER.test(config.value)) {
+      this.#notifications.push({
+        context: config.context,
+        property: config.property,
+        message: config.message,
+      });
+    }
+
+    return this;
+  }
+
+  isEquals(config: {
+    context: string;
+    property: string;
+    value: string;
+    expected: string[];
+    message: string;
+  }): IContractValidator {
+    if (!this.hasValue(config.value)) {
+      return this;
+    }
+
+    if (!config.expected.find((t) => t === config.value)) {
       this.#notifications.push({
         context: config.context,
         property: config.property,

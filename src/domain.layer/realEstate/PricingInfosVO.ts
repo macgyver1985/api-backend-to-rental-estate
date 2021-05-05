@@ -1,4 +1,5 @@
 import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
+import resource from '../resources/ContractValidationMessages.json';
 
 export enum EBusinessType {
   sale = 'SALE',
@@ -29,10 +30,10 @@ export default class PricingInfosVO implements IPricingInfosVO {
   #monthlyCondoFee: number;
 
   private constructor(data: IPricingInfosVO) {
-    this.#yearlyIptu = data.yearlyIptu;
+    this.#yearlyIptu = data.yearlyIptu ?? 0;
     this.#price = data.price;
     this.#businessType = data.businessType;
-    this.#monthlyCondoFee = data.monthlyCondoFee;
+    this.#monthlyCondoFee = data.monthlyCondoFee ?? 0;
   }
 
   public static create(
@@ -40,6 +41,25 @@ export default class PricingInfosVO implements IPricingInfosVO {
     contractValidator: IContractValidator,
   ): PricingInfosVO {
     const isValid = contractValidator
+      .required({
+        context: PricingInfosVO.name,
+        property: 'price',
+        value: data.price?.toString(),
+        message: <string>resource.PRICE_REQUIRED,
+      })
+      .required({
+        context: PricingInfosVO.name,
+        property: 'businessType',
+        value: data.businessType?.toString(),
+        message: <string>resource.BUSINESS_TYPE_REQUIRED,
+      })
+      .isEquals({
+        context: PricingInfosVO.name,
+        property: 'businessType',
+        value: data.businessType?.toString(),
+        expected: [EBusinessType.rental, EBusinessType.sale],
+        message: <string>resource.BUSINESS_TYPE_INVALID,
+      })
       .isValid((t) => t === PricingInfosVO.name);
 
     if (!isValid) {

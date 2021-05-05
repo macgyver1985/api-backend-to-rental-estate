@@ -1,56 +1,104 @@
 import INotification from './INotification';
 
-export type FirstOption = {
-  context: string;
-  property: string;
-  value: string;
-  message: string;
-};
-
-export type SecondOption = {
-  context: string;
-  property: string;
-  value: string;
-  quantity: number;
-  message: string;
-};
-
-export type ThirdOption = {
-  context: string;
-  property: string;
-  value: number;
-  expected: number;
-  message: string;
-};
-
 export default interface IContractValidator {
   isValid(context?: (ctx: string) => boolean): boolean;
+
+  isValidByQuery(query: (noty: INotification) => boolean): boolean;
 
   getNotifications(query?: (noty: INotification) => boolean): Array<INotification>;
 
   cleanNotifications(context?: (ctx: string) => boolean): IContractValidator;
 
+  cleanNotificationsByQuery(query: (noty: INotification) => boolean): IContractValidator;
+
   throwException(layer: string, context?: (ctx: string) => boolean): void;
 
-  required(config: FirstOption): IContractValidator;
+  required(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  hasMinLen(config: SecondOption): IContractValidator;
+  hasMinLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator;
 
-  hasMaxLen(config: SecondOption): IContractValidator;
+  hasMaxLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator;
 
-  isFixedLen(config: SecondOption): IContractValidator;
+  isFixedLen(config: {
+    context: string;
+    property: string;
+    value: string;
+    quantity: number;
+    message: string;
+  }): IContractValidator;
 
-  isGreaterThan(config: ThirdOption): IContractValidator;
+  isGreaterThan(config: {
+    context: string;
+    property: string;
+    value: number;
+    expected: number;
+    message: string;
+  }): IContractValidator;
 
-  isEmail(config: FirstOption): IContractValidator;
+  isEmail(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  isIntenger(config: FirstOption): IContractValidator;
+  isIntenger(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  isCellPhone(config: FirstOption): IContractValidator;
+  isCellPhone(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  isLandline(config: FirstOption): IContractValidator;
+  isLandline(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  isFederalTax(config: FirstOption): IContractValidator;
+  isFederalTax(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
 
-  isZipCode(config: FirstOption): IContractValidator;
+  isZipCode(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator;
+
+  isEquals(config: {
+    context: string;
+    property: string;
+    value: string;
+    expected: Array<string>;
+    message: string;
+  }): IContractValidator;
 }
