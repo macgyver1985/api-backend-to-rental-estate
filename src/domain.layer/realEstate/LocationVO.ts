@@ -1,4 +1,4 @@
-import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
+import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import resource from '../resources/ContractValidationMessages.json';
 
 interface ILocationVO {
@@ -11,7 +11,7 @@ export type LocationData = {
   lat: number;
 };
 
-export default class LocationVO implements ILocationVO {
+export class LocationVO implements ILocationVO {
   #lon: number;
 
   #lat: number;

@@ -1,5 +1,5 @@
-import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
-import GeoLocationVO, { GeoLocationData } from './GeoLocationVO';
+import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
+import { GeoLocationData, GeoLocationVO } from './GeoLocationVO';
 
 interface IAddressVO {
   city: string;
@@ -13,7 +13,7 @@ export type AddressData = {
   geoLocation: GeoLocationData;
 };
 
-export default class AddressVO implements IAddressVO {
+export class AddressVO implements IAddressVO {
   #city: string;
 
   #neighborhood: string;

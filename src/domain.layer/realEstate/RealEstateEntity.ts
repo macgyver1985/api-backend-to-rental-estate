@@ -1,9 +1,9 @@
-import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
+import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import { v4 as uuidv4 } from 'uuid';
-import IEntity from '../interfaces/IEntity';
-import AddressVO, { AddressData } from './AddressVO';
-import PricingInfosVO, { PricingInfosData } from './PricingInfosVO';
+import { IEntity } from '../interfaces';
 import resource from '../resources/ContractValidationMessages.json';
+import { AddressData, AddressVO } from './AddressVO';
+import { PricingInfosData, PricingInfosVO } from './PricingInfosVO';
 
 interface IRealEstateEntity extends IEntity {
   createdAt: Date;
@@ -20,7 +20,7 @@ interface IRealEstateEntity extends IEntity {
   pricingInfos: PricingInfosVO;
 }
 
-export type RealEstateData = {
+type RealEstateData = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -36,7 +36,7 @@ export type RealEstateData = {
   pricingInfos: PricingInfosData;
 };
 
-export type RealEstateChangeData = {
+type RealEstateChangeData = {
   usableAreas?: number;
   listingType?: string;
   listingStatus?: string;

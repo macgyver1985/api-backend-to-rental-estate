@@ -1,4 +1,4 @@
-import INotification from './interfaces/INotification';
+import { INotification } from './interfaces';
 
 export default class ContractValidatorException extends Error {
   private attLayer: string;

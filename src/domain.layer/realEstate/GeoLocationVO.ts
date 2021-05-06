@@ -1,6 +1,6 @@
-import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
+import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import resource from '../resources/ContractValidationMessages.json';
-import LocationVO, { LocationData } from './LocationVO';
+import { LocationData, LocationVO } from './LocationVO';
 
 interface IGeoLocationVO {
   precision: string;
@@ -12,7 +12,7 @@ export type GeoLocationData = {
   location: LocationData;
 };
 
-export default class GeoLocationVO implements IGeoLocationVO {
+export class GeoLocationVO implements IGeoLocationVO {
   #precision: string;
 
   #location: LocationVO;

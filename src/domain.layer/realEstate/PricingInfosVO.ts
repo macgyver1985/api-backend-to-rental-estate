@@ -1,4 +1,4 @@
-import IContractValidator from '@layer/crossCutting/fluentValidation/interfaces/IContractValidator';
+import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import resource from '../resources/ContractValidationMessages.json';
 
 export enum EBusinessType {
@@ -20,7 +20,7 @@ export type PricingInfosData = {
   monthlyCondoFee: number;
 };
 
-export default class PricingInfosVO implements IPricingInfosVO {
+export class PricingInfosVO implements IPricingInfosVO {
   #yearlyIptu: number;
 
   #price: number;

@@ -1,7 +1,6 @@
 import ContractSupport from './ContractSupport';
 import ContractValidatorException from './ContractValidatorException';
-import IContractValidator from './interfaces/IContractValidator';
-import INotification from './interfaces/INotification';
+import { IContractValidator, INotification } from './interfaces';
 
 export default class ContractValidator implements IContractValidator {
   #notifications: Array<INotification>;
@@ -304,7 +303,7 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  isEquals(config: {
+  public isEquals(config: {
     context: string;
     property: string;
     value: string;
