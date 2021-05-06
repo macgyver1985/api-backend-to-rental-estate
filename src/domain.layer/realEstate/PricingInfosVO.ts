@@ -36,39 +36,6 @@ export default class PricingInfosVO implements IPricingInfosVO {
     this.#monthlyCondoFee = data.monthlyCondoFee ?? 0;
   }
 
-  public static create(
-    data: PricingInfosData,
-    contractValidator: IContractValidator,
-  ): PricingInfosVO {
-    const isValid = contractValidator
-      .required({
-        context: PricingInfosVO.name,
-        property: 'price',
-        value: data.price?.toString(),
-        message: <string>resource.PRICE_REQUIRED,
-      })
-      .required({
-        context: PricingInfosVO.name,
-        property: 'businessType',
-        value: data.businessType?.toString(),
-        message: <string>resource.BUSINESS_TYPE_REQUIRED,
-      })
-      .isEquals({
-        context: PricingInfosVO.name,
-        property: 'businessType',
-        value: data.businessType?.toString(),
-        expected: [EBusinessType.rental, EBusinessType.sale],
-        message: <string>resource.BUSINESS_TYPE_INVALID,
-      })
-      .isValid((t) => t === PricingInfosVO.name);
-
-    if (!isValid) {
-      return null;
-    }
-
-    return new PricingInfosVO(data);
-  }
-
   public get yearlyIptu(): number {
     return this.#yearlyIptu;
   }
@@ -83,5 +50,38 @@ export default class PricingInfosVO implements IPricingInfosVO {
 
   public get monthlyCondoFee(): number {
     return this.#monthlyCondoFee;
+  }
+
+  public static create(
+    data: PricingInfosData,
+    contractValidator: IContractValidator,
+  ): PricingInfosVO {
+    const isValid = contractValidator
+      .required({
+        context: PricingInfosVO.name,
+        property: 'price',
+        value: data.price?.toString(),
+        message: resource.PRICE_REQUIRED,
+      })
+      .required({
+        context: PricingInfosVO.name,
+        property: 'businessType',
+        value: data.businessType?.toString(),
+        message: resource.BUSINESS_TYPE_REQUIRED,
+      })
+      .isEquals({
+        context: PricingInfosVO.name,
+        property: 'businessType',
+        value: data.businessType?.toString(),
+        expected: [EBusinessType.rental, EBusinessType.sale],
+        message: resource.BUSINESS_TYPE_INVALID,
+      })
+      .isValid((t) => t === PricingInfosVO.name);
+
+    if (!isValid) {
+      return null;
+    }
+
+    return new PricingInfosVO(data);
   }
 }

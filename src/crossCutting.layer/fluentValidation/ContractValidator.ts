@@ -61,7 +61,7 @@ export default class ContractValidator implements IContractValidator {
     value: string;
     message: string;
   }): IContractValidator {
-    if (!this.hasValue(config.value) || Number(config.value) === 0) {
+    if (!this.hasValue(config.value)) {
       this.#notifications.push({
         context: config.context,
         property: config.property,
@@ -149,7 +149,7 @@ export default class ContractValidator implements IContractValidator {
       return this;
     }
 
-    if (config.value <= config.expected) {
+    if (config.expected >= config.value) {
       this.#notifications.push({
         context: config.context,
         property: config.property,

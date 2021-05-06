@@ -22,6 +22,14 @@ export default class GeoLocationVO implements IGeoLocationVO {
     this.#precision = data.precision;
   }
 
+  public get precision() : string {
+    return this.#precision;
+  }
+
+  public get location() : LocationVO {
+    return this.#location;
+  }
+
   public static create(
     data: GeoLocationData,
     contractValidator: IContractValidator,
@@ -31,7 +39,7 @@ export default class GeoLocationVO implements IGeoLocationVO {
       .required({
         context: GeoLocationVO.name,
         property: 'precision',
-        message: <string>resource.PRECISON_REQUIRED,
+        message: resource.PRECISON_REQUIRED,
         value: data.precision?.toString(),
       })
       .isValid((t) => t === GeoLocationVO.name);
@@ -44,13 +52,5 @@ export default class GeoLocationVO implements IGeoLocationVO {
       precision: data.precision,
       location,
     });
-  }
-
-  public get precision() : string {
-    return this.#precision;
-  }
-
-  public get location() : LocationVO {
-    return this.#location;
   }
 }

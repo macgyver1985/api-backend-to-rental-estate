@@ -14,41 +14,41 @@ export type AddressData = {
 };
 
 export default class AddressVO implements IAddressVO {
-    #city: string;
+  #city: string;
 
-    #neighborhood: string;
+  #neighborhood: string;
 
-    #geoLocation: GeoLocationVO;
+  #geoLocation: GeoLocationVO;
 
-    private constructor(data: IAddressVO) {
-      this.#city = data.city;
-      this.#neighborhood = data.neighborhood;
-      this.#geoLocation = data.geoLocation;
+  private constructor(data: IAddressVO) {
+    this.#city = data.city;
+    this.#neighborhood = data.neighborhood;
+    this.#geoLocation = data.geoLocation;
+  }
+
+  public get city(): string {
+    return this.#city;
+  }
+
+  public get neighborhood(): string {
+    return this.#neighborhood;
+  }
+
+  public get geoLocation(): GeoLocationVO {
+    return this.#geoLocation;
+  }
+
+  public static create(data: AddressData, contractValidator: IContractValidator): AddressVO {
+    const geoLocation = GeoLocationVO.create(data.geoLocation, contractValidator);
+
+    if (!geoLocation) {
+      return null;
     }
 
-    public static create(data: AddressData, contractValidator: IContractValidator): AddressVO {
-      const geoLocation = GeoLocationVO.create(data.geoLocation, contractValidator);
-
-      if (!geoLocation) {
-        return null;
-      }
-
-      return new AddressVO({
-        city: data.city,
-        neighborhood: data.neighborhood,
-        geoLocation,
-      });
-    }
-
-    public get city(): string {
-      return this.#city;
-    }
-
-    public get neighborhood(): string {
-      return this.#neighborhood;
-    }
-
-    public get geoLocation(): GeoLocationVO {
-      return this.#geoLocation;
-    }
+    return new AddressVO({
+      city: data.city,
+      neighborhood: data.neighborhood,
+      geoLocation,
+    });
+  }
 }

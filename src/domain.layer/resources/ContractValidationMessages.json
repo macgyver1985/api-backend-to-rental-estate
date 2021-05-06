@@ -5,5 +5,16 @@
     "PRICE_REQUIRED": "O preço deve ser informado.",
     "BUSINESS_TYPE_REQUIRED": "O tipo de negócio deve ser informado.",
     "BUSINESS_TYPE_INVALID": "O tipo de negócio deve ser SALE (venda) ou RENTAL (aluguel).",
-    "USABLE_AREAS_INVALID": "A área útil deve ser maior ou igual a zero."
+    "USABLE_AREAS_REQUIRED": "A área útil deve ser informada.",
+    "USABLE_AREAS_INVALID": "A área útil deve ser maior ou igual a zero.",
+    "LISTING_TYPE_REQUIRED": "O tipo de lista deve ser informado.",
+    "LISTING_STATUS_REQUIRED": "A situação da lista deve ser informada.",
+    "PARKING_SPACES_REQUIRED": "O número de vagas de estacionamento deve ser informado.",
+    "PARKING_SPACES_INVALID": "O número de vagas de estacionamento deve ser maior ou igual a zero.",
+    "BATHROOMS_REQUIRED": "O número de banheiros deve ser informado.",
+    "BATHROOMS_INVALID": "O número de banheiros deve ser maior ou igual a zero.",
+    "BEDROOMS_REQUIRED": "O número de quartos deve ser informado.",
+    "BEDROOMS_INVALID": "O número de quartos deve ser maior ou igual a zero.",
+    "IMAGES_REQUIRED": "As imagens devem ser informadas.",
+    "IMAGES_INVALID": "O número de imagens deve ser maior ou igual a 1."
 }

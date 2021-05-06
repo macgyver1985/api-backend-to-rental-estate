@@ -21,18 +21,26 @@ export default class LocationVO implements ILocationVO {
     this.#lat = data.lat;
   }
 
+  public get lon() : number {
+    return this.#lon;
+  }
+
+  public get lat() : number {
+    return this.#lat;
+  }
+
   public static create(data: LocationData, contractValidator: IContractValidator) : LocationVO {
     const isValid = contractValidator
       .required({
         context: LocationVO.name,
         property: 'lat',
-        message: <string>resource.LAT_REQUIRED,
+        message: resource.LAT_REQUIRED,
         value: data.lat?.toString(),
       })
       .required({
         context: LocationVO.name,
         property: 'lon',
-        message: <string>resource.LON_REQUIRED,
+        message: resource.LON_REQUIRED,
         value: data.lon?.toString(),
       })
       .isValid((t) => t === LocationVO.name);
@@ -42,13 +50,5 @@ export default class LocationVO implements ILocationVO {
     }
 
     return new LocationVO(data);
-  }
-
-  public get lon() : number {
-    return this.#lon;
-  }
-
-  public get lat() : number {
-    return this.#lat;
   }
 }

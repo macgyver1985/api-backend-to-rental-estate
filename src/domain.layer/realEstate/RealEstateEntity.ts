@@ -36,157 +36,334 @@ export type RealEstateData = {
   pricingInfos: PricingInfosData;
 };
 
+export type RealEstateChangeData = {
+  usableAreas?: number;
+  listingType?: string;
+  listingStatus?: string;
+  parkingSpaces?: number;
+  owner?: boolean;
+  bathrooms?: number;
+  bedrooms?: number;
+  images: Array<string>;
+  address?: AddressData;
+  pricingInfos?: PricingInfosData;
+};
+
 export default class RealEstateEntity implements IRealEstateEntity {
-    #id: string;
+  // #region Variáveis Privadas
+  #id: string;
 
-    #createdAt: Date;
+  #createdAt: Date;
 
-    #updatedAt: Date;
+  #updatedAt: Date;
 
-    #usableAreas: number;
+  #usableAreas: number;
 
-    #listingType: string;
+  #listingType: string;
 
-    #listingStatus: string;
+  #listingStatus: string;
 
-    #parkingSpaces: number;
+  #parkingSpaces: number;
 
-    #owner: boolean;
+  #owner: boolean;
 
-    #bathrooms: number;
+  #bathrooms: number;
 
-    #bedrooms: number;
+  #bedrooms: number;
 
-    #images: string[];
+  #images: string[];
 
-    #address: AddressVO;
+  #address: AddressVO;
 
-    #pricingInfos: PricingInfosVO;
+  #pricingInfos: PricingInfosVO;
 
-    #contractValidator: IContractValidator;
+  #contractValidator: IContractValidator;
+  // #endregion
 
-    private constructor(data: IRealEstateEntity, contractValidator: IContractValidator) {
-      this.#contractValidator = contractValidator;
+  // #region Mapper para auxíliar a validação dos atributos
+  private static mapperValidator: Array<{
+    prop: keyof RealEstateData,
+    func: (
+      context: string,
+      data: string | Array<string> | number,
+      contractValidator: IContractValidator
+    ) => void
+  }> = [
+    {
+      prop: 'usableAreas',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'usableAreas',
+            message: resource.USABLE_AREAS_REQUIRED,
+            value: data.toString(),
+          })
+          .isGreaterThan({
+            context,
+            property: 'usableAreas',
+            message: resource.USABLE_AREAS_INVALID,
+            value: <number>data,
+            expected: -1,
+          });
+      },
+    },
+    {
+      prop: 'listingType',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'listingType',
+            message: resource.LISTING_TYPE_REQUIRED,
+            value: <string>data,
+          });
+      },
+    },
+    {
+      prop: 'listingStatus',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'listingStatus',
+            message: resource.LISTING_STATUS_REQUIRED,
+            value: <string>data,
+          });
+      },
+    },
+    {
+      prop: 'parkingSpaces',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'parkingSpaces',
+            message: resource.PARKING_SPACES_REQUIRED,
+            value: data.toString(),
+          })
+          .isGreaterThan({
+            context,
+            property: 'parkingSpaces',
+            message: resource.PARKING_SPACES_INVALID,
+            value: <number>data,
+            expected: -1,
+          });
+      },
+    },
+    {
+      prop: 'bathrooms',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'bathrooms',
+            message: resource.BATHROOMS_REQUIRED,
+            value: data.toString(),
+          })
+          .isGreaterThan({
+            context,
+            property: 'bathrooms',
+            message: resource.BATHROOMS_INVALID,
+            value: <number>data,
+            expected: -1,
+          });
+      },
+    },
+    {
+      prop: 'bedrooms',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'bedrooms',
+            message: resource.BEDROOMS_REQUIRED,
+            value: data.toString(),
+          })
+          .isGreaterThan({
+            context,
+            property: 'bedrooms',
+            message: resource.BEDROOMS_INVALID,
+            value: <number>data,
+            expected: -1,
+          });
+      },
+    },
+    {
+      prop: 'images',
+      func: (context, data, validator): void => {
+        validator
+          .required({
+            context,
+            property: 'images',
+            message: resource.IMAGES_REQUIRED,
+            value: (<string[]>data)?.length.toString(),
+          })
+          .isGreaterThan({
+            context,
+            property: 'images',
+            message: resource.IMAGES_INVALID,
+            value: (<string[]>data)?.length,
+            expected: 0,
+          });
+      },
+    },
+  ];
+  // #endregion
 
-      this.#id = !data.id || data.id === '' ? uuidv4() : data.id;
-      this.#createdAt = data.createdAt;
-      this.#updatedAt = data.updatedAt;
-      this.#usableAreas = data.usableAreas;
-      this.#listingType = data.listingType;
-      this.#listingStatus = data.listingStatus;
-      this.#parkingSpaces = data.parkingSpaces;
-      this.#owner = data.owner;
-      this.#bathrooms = data.bathrooms;
-      this.#bedrooms = data.bedrooms;
-      this.#images = data.images;
-      this.#address = data.address;
-      this.#pricingInfos = data.pricingInfos;
+  // #region Contrutor padrão da entidade
+  private constructor(
+    data: IRealEstateEntity,
+    contractValidator: IContractValidator,
+  ) {
+    this.#contractValidator = contractValidator;
+
+    this.#id = data.id;
+    this.#createdAt = data.createdAt;
+    this.#updatedAt = data.updatedAt;
+    this.#usableAreas = data.usableAreas;
+    this.#listingType = data.listingType;
+    this.#listingStatus = data.listingStatus;
+    this.#parkingSpaces = data.parkingSpaces;
+    this.#owner = data.owner;
+    this.#bathrooms = data.bathrooms;
+    this.#bedrooms = data.bedrooms;
+    this.#images = data.images;
+    this.#address = data.address;
+    this.#pricingInfos = data.pricingInfos;
+  }
+  // #endregion
+
+  // #region Atributos da entidade
+  public get id(): string {
+    return this.#id;
+  }
+
+  public get createdAt(): Date {
+    return this.#createdAt;
+  }
+
+  public get updatedAt(): Date {
+    return this.#updatedAt;
+  }
+
+  public get usableAreas(): number {
+    return this.#usableAreas;
+  }
+
+  public get listingType(): string {
+    return this.#listingType;
+  }
+
+  public get listingStatus(): string {
+    return this.#listingStatus;
+  }
+
+  public get parkingSpaces(): number {
+    return this.#parkingSpaces;
+  }
+
+  public get owner(): boolean {
+    return this.#owner;
+  }
+
+  public get bathrooms(): number {
+    return this.#bathrooms;
+  }
+
+  public get bedrooms(): number {
+    return this.#bedrooms;
+  }
+
+  public get images(): string[] {
+    return this.#images.map((t) => t);
+  }
+
+  public get address(): AddressVO {
+    return this.#address;
+  }
+
+  public get pricingInfos(): PricingInfosVO {
+    return this.#pricingInfos;
+  }
+  // #endregion
+
+  // #region Métodos da entidade
+  public static create(
+    data: RealEstateData,
+    contractValidator: IContractValidator,
+  ): RealEstateEntity {
+    const id = data.id || data.id === '' ? uuidv4() : data.id;
+    const obj = Object.entries(data);
+
+    obj?.forEach((prop) => {
+      const validator = RealEstateEntity.mapperValidator.find((v) => v.prop === prop[0]);
+
+      validator?.func(
+        `${RealEstateEntity.name}_${id}`,
+        prop[1]?.toString(),
+        contractValidator,
+      );
+    });
+
+    const isValid = contractValidator
+      .isValid((ctx) => ctx === `${RealEstateEntity.name}_${id}`);
+    const address = AddressVO.create(data.address, contractValidator);
+    const pricingInfos = PricingInfosVO.create(data.pricingInfos, contractValidator);
+
+    if (!isValid || !address || !pricingInfos) {
+      return null;
     }
 
-    private static create(
-      data: RealEstateData,
-      contractValidator: IContractValidator,
-    ): RealEstateEntity {
-      const address = AddressVO.create(data.address, contractValidator);
-      const pricingInfos = PricingInfosVO.create(data.pricingInfos, contractValidator);
+    return new RealEstateEntity({
+      ...data,
+      id,
+      address,
+      pricingInfos,
+    }, contractValidator);
+  }
 
-      return new RealEstateEntity({
-        ...data,
-        address,
-        pricingInfos,
-      }, contractValidator);
+  public change(
+    data: RealEstateChangeData,
+  ): void {
+    const obj = Object.entries(data);
+
+    obj?.forEach((prop) => {
+      const validator = RealEstateEntity.mapperValidator.find((v) => v.prop === prop[0]);
+
+      validator?.func(
+        `${RealEstateEntity.name}_${this.#id}`,
+        prop[1]?.toString(),
+        this.#contractValidator,
+      );
+    });
+
+    if (data.address) {
+      const address = AddressVO.create(data.address, this.#contractValidator);
+
+      this.#address = address ?? this.#address;
     }
 
-    public get id(): string {
-      return this.#id;
+    if (data.pricingInfos) {
+      const pricingInfos = PricingInfosVO.create(data.pricingInfos, this.#contractValidator);
+
+      this.#pricingInfos = pricingInfos ?? this.#pricingInfos;
     }
 
-    public get createdAt(): Date {
-      return this.#createdAt;
-    }
+    this.#contractValidator
+      .throwException('domain', (ctx) => ctx === `${RealEstateEntity.name}_${this.#id}`
+        || ctx === AddressVO.name
+        || ctx === PricingInfosVO.name);
 
-    public get updatedAt(): Date {
-      return this.#updatedAt;
-    }
-
-    public get usableAreas(): number {
-      return this.#usableAreas;
-    }
-
-    public get listingType(): string {
-      return this.#listingType;
-    }
-
-    public get listingStatus(): string {
-      return this.#listingStatus;
-    }
-
-    public get parkingSpaces(): number {
-      return this.#parkingSpaces;
-    }
-
-    public get owner(): boolean {
-      return this.#owner;
-    }
-
-    public get bathrooms(): number {
-      return this.#bathrooms;
-    }
-
-    public get bedrooms(): number {
-      return this.#bedrooms;
-    }
-
-    public get images(): string[] {
-      return this.#images.map((t) => t);
-    }
-
-    public get address(): AddressVO {
-      return this.#address;
-    }
-
-    public get pricingInfos(): PricingInfosVO {
-      return this.#pricingInfos;
-    }
-
-    public changeUsableAreas(data: number): RealEstateEntity {
-      this.#contractValidator
-        .isGreaterThan({
-          context: `${RealEstateEntity.name}_${this.#id}`,
-          property: 'usableAreas',
-          message: <string>resource.USABLE_AREAS_INVALID,
-          value: data,
-          expected: -1,
-        })
-        .throwException('domain', (t) => t === `${RealEstateEntity.name}_${this.#id}`);
-
-      this.#usableAreas = data;
-      this.#updatedAt = new Date();
-
-      return this;
-    }
-
-    public changeAddress(data: AddressData): RealEstateEntity {
-      const result = AddressVO.create(data, this.#contractValidator);
-
-      this.#contractValidator
-        .throwException('domain', (t) => t === AddressVO.name);
-
-      this.#address = result;
-      this.#updatedAt = new Date();
-
-      return this;
-    }
-
-    public changePricingInfos(data: PricingInfosData): RealEstateEntity {
-      const result = PricingInfosVO.create(data, this.#contractValidator);
-
-      this.#contractValidator
-        .throwException('domain', (t) => t === PricingInfosVO.name);
-
-      this.#pricingInfos = result;
-      this.#updatedAt = new Date();
-
-      return this;
-    }
+    this.#updatedAt = new Date();
+    this.#usableAreas = data.usableAreas ?? this.#usableAreas;
+    this.#listingType = data.listingType ?? this.#listingType;
+    this.#listingStatus = data.listingStatus ?? this.#listingStatus;
+    this.#parkingSpaces = data.parkingSpaces ?? this.#parkingSpaces;
+    this.#owner = data.owner ?? this.#owner;
+    this.#bathrooms = data.bathrooms ?? this.#bathrooms;
+    this.#bedrooms = data.bedrooms ?? this.#bedrooms;
+    this.#images = data.images ?? this.#images;
+  }
+  // #endregion
 }
