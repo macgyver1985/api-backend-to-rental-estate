@@ -1,5 +1,5 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
-import resource from '../resources/ContractValidationMessages.json';
+import validationMessageResources from '../resources';
 
 export enum EBusinessType {
   sale = 'SALE',
@@ -61,20 +61,20 @@ export class PricingInfosVO implements IPricingInfosVO {
         context: PricingInfosVO.name,
         property: 'price',
         value: data.price?.toString(),
-        message: resource.PRICE_REQUIRED,
+        message: validationMessageResources.PRICE_REQUIRED,
       })
       .required({
         context: PricingInfosVO.name,
         property: 'businessType',
         value: data.businessType?.toString(),
-        message: resource.BUSINESS_TYPE_REQUIRED,
+        message: validationMessageResources.BUSINESS_TYPE_REQUIRED,
       })
       .isEquals({
         context: PricingInfosVO.name,
         property: 'businessType',
         value: data.businessType?.toString(),
         expected: [EBusinessType.rental, EBusinessType.sale],
-        message: resource.BUSINESS_TYPE_INVALID,
+        message: validationMessageResources.BUSINESS_TYPE_INVALID,
       })
       .isValid((t) => t === PricingInfosVO.name);
 

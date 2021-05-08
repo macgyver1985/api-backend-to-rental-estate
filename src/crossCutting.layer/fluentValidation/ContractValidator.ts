@@ -1,7 +1,9 @@
+import { injectable } from 'inversify';
 import ContractSupport from './ContractSupport';
 import ContractValidatorException from './ContractValidatorException';
 import { IContractValidator, INotification } from './interfaces';
 
+@injectable()
 export default class ContractValidator implements IContractValidator {
   #notifications: Array<INotification>;
 

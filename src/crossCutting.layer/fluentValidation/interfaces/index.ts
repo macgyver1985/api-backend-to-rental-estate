@@ -1,9 +1,9 @@
 import IContractValidator from './IContractValidator';
 import INotification from './INotification';
-import fluentValidationTypes from './Types';
+import types from './Types';
 
 export {
+  types,
   IContractValidator,
   INotification,
-  fluentValidationTypes,
 };

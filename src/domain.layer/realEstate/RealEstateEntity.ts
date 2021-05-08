@@ -1,7 +1,7 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import { IEntity } from '../interfaces';
-import resource from '../resources/ContractValidationMessages.json';
+import validationMessageResources from '../resources';
 import { AddressData, AddressVO } from './AddressVO';
 import { PricingInfosData, PricingInfosVO } from './PricingInfosVO';
 
@@ -96,13 +96,13 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'usableAreas',
-            message: resource.USABLE_AREAS_REQUIRED,
+            message: validationMessageResources.USABLE_AREAS_REQUIRED,
             value: data.toString(),
           })
           .isGreaterThan({
             context,
             property: 'usableAreas',
-            message: resource.USABLE_AREAS_INVALID,
+            message: validationMessageResources.USABLE_AREAS_INVALID,
             value: <number>data,
             expected: -1,
           });
@@ -115,7 +115,7 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'listingType',
-            message: resource.LISTING_TYPE_REQUIRED,
+            message: validationMessageResources.LISTING_TYPE_REQUIRED,
             value: <string>data,
           });
       },
@@ -127,7 +127,7 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'listingStatus',
-            message: resource.LISTING_STATUS_REQUIRED,
+            message: validationMessageResources.LISTING_STATUS_REQUIRED,
             value: <string>data,
           });
       },
@@ -139,13 +139,13 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'parkingSpaces',
-            message: resource.PARKING_SPACES_REQUIRED,
+            message: validationMessageResources.PARKING_SPACES_REQUIRED,
             value: data.toString(),
           })
           .isGreaterThan({
             context,
             property: 'parkingSpaces',
-            message: resource.PARKING_SPACES_INVALID,
+            message: validationMessageResources.PARKING_SPACES_INVALID,
             value: <number>data,
             expected: -1,
           });
@@ -158,13 +158,13 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'bathrooms',
-            message: resource.BATHROOMS_REQUIRED,
+            message: validationMessageResources.BATHROOMS_REQUIRED,
             value: data.toString(),
           })
           .isGreaterThan({
             context,
             property: 'bathrooms',
-            message: resource.BATHROOMS_INVALID,
+            message: validationMessageResources.BATHROOMS_INVALID,
             value: <number>data,
             expected: -1,
           });
@@ -177,13 +177,13 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'bedrooms',
-            message: resource.BEDROOMS_REQUIRED,
+            message: validationMessageResources.BEDROOMS_REQUIRED,
             value: data.toString(),
           })
           .isGreaterThan({
             context,
             property: 'bedrooms',
-            message: resource.BEDROOMS_INVALID,
+            message: validationMessageResources.BEDROOMS_INVALID,
             value: <number>data,
             expected: -1,
           });
@@ -196,13 +196,13 @@ export default class RealEstateEntity implements IRealEstateEntity {
           .required({
             context,
             property: 'images',
-            message: resource.IMAGES_REQUIRED,
+            message: validationMessageResources.IMAGES_REQUIRED,
             value: (<string[]>data)?.length.toString(),
           })
           .isGreaterThan({
             context,
             property: 'images',
-            message: resource.IMAGES_INVALID,
+            message: validationMessageResources.IMAGES_INVALID,
             value: (<string[]>data)?.length,
             expected: 0,
           });

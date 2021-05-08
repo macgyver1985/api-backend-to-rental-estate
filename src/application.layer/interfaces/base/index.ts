@@ -1,9 +1,9 @@
 import ICommand from './ICommand';
 import IHandler from './IHandler';
-import applicationBusinessTypes from './Types';
+import types from './Types';
 
 export {
+  types,
   ICommand,
   IHandler,
-  applicationBusinessTypes,
 };

@@ -1,6 +1,6 @@
-const fluentValidationTypes = {
+const types = {
   IContractValidator: Symbol.for('IContractValidator'),
   INotification: Symbol.for('INotification'),
 };
 
-export default fluentValidationTypes;
+export default types;

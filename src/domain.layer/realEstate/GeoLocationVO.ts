@@ -1,5 +1,5 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
-import resource from '../resources/ContractValidationMessages.json';
+import validationMessageResources from '../resources';
 import { LocationData, LocationVO } from './LocationVO';
 
 interface IGeoLocationVO {
@@ -39,7 +39,7 @@ export class GeoLocationVO implements IGeoLocationVO {
       .required({
         context: GeoLocationVO.name,
         property: 'precision',
-        message: resource.PRECISON_REQUIRED,
+        message: validationMessageResources.PRECISON_REQUIRED,
         value: data.precision?.toString(),
       })
       .isValid((t) => t === GeoLocationVO.name);

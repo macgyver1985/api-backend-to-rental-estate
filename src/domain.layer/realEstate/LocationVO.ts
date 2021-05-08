@@ -1,5 +1,5 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
-import resource from '../resources/ContractValidationMessages.json';
+import validationMessageResources from '../resources';
 
 interface ILocationVO {
   lon: number;
@@ -34,13 +34,13 @@ export class LocationVO implements ILocationVO {
       .required({
         context: LocationVO.name,
         property: 'lat',
-        message: resource.LAT_REQUIRED,
+        message: validationMessageResources.LAT_REQUIRED,
         value: data.lat?.toString(),
       })
       .required({
         context: LocationVO.name,
         property: 'lon',
-        message: resource.LON_REQUIRED,
+        message: validationMessageResources.LON_REQUIRED,
         value: data.lon?.toString(),
       })
       .isValid((t) => t === LocationVO.name);

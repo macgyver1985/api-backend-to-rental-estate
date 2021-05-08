@@ -1,7 +1,7 @@
 import IEntity from './IEntity';
-import domainTypes from './Types';
+import types from './Types';
 
 export {
+  types,
   IEntity,
-  domainTypes,
 };

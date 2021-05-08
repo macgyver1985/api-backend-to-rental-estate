@@ -1,5 +1,5 @@
-const domainTypes = {
+const types = {
   IEntity: Symbol.for('IEntity'),
 };
 
-export default domainTypes;
+export default types;

@@ -1,5 +1,5 @@
-import ContractValidator from './ContractValidator';
 import ContractSupport from './ContractSupport';
+import ContractValidator from './ContractValidator';
 import ContractValidatorException from './ContractValidatorException';
 
 export {

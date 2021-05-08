@@ -1,3 +1,3 @@
-export default interface ICommand<TSelector> {
-  responseSelector?: TSelector
+export default interface ICommand {
+  processID: string
 }
