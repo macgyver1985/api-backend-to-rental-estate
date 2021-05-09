@@ -44,7 +44,15 @@ export default interface IContractValidator {
     message: string;
   }): IContractValidator;
 
-  isGreaterThan(config: {
+  isGreaterThanOrEqual(config: {
+    context: string;
+    property: string;
+    value: number;
+    expected: number;
+    message: string;
+  }): IContractValidator;
+
+  isLessThanOrEqual(config: {
     context: string;
     property: string;
     value: number;
@@ -99,6 +107,13 @@ export default interface IContractValidator {
     property: string;
     value: string;
     expected: Array<string>;
+    message: string;
+  }): IContractValidator;
+
+  isUUID(config: {
+    context: string;
+    property: string;
+    value: string;
     message: string;
   }): IContractValidator;
 }

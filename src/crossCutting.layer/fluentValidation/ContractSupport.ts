@@ -1,3 +1,5 @@
+import { validate } from 'uuid';
+
 export default class ContractSupport {
   public static readonly CELL_PHONE_PARTNER: RegExp = /^(55){0,1}[1-9]{2}[9]?[2-9]{1}[0-9]{7}$/;
 
@@ -93,5 +95,9 @@ export default class ContractSupport {
     digito += resto.toString();
 
     return cpf.endsWith(digito);
+  }
+
+  public static isUUID(value: string): boolean {
+    return validate(value);
   }
 }

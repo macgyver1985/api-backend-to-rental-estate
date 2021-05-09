@@ -97,14 +97,14 @@ export default class RealEstateEntity implements IRealEstateEntity {
             context,
             property: 'usableAreas',
             message: validationMessageResources.USABLE_AREAS_REQUIRED,
-            value: data.toString(),
+            value: (<number>data)?.toString(),
           })
-          .isGreaterThan({
+          .isGreaterThanOrEqual({
             context,
             property: 'usableAreas',
             message: validationMessageResources.USABLE_AREAS_INVALID,
             value: <number>data,
-            expected: -1,
+            expected: 0,
           });
       },
     },
@@ -140,14 +140,14 @@ export default class RealEstateEntity implements IRealEstateEntity {
             context,
             property: 'parkingSpaces',
             message: validationMessageResources.PARKING_SPACES_REQUIRED,
-            value: data.toString(),
+            value: (<number>data)?.toString(),
           })
-          .isGreaterThan({
+          .isGreaterThanOrEqual({
             context,
             property: 'parkingSpaces',
             message: validationMessageResources.PARKING_SPACES_INVALID,
             value: <number>data,
-            expected: -1,
+            expected: 0,
           });
       },
     },
@@ -159,14 +159,14 @@ export default class RealEstateEntity implements IRealEstateEntity {
             context,
             property: 'bathrooms',
             message: validationMessageResources.BATHROOMS_REQUIRED,
-            value: data.toString(),
+            value: (<number>data)?.toString(),
           })
-          .isGreaterThan({
+          .isGreaterThanOrEqual({
             context,
             property: 'bathrooms',
             message: validationMessageResources.BATHROOMS_INVALID,
             value: <number>data,
-            expected: -1,
+            expected: 0,
           });
       },
     },
@@ -178,14 +178,14 @@ export default class RealEstateEntity implements IRealEstateEntity {
             context,
             property: 'bedrooms',
             message: validationMessageResources.BEDROOMS_REQUIRED,
-            value: data.toString(),
+            value: (<number>data)?.toString(),
           })
-          .isGreaterThan({
+          .isGreaterThanOrEqual({
             context,
             property: 'bedrooms',
             message: validationMessageResources.BEDROOMS_INVALID,
             value: <number>data,
-            expected: -1,
+            expected: 0,
           });
       },
     },
@@ -199,12 +199,12 @@ export default class RealEstateEntity implements IRealEstateEntity {
             message: validationMessageResources.IMAGES_REQUIRED,
             value: (<string[]>data)?.length.toString(),
           })
-          .isGreaterThan({
+          .isGreaterThanOrEqual({
             context,
             property: 'images',
             message: validationMessageResources.IMAGES_INVALID,
             value: (<string[]>data)?.length,
-            expected: 0,
+            expected: 1,
           });
       },
     },

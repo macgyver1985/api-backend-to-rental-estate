@@ -139,7 +139,7 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
-  public isGreaterThan(config: {
+  public isGreaterThanOrEqual(config: {
     context: string;
     property: string;
     value: number;
@@ -150,7 +150,29 @@ export default class ContractValidator implements IContractValidator {
       return this;
     }
 
-    if (config.expected >= config.value) {
+    if (config.value < config.expected) {
+      this.#notifications.push({
+        context: config.context,
+        property: config.property,
+        message: config.message,
+      });
+    }
+
+    return this;
+  }
+
+  public isLessThanOrEqual(config: {
+    context: string;
+    property: string;
+    value: number;
+    expected: number;
+    message: string;
+  }): IContractValidator {
+    if (!this.hasValue(config.value?.toString())) {
+      return this;
+    }
+
+    if (config.value > config.expected) {
       this.#notifications.push({
         context: config.context,
         property: config.property,
@@ -317,6 +339,27 @@ export default class ContractValidator implements IContractValidator {
     }
 
     if (!config.expected.find((t) => t === config.value)) {
+      this.#notifications.push({
+        context: config.context,
+        property: config.property,
+        message: config.message,
+      });
+    }
+
+    return this;
+  }
+
+  public isUUID(config: {
+    context: string;
+    property: string;
+    value: string;
+    message: string;
+  }): IContractValidator {
+    if (!this.hasValue(config.value)) {
+      return this;
+    }
+
+    if (!ContractSupport.isUUID(config.value)) {
       this.#notifications.push({
         context: config.context,
         property: config.property,

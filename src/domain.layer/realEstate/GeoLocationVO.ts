@@ -40,7 +40,7 @@ export class GeoLocationVO implements IGeoLocationVO {
         context: GeoLocationVO.name,
         property: 'precision',
         message: validationMessageResources.PRECISON_REQUIRED,
-        value: data.precision?.toString(),
+        value: data.precision,
       })
       .isValid((t) => t === GeoLocationVO.name);
 

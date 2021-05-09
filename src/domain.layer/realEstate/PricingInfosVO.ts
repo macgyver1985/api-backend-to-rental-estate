@@ -66,13 +66,13 @@ export class PricingInfosVO implements IPricingInfosVO {
       .required({
         context: PricingInfosVO.name,
         property: 'businessType',
-        value: data.businessType?.toString(),
+        value: data.businessType,
         message: validationMessageResources.BUSINESS_TYPE_REQUIRED,
       })
       .isEquals({
         context: PricingInfosVO.name,
         property: 'businessType',
-        value: data.businessType?.toString(),
+        value: data.businessType,
         expected: [EBusinessType.rental, EBusinessType.sale],
         message: validationMessageResources.BUSINESS_TYPE_INVALID,
       })

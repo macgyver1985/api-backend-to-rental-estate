@@ -1,5 +1,6 @@
-import ObtainListOfRealEstateHandler from './handlers/ObtainListOfRealEstateHandler';
+import { ObtainListOfRealEstateCommand, ObtainListOfRealEstateCommandData } from './ObtainListOfRealEstateCommand';
 
-export default {
-  ObtainListOfRealEstateHandler,
+export {
+  ObtainListOfRealEstateCommand,
+  ObtainListOfRealEstateCommandData,
 };

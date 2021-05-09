@@ -16,5 +16,13 @@
     "BEDROOMS_REQUIRED": "O número de quartos deve ser informado.",
     "BEDROOMS_INVALID": "O número de quartos deve ser maior ou igual a zero.",
     "IMAGES_REQUIRED": "As imagens devem ser informadas.",
-    "IMAGES_INVALID": "O número de imagens deve ser maior ou igual a 1."
+    "IMAGES_INVALID": "O número de imagens deve ser maior ou igual a 1.",
+    "PAGE_NUMBER_REQUIRED": "O número da página deve ser informado.",
+    "PAGE_NUMBER_INVALID": "O número da página deve ser maior do que zero e menor ou igual ao total de páginas.",
+    "PAGE_SIZE_REQUIRED": "O número de registros por página deve ser informado.",
+    "PAGE_SIZE_INVALID": "O número de registros por página deve ser maior ou igual a um.",
+    "TOTAL_COUNT_REQUIRED": "O número total de páginas deve ser informado.",
+    "TOTAL_COUNT_INVALID": "O número total de páginas deve ser maior ou igual a um.",
+    "LISTINGS_REQUIRED": "Deve haver ao menos um registro por página.",
+    "LISTINGS_INVALID": "O número de registros deve ser menor ou igual ao total de registros por página."
 }
