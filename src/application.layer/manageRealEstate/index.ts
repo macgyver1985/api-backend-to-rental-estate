@@ -1,4 +1,4 @@
-import ObtainListOfRealEstateHandler from './ObtainListOfRealEstateHandler';
+import ObtainListOfRealEstateHandler from './handlers/ObtainListOfRealEstateHandler';
 
 export default {
   ObtainListOfRealEstateHandler,

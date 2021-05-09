@@ -1,10 +1,9 @@
-import { inject, injectable } from 'inversify';
-import { types as socketsTypes } from '@layer/application/interfaces/sockets';
+import { IServiceToObtainRealEstate, types as socketsTypes } from '@layer/application/interfaces/sockets';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
-import { IServiceToObtainRealEstate } from '../interfaces/sockets';
-import { RealEstateDTO } from '../models/realEstate';
-import IObtainListOfRealEstate from './commands/IObtainListOfRealEstate';
-import { IObtainListOfRealEstateHandler } from './interfaces/IObtainListOfRealEstateHandler';
+import { RealEstateEntity } from '@layer/domain/realEstate';
+import { inject, injectable } from 'inversify';
+import { IObtainListOfRealEstateHandler } from '../interfaces/IObtainListOfRealEstateHandler';
+import ObtainListOfRealEstateCommand from '../ObtainListOfRealEstateCommand';
 
 @injectable()
 export default class ObtainListOfRealEstateHandler implements IObtainListOfRealEstateHandler {
@@ -22,7 +21,10 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
     this.#contractValidator = contractValidator;
   }
 
-  execute(command: IObtainListOfRealEstate): Promise<RealEstateDTO[]> {
-    throw new Error('Method not implemented.');
+  public async execute(command: ObtainListOfRealEstateCommand): Promise<RealEstateEntity[]> {
+    await (await this.#service.obtainOnDemand())
+      .nextIndex(1, 10);
+
+    return null;
   }
 }

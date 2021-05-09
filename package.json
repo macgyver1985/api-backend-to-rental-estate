@@ -12,7 +12,7 @@
     "build": "npm run clean-dist && tsc --project tsconfig.json && npm run copy-files && npm run tsc-paths && npm run clean-tests",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/startup.ts",
     "start": "node dist/main/startup.js && npm run copy-file-gql",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",
+    "@types/node-fetch": "^2.5.10",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
@@ -57,6 +58,7 @@
   },
   "dependencies": {
     "inversify": "^5.1.1",
+    "node-fetch": "^2.6.1",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
   }

@@ -1,6 +1,6 @@
 import { IHandler } from '@layer/application/interfaces/base';
-import { RealEstateDTO } from '@layer/application/models/realEstate';
-import IObtainListOfRealEstate from '../commands/IObtainListOfRealEstate';
+import { RealEstateEntity } from '@layer/domain/realEstate';
+import ObtainListOfRealEstateCommand from '../ObtainListOfRealEstateCommand';
 
 export type IObtainListOfRealEstateHandler =
-    IHandler<IObtainListOfRealEstate, Array<RealEstateDTO>>;
+    IHandler<ObtainListOfRealEstateCommand, Array<RealEstateEntity>>;

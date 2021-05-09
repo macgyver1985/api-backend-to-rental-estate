@@ -1,5 +1,5 @@
-import { types } from '../commands';
 import { IObtainListOfRealEstateHandler } from './IObtainListOfRealEstateHandler';
+import types from './Types';
 
 export {
   types,

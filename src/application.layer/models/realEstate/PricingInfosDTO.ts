@@ -1,9 +1,7 @@
-import { EBusinessType } from '@layer/domain/realEstate/PricingInfosVO';
-
 type PricingInfosDTO = {
-  yearlyIptu: number;
-  price: number;
-  businessType: EBusinessType;
+  yearlyIptu: string;
+  price: string;
+  businessType: string;
   monthlyCondoFee: number;
 };
 

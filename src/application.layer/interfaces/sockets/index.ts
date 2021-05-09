@@ -1,7 +1,6 @@
-import IServiceToObtainRealEstate from './IServiceToObtainRealEstate';
-import types from './Types';
+import { IServiceToObtainRealEstate, types } from './services';
 
 export {
-  types,
   IServiceToObtainRealEstate,
+  types,
 };

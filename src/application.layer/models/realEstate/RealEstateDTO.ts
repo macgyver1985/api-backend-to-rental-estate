@@ -3,8 +3,8 @@ import PricingInfosDTO from './PricingInfosDTO';
 
 type RealEstateDTO = {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   usableAreas: number;
   listingType: string;
   listingStatus: string;
