@@ -1,4 +1,4 @@
-import { IServiceToObtainRealEstate } from '@layer/application/interfaces/sockets';
+import { IServiceToObtainRealEstate } from '@layer/application/interfaces/sockets/services';
 import ResultOnDemandDTO from '@layer/application/models/common';
 import { RealEstateDTO } from '@layer/application/models/realEstate';
 import { injectable } from 'inversify';

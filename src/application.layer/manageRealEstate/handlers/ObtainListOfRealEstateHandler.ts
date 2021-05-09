@@ -1,4 +1,4 @@
-import { IServiceToObtainRealEstate, types as socketsTypes } from '@layer/application/interfaces/sockets';
+import { IServiceToObtainRealEstate, types as socketsTypes } from '@layer/application/interfaces/sockets/services';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { RealEstateEntity } from '@layer/domain/realEstate';
 import { inject, injectable } from 'inversify';
