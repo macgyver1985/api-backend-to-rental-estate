@@ -6,7 +6,7 @@ import { RealEstateEntity } from '@layer/domain/realEstate';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { ObtainListOfRealEstateCommand } from '..';
-import { IObtainListOfRealEstateHandler } from '../interfaces';
+import { ICompatibilityFactory, IObtainListOfRealEstateHandler, types as businessTypes } from '../interfaces';
 
 @injectable()
 export default class ObtainListOfRealEstateHandler implements IObtainListOfRealEstateHandler {
@@ -16,27 +16,52 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
 
   #partnerRepository: IPartnerRepository;
 
+  #compatibilityFactory: ICompatibilityFactory;
+
   public constructor(
   @inject(socketsTypes.IServiceToObtainRealEstate) service: IServiceToObtainRealEstate,
     @inject(repositoriesTypes.IPartnerRepository) partnerRepository: IPartnerRepository,
+    @inject(businessTypes.ICompatibilityFactory) compatibilityFactory: ICompatibilityFactory,
     @inject(fluentValidationTypes.IContractValidator) contractValidator: IContractValidator,
   ) {
     this.#service = service;
     this.#partnerRepository = partnerRepository;
     this.#contractValidator = contractValidator;
+    this.#compatibilityFactory = compatibilityFactory;
   }
 
   public async execute(
     command: ObtainListOfRealEstateCommand,
   ): Promise<PagedDataVO<RealEstateEntity>> {
+    const listings: Array<RealEstateEntity> = [];
+    const partner = await this.#partnerRepository.findSpecific((t) => t.id === command.partnerID);
+
     const response = await (await this.#service.obtainOnDemand())
       .nextIndex(command.pageNumber, command.pageSize);
+
+    response.list.forEach((t) => {
+      const item = RealEstateEntity.create(null, this.#contractValidator);
+
+      try {
+        this.#contractValidator
+          .throwException('application');
+
+        const isComp = this.#compatibilityFactory
+          .isCompatibleWithPartner(partner, item);
+
+        if (isComp) {
+          listings.push(item);
+        }
+      } catch (e) {
+        console.error('Error', e);
+      }
+    });
 
     const result = PagedDataVO.create<RealEstateEntity>({
       pageNumber: response.currentIndex,
       pageSize: response.rangeList,
       totalCount: response.totalIndex,
-      listings: null,
+      listings,
     }, this.#contractValidator);
 
     this.#contractValidator
