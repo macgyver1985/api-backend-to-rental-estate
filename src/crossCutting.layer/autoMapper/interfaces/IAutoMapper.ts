@@ -5,5 +5,8 @@ export default interface IAutoMapper {
     sourceType: symbol, destinationType: symbol
   ): IMapper<TSource, TDestination>;
 
-  map<TDestination> (source: unknown, destination: TDestination): TDestination;
+  mapper<TSource, TDestination> (
+    sourceType: symbol,
+    destinationType: symbol
+  ): IMapper<TSource, TDestination>;
 }

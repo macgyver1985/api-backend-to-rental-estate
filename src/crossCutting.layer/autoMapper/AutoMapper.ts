@@ -6,7 +6,7 @@ import Mapper from './Mapper';
 @injectable()
 export default class AutoMapper implements IAutoMapper {
   #mappers: Array<{
-    identity: string[],
+    identity: symbol[],
     mapper: IMapper<unknown, unknown>
   }>;
 
@@ -21,23 +21,24 @@ export default class AutoMapper implements IAutoMapper {
     const item = new Mapper<TSource, TDestination>();
 
     this.#mappers.push({
-      identity: [sourceType.toString(), destinationType.toString()],
+      identity: [sourceType, destinationType],
       mapper: item,
     });
 
     return item;
   }
 
-  public map<TDestination>(source: unknown, destination: TDestination): TDestination {
-    if (!source || !destination) {
-      return destination;
+  public mapper<TSource, TDestination>(
+    sourceType: symbol,
+    destinationType: symbol,
+  ): IMapper<TSource, TDestination> {
+    if (!sourceType || !destinationType) {
+      return null;
     }
 
     const mapItem = this.#mappers
-      .find((t) => t.identity[0] === (<unknown>Object.getPrototypeOf(source)).constructor.name
-        && t.identity[1] === (<unknown>Object.getPrototypeOf(destination)).constructor.name);
+      .find((t) => t.identity[0] === sourceType && t.identity[1] === destinationType);
 
-    return <TDestination>mapItem.mapper
-      .map(source, destination);
+    return <IMapper<TSource, TDestination>>mapItem.mapper;
   }
 }

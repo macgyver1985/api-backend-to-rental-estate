@@ -1,7 +1,7 @@
-import { Mapper } from '@layer/crossCutting/autoMapper';
+import { AutoMapper } from '@layer/crossCutting/autoMapper';
 
-describe('Test Mapper', () => {
-  it('Mapper de entidades semelhantes sem forMember', () => {
+describe('Test AutoMapper', () => {
+  it('AutoMapper de entidades semelhantes sem forMember', () => {
     type FirstType = {
       name: string,
       year: number
@@ -11,7 +11,13 @@ describe('Test Mapper', () => {
       year: number
     };
 
-    const mapper = new Mapper<FirstType, SecondType>();
+    const autoMapper = new AutoMapper();
+
+    autoMapper.createMap<FirstType, SecondType>(
+      Symbol.for('FirstType'),
+      Symbol.for('SecondType'),
+    );
+
     const firstDTO: FirstType = {
       name: 'Teste',
       year: 35,
@@ -21,13 +27,14 @@ describe('Test Mapper', () => {
       year: 0,
     };
 
-    mapper.map(firstDTO, secondDTO);
+    autoMapper.mapper<FirstType, SecondType>(Symbol.for('FirstType'), Symbol.for('SecondType'))
+      .map(firstDTO, secondDTO);
 
     expect(secondDTO.name).toEqual(firstDTO.name);
     expect(secondDTO.year).toEqual(firstDTO.year);
   });
 
-  it('Mapper de entidades distintas sem forMember', () => {
+  it('AutoMapper de entidades distintas sem forMember', () => {
     type FirstType = {
       nome: string,
       idade: number
@@ -37,7 +44,13 @@ describe('Test Mapper', () => {
       year: number
     };
 
-    const mapper = new Mapper<FirstType, SecondType>();
+    const autoMapper = new AutoMapper();
+
+    autoMapper.createMap<FirstType, SecondType>(
+      Symbol.for('FirstType'),
+      Symbol.for('SecondType'),
+    );
+
     const firstDTO: FirstType = {
       nome: 'Teste',
       idade: 35,
@@ -47,7 +60,8 @@ describe('Test Mapper', () => {
       year: 0,
     };
 
-    mapper.map(firstDTO, secondDTO);
+    autoMapper.mapper<FirstType, SecondType>(Symbol.for('FirstType'), Symbol.for('SecondType'))
+      .map(firstDTO, secondDTO);
 
     expect(secondDTO.name).toEqual('');
     expect(secondDTO.year).toEqual(0);
@@ -55,7 +69,7 @@ describe('Test Mapper', () => {
     expect(secondDTO.year).not.toEqual(firstDTO.idade);
   });
 
-  it('Mapper de entidades distintas com forMember', () => {
+  it('AutoMapper de entidades distintas com forMember', () => {
     type FirstType = {
       nome: string,
       idade: string
@@ -65,7 +79,12 @@ describe('Test Mapper', () => {
       year: number
     };
 
-    const mapper = new Mapper<FirstType, SecondType>()
+    const autoMapper = new AutoMapper();
+
+    autoMapper.createMap<FirstType, SecondType>(
+      Symbol.for('FirstType'),
+      Symbol.for('SecondType'),
+    )
       .forMember('name', (t) => t.nome)
       .forMember('year', (t) => Number(t.idade));
 
@@ -78,7 +97,7 @@ describe('Test Mapper', () => {
       year: 0,
     };
 
-    mapper
+    autoMapper.mapper<FirstType, SecondType>(Symbol.for('FirstType'), Symbol.for('SecondType'))
       .map(firstDTO, secondDTO);
 
     expect(secondDTO.name).toEqual(firstDTO.nome);
