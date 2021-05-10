@@ -18,20 +18,24 @@ const sourceCustomerRepo: PartnerDTO[] = [{
   maxLat: 0,
 }];
 
-const PartnerRepositoryDependencyMock = jest.fn<IPartnerRepository, PartnerDTO[]>(() => ({
-  async findAll(): Promise<PartnerDTO[]> {
+const PartnerRepositoryMock = jest.fn<IPartnerRepository, unknown[]>(() => ({
+  findAll: async (): Promise<PartnerDTO[]> => {
     const result = await new Promise<PartnerDTO[]>((resolve) => resolve(sourceCustomerRepo));
 
     return result;
   },
-  async findByQuery(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO[]> {
+  findByQuery: async (
+    predicate: (item: PartnerDTO) => boolean,
+  ): Promise<PartnerDTO[]> => {
     const result = await new Promise<PartnerDTO[]>(
       (resolve) => resolve(sourceCustomerRepo.filter(predicate)),
     );
 
     return result;
   },
-  async findSpecific(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO> {
+  findSpecific: async (
+    predicate: (item: PartnerDTO) => boolean,
+  ): Promise<PartnerDTO> => {
     const result = await new Promise<PartnerDTO>(
       (resolve) => resolve(sourceCustomerRepo.find(predicate) ?? null),
     );
@@ -40,6 +44,4 @@ const PartnerRepositoryDependencyMock = jest.fn<IPartnerRepository, PartnerDTO[]
   },
 }));
 
-const partnerRepositoryDependencyMock = PartnerRepositoryDependencyMock();
-
-export default partnerRepositoryDependencyMock;
+export default PartnerRepositoryMock;

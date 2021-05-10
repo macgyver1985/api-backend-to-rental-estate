@@ -1,5 +1,8 @@
+import { injectable } from 'inversify';
+import 'reflect-metadata';
 import { IMapper } from './interfaces';
 
+@injectable()
 export default class Mapper<TSource, TDestination> implements IMapper<TSource, TDestination> {
   #map: Array<{
     member: keyof TDestination,

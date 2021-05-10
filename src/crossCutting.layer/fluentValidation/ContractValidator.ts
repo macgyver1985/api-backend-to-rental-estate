@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import 'reflect-metadata';
 import ContractSupport from './ContractSupport';
 import ContractValidatorException from './ContractValidatorException';
 import { IContractValidator, INotification } from './interfaces';

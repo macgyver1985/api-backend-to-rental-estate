@@ -1,6 +1,9 @@
+import { injectable } from 'inversify';
+import 'reflect-metadata';
 import { IAutoMapper, IMapper } from './interfaces';
 import Mapper from './Mapper';
 
+@injectable()
 export default class AutoMapper implements IAutoMapper {
   #mappers: Array<{
     identity: string[],

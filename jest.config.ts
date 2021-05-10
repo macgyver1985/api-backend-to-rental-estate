@@ -119,10 +119,10 @@ export default {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-  //  '<rootDir>/src/crossCutting.layer/_tests/',
+    '<rootDir>/src/crossCutting.layer/_tests/',
   //  '<rootDir>/src/domain.layer/_tests/',
-    '<rootDir>/src/application.layer/_tests/',
-    '<rootDir>/src/adapters.layer/_tests/',
+  //  '<rootDir>/src/application.layer/_tests/',
+  //  '<rootDir>/src/adapters.layer/_tests/',
   //  '<rootDir>/src/main.layer/_tests/',
   ],
 

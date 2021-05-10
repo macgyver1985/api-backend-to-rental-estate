@@ -6,7 +6,7 @@ describe('Test ServiceToObtainRealEstate', () => {
 
   it('Busca stream com sucesso', async () => {
     const result = await (await service.obtainOnDemand())
-      .nextIndex(1000, 10);
+      .nextIndex(1, 10);
 
     expect(true).toEqual(true);
   });

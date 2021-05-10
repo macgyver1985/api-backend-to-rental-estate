@@ -148,19 +148,25 @@ const sourceRealEstateRepo: Array<RealEstateDTO> = [{
   },
 }];
 let realEstates: RealEstateDTO[] = null;
-// eslint-disable-next-line import/no-mutable-exports
-let serviceToObtainRealEstateDependencyMock: IServiceToObtainRealEstate = null;
 
-const ServiceToObtainRealEstateDependencyMock = jest
-  .fn<IServiceToObtainRealEstate, Array<unknown>>(() => ({
-  async obtainOnDemand(): Promise<IServiceToObtainRealEstate> {
+const ServiceToObtainRealEstateMock = jest.fn<IServiceToObtainRealEstate, unknown[]>(() => {
+  const temp: IServiceToObtainRealEstate = {
+    nextIndex: null,
+    obtainOnDemand: null,
+  };
+
+  temp.obtainOnDemand = async (): Promise<IServiceToObtainRealEstate> => {
     realEstates = await new Promise<RealEstateDTO[]>(
       (resolve) => resolve(sourceRealEstateRepo),
     );
 
-    return serviceToObtainRealEstateDependencyMock;
-  },
-  async nextIndex(index?: number, range?: number): Promise<ResultOnDemandDTO<RealEstateDTO>> {
+    return temp;
+  };
+
+  temp.nextIndex = async (
+    index?: number,
+    range?: number,
+  ): Promise<ResultOnDemandDTO<RealEstateDTO>> => {
     const currentIndex = index ?? 1;
     const rangeList = range ?? 2;
     const totalIndex = Math.trunc((realEstates.length) / rangeList)
@@ -194,9 +200,9 @@ const ServiceToObtainRealEstateDependencyMock = jest
       rangeList,
       list,
     };
-  },
-}));
+  };
 
-serviceToObtainRealEstateDependencyMock = ServiceToObtainRealEstateDependencyMock();
+  return temp;
+});
 
-export default serviceToObtainRealEstateDependencyMock;
+export default ServiceToObtainRealEstateMock;
