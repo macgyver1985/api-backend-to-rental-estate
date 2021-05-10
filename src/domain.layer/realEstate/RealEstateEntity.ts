@@ -300,14 +300,14 @@ export default class RealEstateEntity implements IRealEstateEntity {
       const validator = RealEstateEntity.mapperValidator.find((v) => v.prop === prop[0]);
 
       validator?.func(
-        `${RealEstateEntity.name}_${id}`,
+        RealEstateEntity.name,
         prop[1]?.toString(),
         contractValidator,
       );
     });
 
     const isValid = contractValidator
-      .isValid((ctx) => ctx === `${RealEstateEntity.name}_${id}`);
+      .isValid((ctx) => ctx === RealEstateEntity.name);
     const address = AddressVO.create(data.address, contractValidator);
     const pricingInfos = PricingInfosVO.create(data.pricingInfos, contractValidator);
 
@@ -332,7 +332,7 @@ export default class RealEstateEntity implements IRealEstateEntity {
       const validator = RealEstateEntity.mapperValidator.find((v) => v.prop === prop[0]);
 
       validator?.func(
-        `${RealEstateEntity.name}_${this.#id}`,
+        RealEstateEntity.name,
         prop[1]?.toString(),
         this.#contractValidator,
       );
@@ -351,7 +351,7 @@ export default class RealEstateEntity implements IRealEstateEntity {
     }
 
     this.#contractValidator
-      .throwException('domain', (ctx) => ctx === `${RealEstateEntity.name}_${this.#id}`
+      .throwException('domain', (ctx) => ctx === RealEstateEntity.name
         || ctx === AddressVO.name
         || ctx === PricingInfosVO.name);
 

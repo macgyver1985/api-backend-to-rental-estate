@@ -42,18 +42,21 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
     response.list.forEach((t) => {
       const item = RealEstateEntity.create(null, this.#contractValidator);
 
-      try {
+      const isValid = this.#contractValidator
+        .isValid((ctx) => ctx === RealEstateEntity.name);
+
+      if (!isValid) {
         this.#contractValidator
-          .throwException('application');
+          .cleanNotifications((ctx) => ctx === RealEstateEntity.name);
 
-        const isComp = this.#compatibilityFactory
-          .isCompatibleWithPartner(partner, item);
+        return;
+      }
 
-        if (isComp) {
-          listings.push(item);
-        }
-      } catch (e) {
-        console.error('Error', e);
+      const isComp = this.#compatibilityFactory
+        .isCompatibleWithPartner(partner, item);
+
+      if (isComp) {
+        listings.push(item);
       }
     });
 
