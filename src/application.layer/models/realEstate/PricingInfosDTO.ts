@@ -2,7 +2,7 @@ type PricingInfosDTO = {
   yearlyIptu: string;
   price: string;
   businessType: string;
-  monthlyCondoFee: number;
+  monthlyCondoFee: string;
 };
 
 export default PricingInfosDTO;

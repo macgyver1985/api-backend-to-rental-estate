@@ -1,5 +1,5 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
-import CommandHelper from '../helper';
+import { CommandHelper } from '../helper';
 import validationMessageResources from '../resources';
 
 interface IObtainListOfRealEstateCommand {

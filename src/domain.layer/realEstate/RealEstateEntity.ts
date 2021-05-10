@@ -20,7 +20,7 @@ interface IRealEstateEntity extends IEntity {
   pricingInfos: PricingInfosVO;
 }
 
-type RealEstateData = {
+export type RealEstateData = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -36,7 +36,7 @@ type RealEstateData = {
   pricingInfos: PricingInfosData;
 };
 
-type RealEstateChangeData = {
+export type RealEstateChangeData = {
   usableAreas?: number;
   listingType?: string;
   listingStatus?: string;

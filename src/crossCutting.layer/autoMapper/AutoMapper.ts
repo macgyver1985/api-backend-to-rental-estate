@@ -12,13 +12,13 @@ export default class AutoMapper implements IAutoMapper {
   }
 
   public createMap<TSource, TDestination>(
-    source: FunctionConstructor,
-    destination: FunctionConstructor,
+    sourceType: symbol,
+    destinationType: symbol,
   ): IMapper<TSource, TDestination> {
     const item = new Mapper<TSource, TDestination>();
 
     this.#mappers.push({
-      identity: [source.name, destination.name],
+      identity: [sourceType.toString(), destinationType.toString()],
       mapper: item,
     });
 

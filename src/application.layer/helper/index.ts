@@ -1,3 +1,7 @@
+import autoMapper from './autoMapper';
 import CommandHelper from './CommandHelper';
 
-export default CommandHelper;
+export {
+  CommandHelper,
+  autoMapper,
+};
