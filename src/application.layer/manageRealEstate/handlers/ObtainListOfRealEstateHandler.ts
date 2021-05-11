@@ -1,6 +1,7 @@
 import { autoMapper } from '@layer/application/helper';
 import { IPartnerRepository, types as repositoriesTypes } from '@layer/application/interfaces/sockets/repositories';
 import { IServiceToObtainRealEstate, types as socketsTypes } from '@layer/application/interfaces/sockets/services';
+import PartnerDTO from '@layer/application/models/partner';
 import { RealEstateDTO } from '@layer/application/models/realEstate';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { PagedDataVO } from '@layer/domain/common';
@@ -38,10 +39,31 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
     const listings: Array<RealEstateEntity> = [];
     const partner = await this.#partnerRepository.findSpecific((t) => t.id === command.partnerID);
 
-    const response = await (await this.#service.obtainOnDemand())
-      .nextIndex(command.pageNumber, command.pageSize);
+    await this.#service.obtainOnDemand();
 
-    response.list.forEach((t) => {
+    await this.#loading(1, 100, listings, partner);
+
+    const result = PagedDataVO.create<RealEstateEntity>({
+      pageNumber: command.pageNumber,
+      pageSize: command.pageSize,
+      listings,
+    }, this.#contractValidator);
+
+    this.#contractValidator
+      .throwException('application');
+
+    return result;
+  }
+
+  #loading = async (
+    index: number,
+    range: number,
+    listings: Array<RealEstateEntity>,
+    partner: PartnerDTO,
+  ): Promise<void> => {
+    const resp = await this.#service.nextIndex(index, range);
+
+    resp.list.forEach((t) => {
       const data = autoMapper.mapper<RealEstateDTO, RealEstateData>(
         Symbol.for('RealEstateDTO'),
         Symbol.for('RealEstateData'),
@@ -63,16 +85,8 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
       }
     });
 
-    const result = PagedDataVO.create<RealEstateEntity>({
-      pageNumber: response.currentIndex,
-      pageSize: response.rangeList,
-      totalCount: response.totalIndex,
-      listings,
-    }, this.#contractValidator);
-
-    this.#contractValidator
-      .throwException('application');
-
-    return result;
-  }
+    if (resp.hasNext) {
+      await this.#loading(resp.nextIndex, resp.rangeList, listings, partner);
+    }
+  };
 }

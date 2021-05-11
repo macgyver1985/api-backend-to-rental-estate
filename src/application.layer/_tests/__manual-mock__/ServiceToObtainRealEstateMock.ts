@@ -177,8 +177,7 @@ const ServiceToObtainRealEstateMock = jest.fn<IServiceToObtainRealEstate, unknow
     const hasPrev = currentIndex !== 1;
     const start = (rangeList * currentIndex) - rangeList;
     const end = realEstates[(rangeList * currentIndex) - 1]
-      ? (rangeList * currentIndex)
-      : undefined;
+      ? (rangeList * currentIndex) : undefined;
 
     const list = await new Promise<Array<RealEstateDTO>>((resolve, reject) => {
       try {

@@ -293,7 +293,7 @@ export default class RealEstateEntity implements IRealEstateEntity {
     data: RealEstateData,
     contractValidator: IContractValidator,
   ): RealEstateEntity {
-    const id = data.id || data.id === '' ? uuidv4() : data.id;
+    const id = !data?.id || data.id === '' ? uuidv4() : data.id;
     const obj = Object.entries(data);
 
     obj?.forEach((prop) => {

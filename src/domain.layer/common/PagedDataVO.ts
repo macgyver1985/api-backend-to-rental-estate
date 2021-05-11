@@ -11,7 +11,6 @@ interface IPagedDataVO<T> {
 export type PagedData<T> = {
   pageNumber: number;
   pageSize: number;
-  totalCount: number;
   listings: Array<T>;
 };
 
@@ -28,6 +27,7 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
       this.#pageNumber = data.pageNumber;
       this.#pageSize = data.pageSize;
       this.#totalCount = data.totalCount;
+      this.#listings = data.listings;
     }
 
     public get pageNumber(): number {
@@ -50,6 +50,13 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
       data: PagedData<TData>,
       contractValidator: IContractValidator,
     ): PagedDataVO<TData> {
+      const { listings, pageNumber, pageSize } = data;
+      const totalCount = Math.trunc(listings.length / pageSize)
+       + ((listings.length % pageSize) > 0 ? 1 : 0);
+      const start = (pageSize * pageNumber) - pageSize;
+      const end = listings[(pageSize * pageNumber) - 1] ? (pageSize * pageNumber) : undefined;
+      const finalList = listings.slice(start, end);
+
       const isValid = contractValidator
         .required({
           context: PagedDataVO.name,
@@ -69,7 +76,7 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
           property: 'pageNumber',
           message: validationMessageResources.PAGE_NUMBER_INVALID,
           value: data.pageNumber,
-          expected: data.totalCount,
+          expected: totalCount,
         })
         .required({
           context: PagedDataVO.name,
@@ -88,33 +95,33 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
           context: PagedDataVO.name,
           property: 'totalCount',
           message: validationMessageResources.TOTAL_COUNT_REQUIRED,
-          value: data.totalCount?.toString(),
+          value: totalCount?.toString(),
         })
         .isGreaterThanOrEqual({
           context: PagedDataVO.name,
           property: 'totalCount',
           message: validationMessageResources.TOTAL_COUNT_INVALID,
-          value: data.totalCount,
+          value: totalCount,
           expected: 1,
         })
         .required({
           context: PagedDataVO.name,
           property: 'listings',
           message: validationMessageResources.LISTINGS_REQUIRED,
-          value: data.listings?.length.toString(),
+          value: finalList?.length.toString(),
         })
         .isGreaterThanOrEqual({
           context: PagedDataVO.name,
           property: 'listings',
           message: validationMessageResources.LISTINGS_REQUIRED,
-          value: data.listings?.length,
+          value: finalList?.length,
           expected: 1,
         })
         .isLessThanOrEqual({
           context: PagedDataVO.name,
           property: 'listings',
           message: validationMessageResources.LISTINGS_INVALID,
-          value: data.listings?.length,
+          value: finalList?.length,
           expected: data.pageSize,
         })
         .isValid((t) => t === PagedDataVO.name);
@@ -126,8 +133,8 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
       return new PagedDataVO<TData>({
         pageNumber: data.pageNumber,
         pageSize: data.pageSize,
-        totalCount: data.totalCount,
-        listings: data.listings,
+        totalCount,
+        listings: finalList,
       });
     }
 }
