@@ -5,8 +5,8 @@ import ObtainListOfRealEstateHandler from '@layer/application/manageRealEstate/h
 import { IObtainListOfRealEstateHandler } from '@layer/application/manageRealEstate/interfaces';
 import CompatibilityFactory from '@layer/application/manageRealEstate/support';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
-import PartnerRepositoryMock from '../_mocks_/PartnerRepositoryMock';
-import ServiceToObtainRealEstateMock from '../_mocks_/ServiceToObtainRealEstateMock';
+import PartnerRepositoryMock from '../__manual-mock__/PartnerRepositoryMock';
+import ServiceToObtainRealEstateMock from '../__manual-mock__/ServiceToObtainRealEstateMock';
 
 describe('Test ObtainListOfRealEstateHandler', () => {
   const partnerRepository: IPartnerRepository = PartnerRepositoryMock();
@@ -23,7 +23,7 @@ describe('Test ObtainListOfRealEstateHandler', () => {
   it('Retorna com sucesso 1 página com dois registros.', async () => {
     const command = ObtainListOfRealEstateCommand.create({
       pageNumber: 1,
-      pageSize: 2,
+      pageSize: 5,
       partnerID: '4097a93d-dcf3-4e83-b3b8-729527fb2767',
     }, contractValidator);
 

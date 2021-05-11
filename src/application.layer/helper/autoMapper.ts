@@ -10,7 +10,12 @@ autoMapper.createMap<RealEstateDTO, RealEstateData>(
   Symbol.for('RealEstateData'),
 )
   .forMember('createdAt', (t) => new Date(t.createdAt))
-  .forMember('updatedAt', (t) => new Date(t.updatedAt));
+  .forMember('updatedAt', (t) => new Date(t.updatedAt))
+  .forMember('pricingInfos', (t) => autoMapper.mapper<PricingInfosDTO, PricingInfosData>(
+    Symbol.for('PricingInfosDTO'),
+    Symbol.for('PricingInfosData'),
+  )
+    .map(t.pricingInfos, <PricingInfosData>{}));
 
 autoMapper.createMap<PricingInfosDTO, PricingInfosData>(
   Symbol.for('PricingInfosDTO'),

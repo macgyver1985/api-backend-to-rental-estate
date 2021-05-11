@@ -1,6 +1,7 @@
 import { autoMapper } from '@layer/application/helper';
 import { IPartnerRepository, types as repositoriesTypes } from '@layer/application/interfaces/sockets/repositories';
 import { IServiceToObtainRealEstate, types as socketsTypes } from '@layer/application/interfaces/sockets/services';
+import { RealEstateDTO } from '@layer/application/models/realEstate';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { PagedDataVO } from '@layer/domain/common';
 import { RealEstateData, RealEstateEntity } from '@layer/domain/realEstate';
@@ -41,10 +42,11 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
       .nextIndex(command.pageNumber, command.pageSize);
 
     response.list.forEach((t) => {
-      const item = RealEstateEntity.create(
-        autoMapper.map<RealEstateData>(t, <RealEstateData>{}),
-        this.#contractValidator,
-      );
+      const data = autoMapper.mapper<RealEstateDTO, RealEstateData>(
+        Symbol.for('RealEstateDTO'),
+        Symbol.for('RealEstateData'),
+      ).map(t, <RealEstateData>{});
+      const item = RealEstateEntity.create(data, this.#contractValidator);
 
       const isValid = this.#contractValidator
         .isValid((ctx) => ctx === RealEstateEntity.name);
