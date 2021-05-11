@@ -110,6 +110,14 @@ export default interface IContractValidator {
     message: string;
   }): IContractValidator;
 
+  isDifferentThan(config: {
+    context: string;
+    property: string;
+    value: string;
+    expected: string[];
+    message: string;
+  }): IContractValidator;
+
   isUUID(config: {
     context: string;
     property: string;

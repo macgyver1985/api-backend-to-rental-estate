@@ -9,14 +9,14 @@ const readFileAsync = promisify(readFile);
 
 @injectable()
 export default class PartnerRepository implements IPartnerRepository {
-  private readonly FILE_NAME: string;
+  #FILE_NAME: string;
 
   public constructor() {
-    this.FILE_NAME = `${__dirname}/partner.json`;
+    this.#FILE_NAME = `${__dirname}/partner.json`;
   }
 
   public async findAll(): Promise<PartnerDTO[]> {
-    const file = await readFileAsync(this.FILE_NAME, 'utf8');
+    const file = await readFileAsync(this.#FILE_NAME, 'utf8');
 
     return Array<PartnerDTO>(file === '' ? [] : JSON.parse(file.toString()));
   }

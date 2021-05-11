@@ -23,7 +23,10 @@ export default class CompatibilityFactory implements ICompatibilityFactory {
       });
     }
 
-    isCompatibleWithPartner(partner: PartnerDTO, realEstateEntity: RealEstateEntity): boolean {
+    public isCompatibleWithPartner(
+      partner: PartnerDTO,
+      realEstateEntity: RealEstateEntity,
+    ): boolean {
       const comp = this.#mapper
         .find((t) => t.partinerID === partner.id)
         ?.isCompatible;

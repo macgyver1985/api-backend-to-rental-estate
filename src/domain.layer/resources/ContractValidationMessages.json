@@ -1,6 +1,8 @@
 {
     "LAT_REQUIRED": "A latitude deve ser informada.",
+    "LAT_INVALID": "A latitude deve ser diferente de zero.",
     "LON_REQUIRED": "A longitude deve ser informada.",
+    "LON_INVALID": "A longitude deve ser diferente de zero.",
     "PRECISON_REQUIRED": "A precisão deve ser informada.",
     "PRICE_REQUIRED": "O preço deve ser informado.",
     "BUSINESS_TYPE_REQUIRED": "O tipo de negócio deve ser informado.",

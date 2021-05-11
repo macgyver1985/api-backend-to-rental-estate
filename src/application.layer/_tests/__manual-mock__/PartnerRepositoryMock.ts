@@ -16,6 +16,12 @@ const sourceCustomerRepo: PartnerDTO[] = [{
   maxLon: 0,
   minLat: 0,
   maxLat: 0,
+  mostExpensiveRentalArea: {
+    minLon: -46.693419,
+    maxLon: -46.641146,
+    minLat: -23.568704,
+    maxLat: -23.546686,
+  },
 }];
 
 const PartnerRepositoryMock = jest.fn<IPartnerRepository, unknown[]>(() => ({

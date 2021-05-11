@@ -350,6 +350,28 @@ export default class ContractValidator implements IContractValidator {
     return this;
   }
 
+  public isDifferentThan(config: {
+    context: string;
+    property: string;
+    value: string;
+    expected: string[];
+    message: string;
+  }): IContractValidator {
+    if (!this.hasValue(config.value)) {
+      return this;
+    }
+
+    if (config.expected.find((t) => t === config.value)) {
+      this.#notifications.push({
+        context: config.context,
+        property: config.property,
+        message: config.message,
+      });
+    }
+
+    return this;
+  }
+
   public isUUID(config: {
     context: string;
     property: string;
