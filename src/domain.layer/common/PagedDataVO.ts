@@ -110,7 +110,7 @@ export class PagedDataVO<T> implements IPagedDataVO<T> {
           value: data.listings?.length,
           expected: 1,
         })
-        .isGreaterThanOrEqual({
+        .isLessThanOrEqual({
           context: PagedDataVO.name,
           property: 'listings',
           message: validationMessageResources.LISTINGS_INVALID,
