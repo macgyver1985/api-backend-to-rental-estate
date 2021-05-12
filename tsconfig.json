@@ -24,6 +24,9 @@
       "@layer/adapters/*": [
         "./src/adapters.layer/*"
       ],
+      "@layer/presentations/*": [
+        "src/presentations.layer/*"
+      ],
       "@layer/main/*": [
         "src/main.layer/*"
       ]
