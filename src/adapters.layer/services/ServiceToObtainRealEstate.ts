@@ -72,7 +72,8 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
 
     const list = await new Promise<Array<RealEstateDTO>>((resolve, reject) => {
       try {
-        const strItems = `[${this.#buffer.toString('utf-8', start, end).replace(/[\\r\\n\\t]/gm, '')}]`;
+        const strItems = `[${this.#buffer.toString('utf-8', start, end).replace(/(\r\n|\n|\r|\t)/gm, '')}]`
+          .replace(/(]){2,}$/m, ']');
         const items = <Array<RealEstateDTO>>JSON.parse(strItems);
 
         resolve(items);

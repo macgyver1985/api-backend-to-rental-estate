@@ -24,25 +24,27 @@ autoMapper.createMap<RealEstateDTO, RealEstateData>(
   .forMember('owner', (t) => t.owner)
   .forMember('parkingSpaces', (t) => t.parkingSpaces)
   .forMember('usableAreas', (t) => t.usableAreas)
-  .forMember('address', (t) => autoMapper.mapper<AddressDTO, AddressData>(
+  .forMember('address', (t) => (autoMapper.mapper<AddressDTO, AddressData>(
     Symbol.for('AddressDTO'),
     Symbol.for('AddressData'),
   )
-    .map(t.address, <AddressData>{}))
-  .forMember('pricingInfos', (t) => autoMapper.mapper<PricingInfosDTO, PricingInfosData>(
+    .map(t.address, <AddressData>{})))
+  .forMember('pricingInfos', (t) => (autoMapper.mapper<PricingInfosDTO, PricingInfosData>(
     Symbol.for('PricingInfosDTO'),
     Symbol.for('PricingInfosData'),
   )
-    .map(t.pricingInfos, <PricingInfosData>{}));
+    .map(t.pricingInfos, <PricingInfosData>{})));
 
 autoMapper.createMap<PricingInfosDTO, PricingInfosData>(
   Symbol.for('PricingInfosDTO'),
   Symbol.for('PricingInfosData'),
 )
+  .forMember('period', (t) => t.period ?? null)
   .forMember('businessType', (t) => EBusinessType[t.businessType.toLowerCase()])
   .forMember('monthlyCondoFee', (t) => Number(t.monthlyCondoFee))
   .forMember('price', (t) => Number(t.price))
-  .forMember('yearlyIptu', (t) => Number(t.yearlyIptu));
+  .forMember('yearlyIptu', (t) => Number(t.yearlyIptu))
+  .forMember('rentalTotalPrice', (t) => (t.rentalTotalPrice ? Number(t.rentalTotalPrice) : null));
 
 autoMapper.createMap<AddressDTO, AddressData>(
   Symbol.for('AddressDTO'),
@@ -50,22 +52,22 @@ autoMapper.createMap<AddressDTO, AddressData>(
 )
   .forMember('city', (t) => t.city)
   .forMember('neighborhood', (t) => t.neighborhood)
-  .forMember('geoLocation', (t) => autoMapper.mapper<GeoLocationDTO, GeoLocationData>(
+  .forMember('geoLocation', (t) => (autoMapper.mapper<GeoLocationDTO, GeoLocationData>(
     Symbol.for('GeoLocationDTO'),
     Symbol.for('GeoLocationData'),
   )
-    .map(t.geoLocation, <GeoLocationData>{}));
+    .map(t.geoLocation, <GeoLocationData>{})));
 
 autoMapper.createMap<GeoLocationDTO, GeoLocationData>(
   Symbol.for('GeoLocationDTO'),
   Symbol.for('GeoLocationData'),
 )
   .forMember('precision', (t) => t.precision)
-  .forMember('location', (t) => autoMapper.mapper<LocationDTO, LocationData>(
+  .forMember('location', (t) => (autoMapper.mapper<LocationDTO, LocationData>(
     Symbol.for('LocationDTO'),
     Symbol.for('LocationData'),
   )
-    .map(t.location, <LocationData>{}));
+    .map(t.location, <LocationData>{})));
 
 autoMapper.createMap<LocationDTO, LocationData>(
   Symbol.for('LocationDTO'),

@@ -24,16 +24,16 @@ autoMapper.createMap<RealEstateEntity, RealEstateModel>(
   .forMember('owner', (t) => t.owner)
   .forMember('parkingSpaces', (t) => t.parkingSpaces)
   .forMember('usableAreas', (t) => t.usableAreas)
-  .forMember('address', (t) => autoMapper.mapper<AddressVO, AddressModel>(
+  .forMember('address', (t) => (autoMapper.mapper<AddressVO, AddressModel>(
     Symbol.for('AddressVO'),
     Symbol.for('AddressModel'),
   )
-    .map(t.address, <AddressModel>{}))
-  .forMember('pricingInfos', (t) => autoMapper.mapper<PricingInfosVO, PricingInfosModel>(
+    .map(t.address, <AddressModel>{})))
+  .forMember('pricingInfos', (t) => (autoMapper.mapper<PricingInfosVO, PricingInfosModel>(
     Symbol.for('PricingInfosVO'),
     Symbol.for('PricingInfosModel'),
   )
-    .map(t.pricingInfos, <PricingInfosModel>{}));
+    .map(t.pricingInfos, <PricingInfosModel>{})));
 
 autoMapper.createMap<PricingInfosVO, PricingInfosModel>(
   Symbol.for('PricingInfosVO'),
@@ -50,22 +50,22 @@ autoMapper.createMap<AddressVO, AddressModel>(
 )
   .forMember('city', (t) => t.city)
   .forMember('neighborhood', (t) => t.neighborhood)
-  .forMember('geoLocation', (t) => autoMapper.mapper<GeoLocationVO, GeoLocationModel>(
+  .forMember('geoLocation', (t) => (autoMapper.mapper<GeoLocationVO, GeoLocationModel>(
     Symbol.for('GeoLocationVO'),
     Symbol.for('GeoLocationModel'),
   )
-    .map(t.geoLocation, <GeoLocationModel>{}));
+    .map(t.geoLocation, <GeoLocationModel>{})));
 
 autoMapper.createMap<GeoLocationVO, GeoLocationModel>(
   Symbol.for('GeoLocationVO'),
   Symbol.for('GeoLocationModel'),
 )
   .forMember('precision', (t) => t.precision)
-  .forMember('location', (t) => autoMapper.mapper<LocationVO, LocationModel>(
+  .forMember('location', (t) => (autoMapper.mapper<LocationVO, LocationModel>(
     Symbol.for('LocationVO'),
     Symbol.for('LocationModel'),
   )
-    .map(t.location, <LocationModel>{}));
+    .map(t.location, <LocationModel>{})));
 
 autoMapper.createMap<LocationVO, LocationModel>(
   Symbol.for('LocationVO'),

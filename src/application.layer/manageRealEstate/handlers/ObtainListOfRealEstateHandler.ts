@@ -104,9 +104,9 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
       ).map(t, <RealEstateData>{});
       const item = RealEstateEntity.create(data, this.#contractValidator);
 
-      if (!data) {
+      if (!item) {
         this.#contractValidator
-          .throwException('application');
+          .cleanNotifications();
 
         return;
       }

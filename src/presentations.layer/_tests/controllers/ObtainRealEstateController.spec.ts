@@ -40,5 +40,5 @@ describe('Test ObtainRealEstateController', () => {
       });
 
     expect(result).toEqual(true);
-  });
+  }, 10000);
 });
