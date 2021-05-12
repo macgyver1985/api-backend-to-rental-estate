@@ -123,6 +123,7 @@ export default {
   //  '<rootDir>/src/domain.layer/_tests/',
     '<rootDir>/src/application.layer/_tests/',
     '<rootDir>/src/adapters.layer/_tests/',
+  //  '<rootDir>/src/presentations.layer/_tests/',
   //  '<rootDir>/src/main.layer/_tests/',
   ],
 
