@@ -46,6 +46,7 @@ node_modules/
 jspm_packages/
 dist/
 docs/
+cache/
 
 # TypeScript v1 declaration files
 typings/

@@ -1,7 +1,8 @@
+import { ICache, types as cacheTypes } from '@layer/application/interfaces/sockets/cache';
 import { IServiceToObtainRealEstate } from '@layer/application/interfaces/sockets/services';
 import ResultOnDemandDTO from '@layer/application/models/common';
 import { RealEstateDTO } from '@layer/application/models/realEstate';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import 'reflect-metadata';
 
@@ -13,16 +14,27 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
 
   #indexer: Array<number>;
 
-  public constructor() {
+  #cache: ICache;
+
+  public constructor(
+  @inject(cacheTypes.ICache) cache: ICache,
+  ) {
+    this.#cache = cache;
     this.#indexer = [];
   }
 
   public async obtainOnDemand(): Promise<IServiceToObtainRealEstate> {
-    this.#buffer = await new Promise<Buffer>((resolve, reject) => {
-      fetch(this.#urlService)
-        .then((t) => resolve(t.buffer()))
-        .catch((err) => reject(err));
-    });
+    this.#buffer = await this.#cache.obtain('All', 'ServiceToObtainRealEstate');
+
+    if (!this.#buffer) {
+      this.#buffer = await new Promise<Buffer>((resolve, reject) => {
+        fetch(this.#urlService)
+          .then((t) => resolve(t.buffer()))
+          .catch((err) => reject(err));
+      });
+
+      await this.#cache.register('All', 'ServiceToObtainRealEstate', this.#buffer);
+    }
 
     if (this.#buffer && this.#buffer.length > 0) {
       try {
