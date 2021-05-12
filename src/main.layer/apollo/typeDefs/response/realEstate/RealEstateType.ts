@@ -38,7 +38,7 @@ export default class RealEstateType implements RealEstateModel {
   @Field(() => Int, { nullable: true })
   bedrooms?: number;
 
-  @Field({ nullable: true })
+  @Field(() => [String], { nullable: true })
   images?: Array<string>;
 
   @Field(() => AddressType, { nullable: true })

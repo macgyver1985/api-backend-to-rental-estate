@@ -11,7 +11,7 @@
     "tsc-paths": "tscpaths -p tsconfig.json -s ./src -o ./dist",
     "build": "npm run clean-dist && tsc --project tsconfig.json && npm run copy-files && npm run tsc-paths && npm run clean-tests",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/startup.ts",
-    "start": "node dist/main/startup.js && npm run copy-file-gql",
+    "start": "node dist/main.layer/startup.js && npm run copy-file-gql",
     "test": "jest --detectOpenHandles"
   },
   "repository": {

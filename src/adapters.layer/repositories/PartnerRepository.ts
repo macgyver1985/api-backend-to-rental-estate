@@ -18,7 +18,11 @@ export default class PartnerRepository implements IPartnerRepository {
   public async findAll(): Promise<PartnerDTO[]> {
     const file = await readFileAsync(this.#FILE_NAME, 'utf8');
 
-    return Array<PartnerDTO>(file === '' ? [] : JSON.parse(file.toString()));
+    if (file === '') {
+      return [];
+    }
+
+    return <Array<PartnerDTO>>JSON.parse(file.toString());
   }
 
   public async findByQuery(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO[]> {
@@ -26,7 +30,7 @@ export default class PartnerRepository implements IPartnerRepository {
 
     const temp = await this.findAll();
 
-    const result = temp.filter(predic);
+    const result = temp.filter((t) => predic(t));
 
     return result;
   }
@@ -38,7 +42,7 @@ export default class PartnerRepository implements IPartnerRepository {
 
     const temp = await this.findAll();
 
-    const result = temp.find(predicate);
+    const result = temp.find((t) => predicate(t));
 
     return result;
   }

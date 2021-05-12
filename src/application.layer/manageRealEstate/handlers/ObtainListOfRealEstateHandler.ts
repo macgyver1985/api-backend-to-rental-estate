@@ -54,7 +54,8 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
     if (!listDTO || listDTO.length === 0) {
       await this.#service.obtainOnDemand();
 
-      const partner = await this.#partnerRepository.findSpecific((t) => t.id === command.partnerID);
+      const partner = await this.#partnerRepository
+        .findSpecific((t) => t.id === command.partnerID);
 
       await this.#loading(1, 100, listings, listDTO, partner);
 
@@ -105,7 +106,7 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
 
       if (!data) {
         this.#contractValidator
-          .cleanNotifications();
+          .throwException('application');
 
         return;
       }

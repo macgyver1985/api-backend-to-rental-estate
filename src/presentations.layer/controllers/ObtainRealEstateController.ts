@@ -1,4 +1,4 @@
-import { IObtainListOfRealEstateHandler } from '@layer/application/manageRealEstate/interfaces';
+import { IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/manageRealEstate/interfaces';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
@@ -6,7 +6,7 @@ import { ObtainListOfRealEstateCommand } from '@layer/application/manageRealEsta
 import { RealEstateEntity } from '@layer/domain/realEstate';
 import { internalServerError, ok } from '../helper/Http';
 import { IHttpRequest, IHttpResponse } from '../interfaces/base';
-import { IObtainRealEstateController, types as handlerTypes } from '../interfaces/controllers';
+import { IObtainRealEstateController } from '../interfaces/controllers';
 import GetPage from '../viewModels/request';
 import PagedDataModel from '../viewModels/response/common';
 import { RealEstateModel } from '../viewModels/response/realEstate';
@@ -19,7 +19,7 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
   #contractValidator: IContractValidator;
 
   public constructor(
-  @inject(handlerTypes.IObtainRealEstateController) handler: IObtainListOfRealEstateHandler,
+  @inject(handlerTypes.IObtainListOfRealEstateHandler) handler: IObtainListOfRealEstateHandler,
     @inject(fluentValidationTypes.IContractValidator) contractValidator: IContractValidator,
   ) {
     this.#handler = handler;
@@ -35,6 +35,9 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
         pageSize: request.body.pageSize,
         partnerID: '4097a93d-dcf3-4e83-b3b8-729527fb2767',
       }, this.#contractValidator);
+
+      this.#contractValidator
+        .throwException('presentations', (t) => t === ObtainListOfRealEstateCommand.name);
 
       const resultHandler = await this.#handler
         .execute(command);

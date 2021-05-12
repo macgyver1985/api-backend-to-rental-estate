@@ -3,9 +3,10 @@ import 'reflect-metadata';
 import {
   Field, Int, ObjectType,
 } from 'type-graphql';
+import { RealEstateType } from '../realEstate';
 
 @ObjectType({ description: 'Modelo de coleção de dados paginados.' })
-export default class PagedDataType<T> implements PagedDataModel<T> {
+export default class PagedDataType implements PagedDataModel<RealEstateType> {
   @Field(() => Int, { nullable: true })
   pageNumber?: number;
 
@@ -15,6 +16,6 @@ export default class PagedDataType<T> implements PagedDataModel<T> {
   @Field(() => Int, { nullable: true })
   totalCount?: number;
 
-  @Field(() => Array, { nullable: true })
-  listings?: Array<T>;
+  @Field(() => [RealEstateType], { nullable: true })
+  listings?: Array<RealEstateType>;
 }

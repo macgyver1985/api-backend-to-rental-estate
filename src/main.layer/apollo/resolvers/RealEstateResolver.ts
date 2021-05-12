@@ -20,10 +20,10 @@ export default class RealEstateResolver {
   }
 
   @Query(() => PagedDataType, { nullable: true })
-  public async getCustomersByQuery(
+  public async obtainRealEstate(
     @Info() info: GraphQLResolveInfo,
       @Arg('command') command: GetPageType,
-  ): Promise<PagedDataType<RealEstateType>> {
+  ): Promise<PagedDataType> {
     const result = await this.#obtainRealEstateController
       .handle({
         body: command,
