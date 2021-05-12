@@ -25,10 +25,10 @@
         "./src/adapters.layer/*"
       ],
       "@layer/presentations/*": [
-        "src/presentations.layer/*"
+        "./src/presentations.layer/*"
       ],
       "@layer/main/*": [
-        "src/main.layer/*"
+        "./src/main.layer/*"
       ]
     },
     "typeRoots": [

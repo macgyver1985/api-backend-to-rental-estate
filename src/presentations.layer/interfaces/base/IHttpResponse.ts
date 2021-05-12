@@ -1,4 +1,4 @@
-import EHttpStatusCode from 'src/presentations.layer/resources';
+import EHttpStatusCode from '@layer/presentations/resources';
 
 export interface IHttpResponse<T>{
   statusCode: EHttpStatusCode
