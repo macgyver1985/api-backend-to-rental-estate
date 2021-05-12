@@ -43,8 +43,13 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
   ): Promise<PagedDataVO<RealEstateEntity>> {
     const listings: Array<RealEstateEntity> = [];
 
-    const listDTO: Array<RealEstateDTO> = await this.#cache
-      .obtain(command.partnerID, 'RealEstateDTO') ?? [];
+    const buffer = await this.#cache
+      ?.obtain(command.partnerID, 'RealEstateDTO');
+    const listDTO: Array<RealEstateDTO> = [];
+
+    if (buffer) {
+      listDTO.push(...(<Array<RealEstateDTO>>JSON.parse(buffer.toString('utf-8'))));
+    }
 
     if (!listDTO || listDTO.length === 0) {
       await this.#service.obtainOnDemand();
@@ -53,10 +58,10 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
 
       await this.#loading(1, 100, listings, listDTO, partner);
 
-      await this.#cache.register<Array<RealEstateDTO>>(
+      await this.#cache?.register(
         command.partnerID,
         'RealEstateDTO',
-        listDTO,
+        Buffer.from(JSON.stringify(listDTO)),
       );
     } else {
       listDTO.forEach((t) => {

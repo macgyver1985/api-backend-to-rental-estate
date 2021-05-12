@@ -18,6 +18,7 @@ describe('Test ObtainListOfRealEstateHandler', () => {
     partnerRepository,
     compatibilityFactory,
     contractValidator,
+    null,
   );
 
   it('Retorna com sucesso a primeira página com cinco registros.', async () => {
