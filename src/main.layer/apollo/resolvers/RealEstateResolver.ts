@@ -7,7 +7,7 @@ import {
   Arg, Info, Query, Resolver,
 } from 'type-graphql';
 import GetPageType from '../typeDefs/request';
-import PagedDataType from '../typeDefs/response/common';
+import PagedRealEstateType from '../typeDefs/response/paged';
 import { RealEstateType } from '../typeDefs/response/realEstate';
 
 @Resolver(RealEstateType)
@@ -19,11 +19,10 @@ export default class RealEstateResolver {
       .get<IObtainRealEstateController>(controllerTypes.IObtainRealEstateController);
   }
 
-  @Query(() => PagedDataType, { nullable: true })
+  @Query(() => PagedRealEstateType, { nullable: true })
   public async obtainRealEstate(
-    @Info() info: GraphQLResolveInfo,
-      @Arg('command') command: GetPageType,
-  ): Promise<PagedDataType> {
+    @Arg('command') command: GetPageType,
+  ): Promise<PagedRealEstateType> {
     const result = await this.#obtainRealEstateController
       .handle({
         body: command,

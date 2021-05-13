@@ -17,8 +17,8 @@ type GeoLocationType {
 }
 
 input GetPageType {
-  pageNumber: Float!
-  pageSize: Float!
+  pageNumber: Int!
+  pageSize: Int!
 }
 
 """
@@ -29,8 +29,8 @@ type LocationType {
   lon: Float
 }
 
-"""Modelo de coleção de dados paginados."""
-type PagedDataType {
+"""Modelo de dados que contem os imóveis paginados."""
+type PagedRealEstateType {
   listings: [RealEstateType!]
   pageNumber: Int
   pageSize: Int
@@ -48,10 +48,10 @@ type PricingInfosType {
 }
 
 type Query {
-  obtainRealEstate(command: GetPageType!): PagedDataType
+  obtainRealEstate(command: GetPageType!): PagedRealEstateType
 }
 
-"""Modelo que representa uma Geolocalização."""
+"""Modelo que representa uma imóvel."""
 type RealEstateType {
   address: AddressType
   bathrooms: Int

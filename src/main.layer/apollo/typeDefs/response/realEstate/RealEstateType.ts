@@ -6,7 +6,7 @@ import {
 import AddressType from './AddressType';
 import PricingInfosType from './PricingInfosType';
 
-@ObjectType({ description: 'Modelo que representa uma Geolocalização.' })
+@ObjectType({ description: 'Modelo que representa uma imóvel.' })
 export default class RealEstateType implements RealEstateModel {
   @Field({ nullable: true })
   id?: string;

@@ -13,8 +13,8 @@ autoMapper.createMap<RealEstateEntity, RealEstateModel>(
   Symbol.for('RealEstateEntity'),
   Symbol.for('RealEstateModel'),
 )
-  .forMember('createdAt', (t) => t.createdAt.toUTCString())
-  .forMember('updatedAt', (t) => t.updatedAt.toUTCString())
+  .forMember('createdAt', (t) => t.createdAt.toISOString())
+  .forMember('updatedAt', (t) => t.updatedAt.toISOString())
   .forMember('id', (t) => t.id)
   .forMember('bathrooms', (t) => t.bathrooms)
   .forMember('bedrooms', (t) => t.bedrooms)

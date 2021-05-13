@@ -1,12 +1,12 @@
 import GetPage from '@layer/presentations/viewModels/request';
 import 'reflect-metadata';
-import { Field, InputType } from 'type-graphql';
+import { Field, Int, InputType } from 'type-graphql';
 
 @InputType()
 export default class GetPageType implements GetPage {
-  @Field({ nullable: false })
+  @Field(() => Int, { nullable: false })
   public pageNumber: number;
 
-  @Field({ nullable: false })
+  @Field(() => Int, { nullable: false })
   public pageSize: number;
 }

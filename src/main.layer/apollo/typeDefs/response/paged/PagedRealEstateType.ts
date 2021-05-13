@@ -5,8 +5,8 @@ import {
 } from 'type-graphql';
 import { RealEstateType } from '../realEstate';
 
-@ObjectType({ description: 'Modelo de coleção de dados paginados.' })
-export default class PagedDataType implements PagedDataModel<RealEstateType> {
+@ObjectType({ description: 'Modelo de dados que contem os imóveis paginados.' })
+export default class PagedRealEstateType implements PagedDataModel<RealEstateType> {
   @Field(() => Int, { nullable: true })
   pageNumber?: number;
 

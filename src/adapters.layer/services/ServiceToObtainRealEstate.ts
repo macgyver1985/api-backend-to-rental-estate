@@ -24,7 +24,7 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
   }
 
   public async obtainOnDemand(): Promise<IServiceToObtainRealEstate> {
-    this.#buffer = await this.#cache.obtain('All', 'ServiceToObtainRealEstate');
+    this.#buffer = await this.#cache?.obtain('All', 'ServiceToObtainRealEstate');
 
     if (!this.#buffer) {
       this.#buffer = await new Promise<Buffer>((resolve, reject) => {
@@ -33,19 +33,27 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
           .catch((err) => reject(err));
       });
 
-      await this.#cache.register('All', 'ServiceToObtainRealEstate', this.#buffer);
+      await this.#cache?.register('All', 'ServiceToObtainRealEstate', this.#buffer);
     }
 
     if (this.#buffer && this.#buffer.length > 0) {
-      try {
-        this.#buffer.forEach((v, i) => {
-          if (`${this.#buffer[i - 1]} ${v} ${this.#buffer[i + 1]}` === '125 44 123') {
-            this.#indexer.push(i);
-          }
-        });
-      } catch (e) {
-        throw new Error(e);
+      const bufferIndexes = await this.#cache?.obtain('Indexes', 'ServiceToObtainRealEstate');
+
+      if (bufferIndexes && bufferIndexes.length > 0) {
+        this.#indexer = <Array<number>>JSON.parse(bufferIndexes.toString('utf-8'));
+
+        return this;
       }
+
+      this.#indexer.push(1);
+
+      this.#buffer.forEach((v, i) => {
+        if (`${this.#buffer[i - 1]} ${v} ${this.#buffer[i + 1]}` === '125 44 123') {
+          this.#indexer.push(i + 1);
+        }
+      });
+
+      await this.#cache?.register('Indexes', 'ServiceToObtainRealEstate', Buffer.from(JSON.stringify(this.#indexer)));
     }
 
     return this;
@@ -61,14 +69,16 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
 
     const currentIndex = index ?? 1;
     const rangeList = range ?? 10;
-    const totalIndex = Math.trunc((this.#indexer.length + 2) / rangeList)
-      + (((this.#indexer.length + 2) % rangeList) > 0 ? 1 : 0);
+    const totalIndex = Math.trunc((this.#indexer.length + 1) / rangeList)
+      + (((this.#indexer.length + 1) % rangeList) > 0 ? 1 : 0);
     const nextIndex = currentIndex === totalIndex ? currentIndex : currentIndex + 1;
     const prevIndex = currentIndex === 1 ? currentIndex : currentIndex - 1;
     const hasNext = currentIndex !== totalIndex;
     const hasPrev = currentIndex !== 1;
-    const start = (this.#indexer[(rangeList * currentIndex) - rangeList - 1] ?? 0) + 1;
-    const end = this.#indexer[(rangeList * currentIndex) - 1] ?? (this.#buffer.length - 1);
+    const startIndex = (rangeList * currentIndex) - rangeList;
+    const start = this.#indexer[startIndex] ?? this.#indexer[startIndex - 1];
+    const endIndex = (rangeList * currentIndex);
+    const end = (this.#indexer[endIndex] ?? (this.#buffer.length)) - 1;
 
     const list = await new Promise<Array<RealEstateDTO>>((resolve, reject) => {
       try {

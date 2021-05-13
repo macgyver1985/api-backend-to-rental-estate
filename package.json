@@ -10,7 +10,7 @@
     "copy-file-gql": "copyfiles schema.gql dist/",
     "tsc-paths": "tscpaths -p tsconfig.json -s ./src -o ./dist",
     "build": "npm run clean-dist && tsc --project tsconfig.json && npm run copy-files && npm run tsc-paths && npm run clean-tests",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/startup.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main.layer/startup.ts",
     "start": "node dist/main.layer/startup.js && npm run copy-file-gql",
     "test": "jest --detectOpenHandles"
   },

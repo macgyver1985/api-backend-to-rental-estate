@@ -4,7 +4,8 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { ObtainListOfRealEstateCommand } from '@layer/application/manageRealEstate';
 import { RealEstateEntity } from '@layer/domain/realEstate';
-import { internalServerError, ok } from '../helper/Http';
+import { ContractValidatorException } from '@layer/crossCutting/fluentValidation';
+import { badRequest, internalServerError, ok } from '../helper/Http';
 import { IHttpRequest, IHttpResponse } from '../interfaces/base';
 import { IObtainRealEstateController } from '../interfaces/controllers';
 import GetPage from '../viewModels/request';
@@ -61,6 +62,10 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
 
       return ok(result);
     } catch (err) {
+      if (err instanceof ContractValidatorException) {
+        return badRequest<any>(err);
+      }
+
       return internalServerError(err);
     }
   }
