@@ -4,5 +4,7 @@
     "PAGE_SIZE_REQUIRED": "O número de registros por página deve ser informado.",
     "PAGE_SIZE_INVALID": "O número de registros por página deve ser maior ou igual a um.",
     "PERTNER_ID_REQUIRED": "A identificação do parceiro deve ser informada.",
-    "PARTNER_ID_INVALID": "A identificação do parceiro deve ser uma chave válida."
+    "PARTNER_ID_INVALID": "A identificação do parceiro deve ser uma chave válida.",
+    "USERNAME_REQUIRED": "O nome de usuário deve ser informado.",
+    "PASSWORD_REQUIRED": "A senha de usuário deve ser informada."
 }

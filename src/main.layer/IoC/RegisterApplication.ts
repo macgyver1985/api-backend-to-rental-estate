@@ -1,6 +1,6 @@
-import ObtainListOfRealEstateHandler from '@layer/application/manageRealEstate/handlers';
-import { ICompatibilityFactory, IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/manageRealEstate/interfaces';
-import CompatibilityFactory from '@layer/application/manageRealEstate/support';
+import ObtainListOfRealEstateHandler from '@layer/application/useCase-manageRealEstate/handlers';
+import { ICompatibilityFactory, IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/useCase-manageRealEstate/interfaces';
+import CompatibilityFactory from '@layer/application/useCase-manageRealEstate/support';
 import { interfaces } from 'inversify';
 
 const registerApplication = (container: interfaces.Container): void => {

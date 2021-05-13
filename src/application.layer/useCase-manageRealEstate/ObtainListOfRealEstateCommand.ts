@@ -81,9 +81,7 @@ export class ObtainListOfRealEstateCommand extends CommandHelper
     }
 
     return new ObtainListOfRealEstateCommand({
-      pageNumber: data.pageNumber,
-      pageSize: data.pageSize,
-      partnerID: data.partnerID,
+      ...data,
     }, data.processID);
   }
 

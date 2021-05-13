@@ -1,8 +1,8 @@
-import { IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/manageRealEstate/interfaces';
+import { IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/useCase-manageRealEstate/interfaces';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
-import { ObtainListOfRealEstateCommand } from '@layer/application/manageRealEstate';
+import { ObtainListOfRealEstateCommand } from '@layer/application/useCase-manageRealEstate';
 import { RealEstateEntity } from '@layer/domain/realEstate';
 import { ContractValidatorException } from '@layer/crossCutting/fluentValidation';
 import { PagedDataVO } from '@layer/domain/common';

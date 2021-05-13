@@ -1,9 +1,9 @@
 import { IPartnerRepository } from '@layer/application/interfaces/sockets/repositories';
 import { IServiceToObtainRealEstate } from '@layer/application/interfaces/sockets/services';
-import { ObtainListOfRealEstateCommand } from '@layer/application/manageRealEstate';
-import ObtainListOfRealEstateHandler from '@layer/application/manageRealEstate/handlers';
-import { IObtainListOfRealEstateHandler } from '@layer/application/manageRealEstate/interfaces';
-import CompatibilityFactory from '@layer/application/manageRealEstate/support';
+import { ObtainListOfRealEstateCommand } from '@layer/application/useCase-manageRealEstate';
+import ObtainListOfRealEstateHandler from '@layer/application/useCase-manageRealEstate/handlers';
+import { IObtainListOfRealEstateHandler } from '@layer/application/useCase-manageRealEstate/interfaces';
+import CompatibilityFactory from '@layer/application/useCase-manageRealEstate/support';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
 import PartnerRepositoryMock from '../__manual-mock__/PartnerRepositoryMock';
 import ServiceToObtainRealEstateMock from '../__manual-mock__/ServiceToObtainRealEstateMock';
