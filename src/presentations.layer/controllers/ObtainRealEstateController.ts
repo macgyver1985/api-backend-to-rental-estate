@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import { ObtainListOfRealEstateCommand } from '@layer/application/manageRealEstate';
 import { RealEstateEntity } from '@layer/domain/realEstate';
 import { ContractValidatorException } from '@layer/crossCutting/fluentValidation';
+import { PagedDataVO } from '@layer/domain/common';
 import { badRequest, internalServerError, ok } from '../helper/Http';
 import { IHttpRequest, IHttpResponse } from '../interfaces/base';
 import { IObtainRealEstateController } from '../interfaces/controllers';
@@ -43,22 +44,11 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
       const resultHandler = await this.#handler
         .execute(command);
 
-      const listings: Array<RealEstateModel> = [];
-      resultHandler.listings.forEach((t) => {
-        const item = autoMapper.mapper<RealEstateEntity, RealEstateModel>(
-          Symbol.for('RealEstateEntity'),
-          Symbol.for('RealEstateModel'),
-        ).map(t, {});
-
-        listings.push(item);
-      });
-
-      const result: PagedDataModel<RealEstateModel> = {
-        pageNumber: resultHandler.pageNumber,
-        pageSize: resultHandler.pageSize,
-        totalCount: resultHandler.totalCount,
-        listings,
-      };
+      const result = autoMapper
+        .mapper<PagedDataVO<RealEstateEntity>, PagedDataModel<RealEstateModel>>(
+        Symbol.for('PagedDataVO<RealEstateEntity>'),
+        Symbol.for('PagedDataModel<RealEstateModel>'),
+      ).map(resultHandler, {});
 
       return ok(result);
     } catch (err) {

@@ -1,13 +1,28 @@
 import { AutoMapper } from '@layer/crossCutting/autoMapper';
 import { IAutoMapper } from '@layer/crossCutting/autoMapper/interfaces';
+import { PagedDataVO } from '@layer/domain/common';
 import {
   AddressVO, GeoLocationVO, LocationVO, PricingInfosVO, RealEstateEntity,
 } from '@layer/domain/realEstate';
+import PagedDataModel from '../viewModels/response/common';
 import {
   AddressModel, GeoLocationModel, LocationModel, PricingInfosModel, RealEstateModel,
 } from '../viewModels/response/realEstate';
 
 const autoMapper: IAutoMapper = new AutoMapper();
+
+autoMapper.createMap<PagedDataVO<RealEstateEntity>, PagedDataModel<RealEstateModel>>(
+  Symbol.for('PagedDataVO<RealEstateEntity>'),
+  Symbol.for('PagedDataModel<RealEstateModel>'),
+)
+  .forMember('pageNumber', (t) => t.pageNumber)
+  .forMember('pageSize', (t) => t.pageSize)
+  .forMember('totalPages', (t) => t.totalPages)
+  .forMember('totalCount', (t) => t.totalCount)
+  .forMember('listings', (t) => (t.listings.map((i) => (autoMapper.mapper<RealEstateEntity, RealEstateModel>(
+    Symbol.for('RealEstateEntity'),
+    Symbol.for('RealEstateModel'),
+  ).map(i, {})))));
 
 autoMapper.createMap<RealEstateEntity, RealEstateModel>(
   Symbol.for('RealEstateEntity'),

@@ -97,6 +97,10 @@ export default class ObtainListOfRealEstateHandler implements IObtainListOfRealE
   ): Promise<void> => {
     const resp = await this.#service.nextIndex(index, range);
 
+    if (!resp) {
+      return;
+    }
+
     resp.list.forEach((t) => {
       const data = autoMapper.mapper<RealEstateDTO, RealEstateData>(
         Symbol.for('RealEstateDTO'),

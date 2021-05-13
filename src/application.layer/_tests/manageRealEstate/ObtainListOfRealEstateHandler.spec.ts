@@ -35,7 +35,8 @@ describe('Test ObtainListOfRealEstateHandler', () => {
     expect(result.listings[4].id).toEqual('a6c82735be7e');
     expect(result.pageNumber).toEqual(1);
     expect(result.pageSize).toEqual(5);
-    expect(result.totalCount).toEqual(2);
+    expect(result.totalPages).toEqual(2);
+    expect(result.totalCount).toEqual(6);
   });
 
   it('Retorna com sucesso a segunda página com 1 registro.', async () => {
@@ -51,6 +52,7 @@ describe('Test ObtainListOfRealEstateHandler', () => {
     expect(result.listings[0].id).toEqual('26e61f526af8');
     expect(result.pageNumber).toEqual(2);
     expect(result.pageSize).toEqual(5);
-    expect(result.totalCount).toEqual(2);
+    expect(result.totalPages).toEqual(2);
+    expect(result.totalCount).toEqual(6);
   });
 });

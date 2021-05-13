@@ -71,14 +71,20 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
     const rangeList = range ?? 10;
     const totalIndex = Math.trunc((this.#indexer.length + 1) / rangeList)
       + (((this.#indexer.length + 1) % rangeList) > 0 ? 1 : 0);
-    const nextIndex = currentIndex === totalIndex ? currentIndex : currentIndex + 1;
-    const prevIndex = currentIndex === 1 ? currentIndex : currentIndex - 1;
-    const hasNext = currentIndex !== totalIndex;
-    const hasPrev = currentIndex !== 1;
+
     const startIndex = (rangeList * currentIndex) - rangeList;
-    const start = this.#indexer[startIndex] ?? this.#indexer[startIndex - 1];
+    const start = this.#indexer[startIndex];
     const endIndex = (rangeList * currentIndex);
     const end = (this.#indexer[endIndex] ?? (this.#buffer.length)) - 1;
+
+    if (!start) {
+      return null;
+    }
+
+    const nextIndex = currentIndex === totalIndex ? currentIndex : currentIndex + 1;
+    const prevIndex = currentIndex === 1 ? currentIndex : currentIndex - 1;
+    const hasNext = currentIndex < totalIndex;
+    const hasPrev = currentIndex > 1;
 
     const list = await new Promise<Array<RealEstateDTO>>((resolve, reject) => {
       try {

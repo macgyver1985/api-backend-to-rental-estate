@@ -14,6 +14,9 @@ export default class PagedRealEstateType implements PagedDataModel<RealEstateTyp
   pageSize?: number;
 
   @Field(() => Int, { nullable: true })
+  totalPages?: number;
+
+  @Field(() => Int, { nullable: true })
   totalCount?: number;
 
   @Field(() => [RealEstateType], { nullable: true })

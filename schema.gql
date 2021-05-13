@@ -35,6 +35,7 @@ type PagedRealEstateType {
   pageNumber: Int
   pageSize: Int
   totalCount: Int
+  totalPages: Int
 }
 
 """Modelo que representa uma Geolocalização."""

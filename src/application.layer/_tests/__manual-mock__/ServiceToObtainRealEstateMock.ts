@@ -173,8 +173,8 @@ const ServiceToObtainRealEstateMock = jest.fn<IServiceToObtainRealEstate, unknow
       + ((realEstates.length % range) > 0 ? 1 : 0);
     const nextIndex = currentIndex === totalIndex ? currentIndex : currentIndex + 1;
     const prevIndex = currentIndex === 1 ? currentIndex : currentIndex - 1;
-    const hasNext = currentIndex !== totalIndex;
-    const hasPrev = currentIndex !== 1;
+    const hasNext = currentIndex < totalIndex;
+    const hasPrev = currentIndex > 1;
     const start = (rangeList * currentIndex) - rangeList;
     const end = realEstates[(rangeList * currentIndex) - 1]
       ? (rangeList * currentIndex) : undefined;
