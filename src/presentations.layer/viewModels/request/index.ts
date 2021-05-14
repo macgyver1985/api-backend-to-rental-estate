@@ -1,3 +1,9 @@
+import BearerToken from './BearerToken';
+import GetAuthorization from './GetAuthorization';
 import GetPage from './GetPage';
 
-export default GetPage;
+export {
+  GetAuthorization,
+  GetPage,
+  BearerToken,
+};
