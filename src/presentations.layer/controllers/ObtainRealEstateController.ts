@@ -1,18 +1,18 @@
+import { ObtainListOfRealEstateCommand } from '@layer/application/useCase-manageRealEstate';
 import { IObtainListOfRealEstateHandler, types as handlerTypes } from '@layer/application/useCase-manageRealEstate/interfaces';
+import { ContractValidatorException } from '@layer/crossCutting/fluentValidation';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
+import { PagedDataVO } from '@layer/domain/common';
+import { RealEstateEntity } from '@layer/domain/realEstate';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
-import { ObtainListOfRealEstateCommand } from '@layer/application/useCase-manageRealEstate';
-import { RealEstateEntity } from '@layer/domain/realEstate';
-import { ContractValidatorException } from '@layer/crossCutting/fluentValidation';
-import { PagedDataVO } from '@layer/domain/common';
+import autoMapper from '../helper/autoMapper';
 import { badRequest, internalServerError, ok } from '../helper/Http';
 import { IHttpRequest, IHttpResponse } from '../interfaces/base';
 import { IObtainRealEstateController } from '../interfaces/controllers';
-import GetPage from '../viewModels/request';
-import PagedDataModel from '../viewModels/response/common';
-import { RealEstateModel } from '../viewModels/response/realEstate';
-import autoMapper from '../helper/autoMapper';
+import GetPage from '../requests/common';
+import PagedDataModel from '../responses/common';
+import { RealEstateModel } from '../responses/realEstate';
 
 @injectable()
 export default class ObtainRealEstateController implements IObtainRealEstateController {

@@ -1,4 +1,4 @@
-import { RealEstateModel } from '@layer/presentations/viewModels/response/realEstate';
+import { RealEstateModel } from '@layer/presentations/responses/realEstate';
 import 'reflect-metadata';
 import {
   Field, Int, ObjectType,

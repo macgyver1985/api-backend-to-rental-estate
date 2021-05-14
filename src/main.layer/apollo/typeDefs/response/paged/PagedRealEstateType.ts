@@ -1,4 +1,4 @@
-import PagedDataModel from '@layer/presentations/viewModels/response/common';
+import PagedDataModel from '@layer/presentations/responses/common';
 import 'reflect-metadata';
 import {
   Field, Int, ObjectType,

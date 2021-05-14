@@ -1,4 +1,4 @@
-import { PricingInfosModel } from '@layer/presentations/viewModels/response/realEstate';
+import { PricingInfosModel } from '@layer/presentations/responses/realEstate';
 import 'reflect-metadata';
 import {
   Field, Float, ObjectType,

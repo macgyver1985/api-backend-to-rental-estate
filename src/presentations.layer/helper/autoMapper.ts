@@ -4,10 +4,10 @@ import { PagedDataVO } from '@layer/domain/common';
 import {
   AddressVO, GeoLocationVO, LocationVO, PricingInfosVO, RealEstateEntity,
 } from '@layer/domain/realEstate';
-import PagedDataModel from '../viewModels/response/common';
+import PagedDataModel from '../responses/common';
 import {
   AddressModel, GeoLocationModel, LocationModel, PricingInfosModel, RealEstateModel,
-} from '../viewModels/response/realEstate';
+} from '../responses/realEstate';
 
 const autoMapper: IAutoMapper = new AutoMapper();
 

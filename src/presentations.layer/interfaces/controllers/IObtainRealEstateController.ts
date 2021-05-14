@@ -1,6 +1,6 @@
-import { GetPage } from '@layer/presentations/viewModels/request';
-import PagedDataModel from '@layer/presentations/viewModels/response/common';
-import { RealEstateModel } from '@layer/presentations/viewModels/response/realEstate';
+import GetPage from '@layer/presentations/requests/common';
+import PagedDataModel from '@layer/presentations/responses/common';
+import { RealEstateModel } from '@layer/presentations/responses/realEstate';
 import { IController } from '../base';
 
 export type IObtainRealEstateController = IController<GetPage, PagedDataModel<RealEstateModel>>;

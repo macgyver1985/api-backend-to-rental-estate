@@ -1,4 +1,4 @@
-import { LocationModel } from '@layer/presentations/viewModels/response/realEstate';
+import { LocationModel } from '@layer/presentations/responses/realEstate';
 import 'reflect-metadata';
 import {
   Field, Float, ObjectType,

@@ -1,4 +1,4 @@
-import { GeoLocationModel } from '@layer/presentations/viewModels/response/realEstate';
+import { GeoLocationModel } from '@layer/presentations/responses/realEstate';
 import 'reflect-metadata';
 import {
   Field, ObjectType,

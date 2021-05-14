@@ -1,4 +1,4 @@
-import GetPage from '@layer/presentations/viewModels/request';
+import GetPage from '@layer/presentations/requests/common';
 import 'reflect-metadata';
 import { Field, Int, InputType } from 'type-graphql';
 
