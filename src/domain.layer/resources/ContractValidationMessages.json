@@ -26,5 +26,8 @@
     "TOTAL_PAGES_REQUIRED": "O número total de páginas deve ser informado.",
     "TOTAL_PAGES_INVALID": "O número total de páginas deve ser maior ou igual a um.",
     "LISTINGS_REQUIRED": "Deve haver ao menos um registro por página.",
-    "LISTINGS_INVALID": "O número de registros deve ser menor ou igual ao total de registros por página."
+    "LISTINGS_INVALID": "O número de registros deve ser menor ou igual ao total de registros por página.",
+    "USERNAME_REQUIRED": "O nome do usuário deve ser informado.",
+    "PASSWORD_REQUIRED": "A senha do usuário deve ser informada.",
+    "PARTNER_ID_REQUIRED": "O código do parceiro ao qual o usuário pertence deve ser informado."
 }

@@ -1,11 +1,9 @@
-import { IPartnerRepository } from './IPartnerRepository';
-import IReadingRepository from './IReadingRepository';
-import IWritingRepository from './IWritingRepository';
+import IPartnerRepository from './IPartnerRepository';
+import IUserRepository from './IUserRepository';
 import types from './Types';
 
 export {
   IPartnerRepository,
-  IReadingRepository,
-  IWritingRepository,
+  IUserRepository,
   types,
 };

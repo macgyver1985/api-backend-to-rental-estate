@@ -1,11 +1,11 @@
-import { IPartnerRepository } from '@layer/application/interfaces/sockets/repositories';
-import PartnerDTO from '@layer/application/models/partner';
+import { IUserRepository } from '@layer/application/interfaces/sockets/repositories';
+import UserDTO from '@layer/application/models/accessControl';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { IReadingRepository, types as baseRepositories } from './interfaces';
 
 @injectable()
-export default class PartnerRepository implements IPartnerRepository {
+export default class UserRepository implements IUserRepository {
   #TABLE: string;
 
   #readingRepository: IReadingRepository;
@@ -13,32 +13,32 @@ export default class PartnerRepository implements IPartnerRepository {
   public constructor(
   @inject(baseRepositories.IReadingRepository) readingRepository: IReadingRepository,
   ) {
-    this.#TABLE = 'tb_partner';
+    this.#TABLE = 'tb_users';
     this.#readingRepository = readingRepository;
   }
 
-  public async findAll(): Promise<PartnerDTO[]> {
+  public async findAll(): Promise<UserDTO[]> {
     try {
       return await this.#readingRepository
-        .findAll<PartnerDTO>(this.#TABLE);
+        .findAll<UserDTO>(this.#TABLE);
     } catch (e) {
       throw new Error(e);
     }
   }
 
-  public async findByQuery(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO[]> {
+  public async findByQuery(predicate: (item: UserDTO) => boolean): Promise<UserDTO[]> {
     try {
       return await this.#readingRepository
-        .findByQuery<PartnerDTO>(this.#TABLE, predicate);
+        .findByQuery<UserDTO>(this.#TABLE, predicate);
     } catch (e) {
       throw new Error(e);
     }
   }
 
-  public async findSpecific(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO> {
+  public async findSpecific(predicate: (item: UserDTO) => boolean): Promise<UserDTO> {
     try {
       return await this.#readingRepository
-        .findSpecific<PartnerDTO>(this.#TABLE, predicate);
+        .findSpecific<UserDTO>(this.#TABLE, predicate);
     } catch (e) {
       throw new Error(e);
     }

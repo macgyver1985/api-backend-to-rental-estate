@@ -1,5 +1,6 @@
 import CacheInFile from '@layer/adapters/cache/CacheInFile';
-import PartnerRepository from '@layer/adapters/repositories';
+import { JsonReadingRepository, PartnerRepository } from '@layer/adapters/repositories';
+import { IReadingRepository } from '@layer/adapters/repositories/interfaces';
 import ServiceToObtainRealEstate from '@layer/adapters/services';
 import { ICache } from '@layer/application/interfaces/sockets/cache';
 import { IPartnerRepository } from '@layer/application/interfaces/sockets/repositories';
@@ -15,7 +16,8 @@ import { IObtainRealEstateController } from '@layer/presentations/interfaces/con
 describe('Test ObtainRealEstateController', () => {
   const cache: ICache = new CacheInFile();
   const service: IServiceToObtainRealEstate = new ServiceToObtainRealEstate(cache);
-  const repository: IPartnerRepository = new PartnerRepository();
+  const readingRepository: IReadingRepository = new JsonReadingRepository();
+  const repository: IPartnerRepository = new PartnerRepository(readingRepository);
   const compatibilityFactory: ICompatibilityFactory = new CompatibilityFactory();
   const contractValidator: IContractValidator = new ContractValidator();
   const handler: IObtainListOfRealEstateHandler = new ObtainListOfRealEstateHandler(

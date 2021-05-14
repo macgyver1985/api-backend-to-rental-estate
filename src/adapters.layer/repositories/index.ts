@@ -1,3 +1,9 @@
+import JsonReadingRepository from './JsonReadingRepository';
 import PartnerRepository from './PartnerRepository';
+import UserRepository from './UserRepository';
 
-export default PartnerRepository;
+export {
+  JsonReadingRepository,
+  PartnerRepository,
+  UserRepository,
+};

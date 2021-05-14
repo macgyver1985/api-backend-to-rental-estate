@@ -1,8 +1,10 @@
 import { AutoMapper } from '@layer/crossCutting/autoMapper';
 import { IAutoMapper } from '@layer/crossCutting/autoMapper/interfaces';
+import { UserData } from '@layer/domain/accessControl';
 import {
   AddressData, EBusinessType, GeoLocationData, LocationData, PricingInfosData, RealEstateData,
 } from '@layer/domain/realEstate';
+import UserDTO from '../models/accessControl';
 import {
   AddressDTO, GeoLocationDTO, LocationDTO, PricingInfosDTO, RealEstateDTO,
 } from '../models/realEstate';
@@ -75,5 +77,14 @@ autoMapper.createMap<LocationDTO, LocationData>(
 )
   .forMember('lat', (t) => t.lat)
   .forMember('lon', (t) => t.lon);
+
+autoMapper.createMap<UserDTO, UserData>(
+  Symbol.for('UserDTO'),
+  Symbol.for('UserData'),
+)
+  .forMember('id', (t) => t.id)
+  .forMember('partnerId', (t) => t.partnerId)
+  .forMember('password', (t) => t.password)
+  .forMember('userName', (t) => t.userName);
 
 export default autoMapper;

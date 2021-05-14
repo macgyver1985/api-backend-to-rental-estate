@@ -1,4 +1,9 @@
 import PartnerDTO from '@layer/application/models/partner';
-import IReadingRepository from './IReadingRepository';
 
-export type IPartnerRepository = IReadingRepository<PartnerDTO>;
+export default interface IPartnerRepository {
+  findAll(): Promise<PartnerDTO[]>;
+
+  findByQuery(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO[]>;
+
+  findSpecific(predicate: (item: PartnerDTO) => boolean): Promise<PartnerDTO>;
+}
