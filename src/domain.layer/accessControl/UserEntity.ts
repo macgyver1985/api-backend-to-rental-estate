@@ -58,19 +58,19 @@ export class UserEntity implements IUserEntity {
           context: UserEntity.name,
           property: 'userName',
           message: validationMessageResources.USERNAME_REQUIRED,
-          value: data.userName?.toString(),
+          value: data.userName,
         })
         .required({
           context: UserEntity.name,
           property: 'password',
           message: validationMessageResources.PASSWORD_REQUIRED,
-          value: data.password?.toString(),
+          value: data.password,
         })
         .required({
           context: UserEntity.name,
           property: 'partnerId',
           message: validationMessageResources.PARTNER_ID_REQUIRED,
-          value: data.partnerId?.toString(),
+          value: data.partnerId,
         })
         .isValid((t) => t === UserEntity.name);
 

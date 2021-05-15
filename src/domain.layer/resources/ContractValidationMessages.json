@@ -29,5 +29,9 @@
     "LISTINGS_INVALID": "O número de registros deve ser menor ou igual ao total de registros por página.",
     "USERNAME_REQUIRED": "O nome do usuário deve ser informado.",
     "PASSWORD_REQUIRED": "A senha do usuário deve ser informada.",
-    "PARTNER_ID_REQUIRED": "O código do parceiro ao qual o usuário pertence deve ser informado."
+    "PARTNER_ID_REQUIRED": "O código do parceiro ao qual o usuário pertence deve ser informado.",
+    "IDENTITY_REQUIRED": "A identidade deve ser informada.",
+    "EXPIRES_IN_REQUIRED": "O tempo de expiração em minutos, deve ser informado.",
+    "EXPIRES_IN_INVALID": "O tempo de expiração deve ser um número inteiro.",
+    "CLAIMS_PROP_REQUIRED": "O valor do atributo deve ser informada."
 }
