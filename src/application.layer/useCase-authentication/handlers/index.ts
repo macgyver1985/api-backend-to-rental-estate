@@ -1,3 +1,7 @@
 import AuthenticationHandler from './AuthenticationHandler';
+import AuthorizeHandler from './AuthorizeHandler';
 
-export default AuthenticationHandler;
+export {
+  AuthenticationHandler,
+  AuthorizeHandler,
+};

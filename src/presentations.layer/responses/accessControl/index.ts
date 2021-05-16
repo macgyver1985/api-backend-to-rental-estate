@@ -1,3 +1,7 @@
+import IdentityModel from './IdentityModel';
 import TokenModel from './TokenModel';
 
-export default TokenModel;
+export {
+  TokenModel,
+  IdentityModel,
+};

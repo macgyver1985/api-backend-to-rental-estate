@@ -1,7 +1,7 @@
 import { JsonReadingRepository, UserRepository } from '@layer/adapters/repositories';
 import { IReadingRepository } from '@layer/adapters/repositories/interfaces';
 import { IUserRepository } from '@layer/application/interfaces/sockets/repositories';
-import AuthenticationHandler from '@layer/application/useCase-authentication/handlers';
+import { AuthenticationHandler } from '@layer/application/useCase-authentication/handlers';
 import { IAuthenticationHandler } from '@layer/application/useCase-authentication/interfaces';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';

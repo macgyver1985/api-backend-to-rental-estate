@@ -9,4 +9,6 @@ export default class GetPageType implements GetPage {
 
   @Field(() => Int, { nullable: false })
   public pageSize: number;
+
+  public identity: string;
 }

@@ -5,7 +5,7 @@ import { PagedDataVO } from '@layer/domain/common';
 import {
   AddressVO, GeoLocationVO, LocationVO, PricingInfosVO, RealEstateEntity,
 } from '@layer/domain/realEstate';
-import TokenModel from '../responses/accessControl';
+import { IdentityModel, TokenModel } from '../responses/accessControl';
 import PagedDataModel from '../responses/common';
 import {
   AddressModel, GeoLocationModel, LocationModel, PricingInfosModel, RealEstateModel,
@@ -97,5 +97,12 @@ autoMapper.createMap<TokenEntity, TokenModel>(
 )
   .forMember('authorization', (t) => t.authorization)
   .forMember('expiresIn', (t) => t.expiresIn);
+
+autoMapper.createMap<TokenEntity, IdentityModel>(
+  Symbol.for('TokenEntity'),
+  Symbol.for('IdentityModel'),
+)
+  .forMember('indentity', (t) => t.identity)
+  .forMember('userName', (t) => t.claims.userName);
 
 export default autoMapper;

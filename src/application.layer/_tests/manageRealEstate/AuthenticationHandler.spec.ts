@@ -1,6 +1,6 @@
 import { IUserRepository } from '@layer/application/interfaces/sockets/repositories';
 import { AuthenticationCommand } from '@layer/application/useCase-authentication';
-import AuthenticationHandler from '@layer/application/useCase-authentication/handlers';
+import { AuthenticationHandler } from '@layer/application/useCase-authentication/handlers';
 import { IAuthenticationHandler } from '@layer/application/useCase-authentication/interfaces';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
 import UserRepositoryMock from '../__manual-mock__/UserRepositoryMock';

@@ -43,13 +43,13 @@ export class AuthenticationCommand extends CommandHelper
           context: AuthenticationCommand.name,
           property: 'userName',
           message: validationMessageResources.USERNAME_REQUIRED,
-          value: data.userName?.toString(),
+          value: data.userName,
         })
         .required({
           context: AuthenticationCommand.name,
           property: 'password',
           message: validationMessageResources.PASSWORD_REQUIRED,
-          value: data.password?.toString(),
+          value: data.password,
         })
         .isValid((t) => t === AuthenticationCommand.name);
 

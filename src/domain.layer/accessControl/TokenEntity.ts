@@ -45,8 +45,10 @@ export default class TokenEntity implements ITokenEntity {
     this.#expiresDate = data.expiresDate;
     this.#createdDate = data.createdDate;
     this.#authorization = data.authorization;
-    this.#claims = data.claims;
     this.#contractValidator = contractValidator;
+    this.#claims = {};
+
+    Object.assign(data.claims, this.#claims);
   }
 
   public get identity(): string {
@@ -139,7 +141,6 @@ export default class TokenEntity implements ITokenEntity {
   public addClaim(props: { [prop: string]: string }): TokenEntity {
     const items = Object.entries(props)
       .filter((t) => this.#claims[t[0]] === undefined);
-    const newProps = {};
 
     items.forEach((t) => {
       this.#contractValidator
@@ -150,13 +151,11 @@ export default class TokenEntity implements ITokenEntity {
           value: t[1],
         });
 
-      newProps[t[0]] = t[1].toString();
+      this.#claims[t[0]] = t[1].toString();
     });
 
     this.#contractValidator
       .throwException('domain', (t) => t === TokenEntity.name);
-
-    Object.assign(newProps, this.#claims);
 
     return this;
   }

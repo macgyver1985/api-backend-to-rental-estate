@@ -35,7 +35,7 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
       const command = ObtainListOfRealEstateCommand.create({
         pageNumber: request.body.pageNumber,
         pageSize: request.body.pageSize,
-        partnerID: '4097a93d-dcf3-4e83-b3b8-729527fb2767',
+        partnerID: request.body.identity,
       }, this.#contractValidator);
 
       this.#contractValidator
