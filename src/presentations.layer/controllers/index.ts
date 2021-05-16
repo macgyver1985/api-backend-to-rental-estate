@@ -1,3 +1,7 @@
+import AuthenticationController from './AuthenticationController';
 import ObtainRealEstateController from './ObtainRealEstateController';
 
-export default ObtainRealEstateController;
+export {
+  ObtainRealEstateController,
+  AuthenticationController,
+};

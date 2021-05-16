@@ -1,6 +1,6 @@
 type GetAuthorization = {
-  login: number;
-  password: number;
+  userName: string;
+  password: string;
 };
 
 export default GetAuthorization;

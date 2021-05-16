@@ -1,6 +1,7 @@
 import { autoMapper } from '@layer/application/helper';
 import { IUserRepository, types as repositoriesTypes } from '@layer/application/interfaces/sockets/repositories';
 import UserDTO from '@layer/application/models/accessControl';
+import validationMessageResources from '@layer/application/resources';
 import { IContractValidator, types as fluentValidationTypes } from '@layer/crossCutting/fluentValidation/interfaces';
 import { TokenEntity, UserData, UserEntity } from '@layer/domain/accessControl';
 import { inject, injectable } from 'inversify';
@@ -15,7 +16,7 @@ export default class AuthenticationHandler implements IAuthenticationHandler {
   #userRepository: IUserRepository;
 
   public constructor(
-  @inject(repositoriesTypes.IPartnerRepository) userRepository: IUserRepository,
+  @inject(repositoriesTypes.IUserRepository) userRepository: IUserRepository,
     @inject(fluentValidationTypes.IContractValidator) contractValidator: IContractValidator,
   ) {
     this.#contractValidator = contractValidator;
@@ -28,7 +29,13 @@ export default class AuthenticationHandler implements IAuthenticationHandler {
         && t.password === command.password);
 
     if (!userRepo) {
-      return null;
+      this.#contractValidator
+        .addNotification({
+          context: AuthenticationHandler.name,
+          property: 'userName and password',
+          message: validationMessageResources.USER_NOT_FOUND,
+        })
+        .throwException('application');
     }
 
     const data = autoMapper.mapper<UserDTO, UserData>(
@@ -46,7 +53,8 @@ export default class AuthenticationHandler implements IAuthenticationHandler {
         userName: user.userName,
         userId: user.id,
       })
-      .setExpiresIn(60);
+      .setExpiresIn(60)
+      .authorizationBuilder('askldfsjflasd');
 
     return token;
   }

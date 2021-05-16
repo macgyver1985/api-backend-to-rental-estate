@@ -1,9 +1,11 @@
 import { AutoMapper } from '@layer/crossCutting/autoMapper';
 import { IAutoMapper } from '@layer/crossCutting/autoMapper/interfaces';
+import { TokenEntity } from '@layer/domain/accessControl';
 import { PagedDataVO } from '@layer/domain/common';
 import {
   AddressVO, GeoLocationVO, LocationVO, PricingInfosVO, RealEstateEntity,
 } from '@layer/domain/realEstate';
+import TokenModel from '../responses/accessControl';
 import PagedDataModel from '../responses/common';
 import {
   AddressModel, GeoLocationModel, LocationModel, PricingInfosModel, RealEstateModel,
@@ -88,5 +90,12 @@ autoMapper.createMap<LocationVO, LocationModel>(
 )
   .forMember('lat', (t) => t.lat)
   .forMember('lon', (t) => t.lon);
+
+autoMapper.createMap<TokenEntity, TokenModel>(
+  Symbol.for('TokenEntity'),
+  Symbol.for('TokenModel'),
+)
+  .forMember('authorization', (t) => t.authorization)
+  .forMember('expiresIn', (t) => t.expiresIn);
 
 export default autoMapper;

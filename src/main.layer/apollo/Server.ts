@@ -1,9 +1,11 @@
 import { ApolloServer } from 'apollo-server-express';
+import cookieParser from 'cookie-parser';
 import express, {
   json, NextFunction, Request, Response,
 } from 'express';
 import { buildSchema } from 'type-graphql';
-import RealEstateResolver from './resolvers/RealEstateResolver';
+import { authorizeMiddleware, errorMiddleware } from './middlewares';
+import { RealEstateResolver, TokenResolver } from './resolvers';
 
 export default class Server {
   #apolloServer: ApolloServer;
@@ -28,16 +30,30 @@ export default class Server {
       res.set('access-control-allow-methods', '*');
       next();
     });
+    this.#server.use(cookieParser());
   }
 
   public async start(port = 3333): Promise<void> {
     const schema = await buildSchema({
-      resolvers: [RealEstateResolver],
+      resolvers: [TokenResolver, RealEstateResolver],
       emitSchemaFile: true,
       validate: false,
+      authChecker: authorizeMiddleware,
+      authMode: 'error',
+      globalMiddlewares: [errorMiddleware],
     });
 
-    this.#apolloServer = new ApolloServer({ schema });
+    this.#apolloServer = new ApolloServer({
+      schema,
+      context: ({ req, res }) => {
+        const context = {
+          req,
+          res,
+        };
+
+        return context;
+      },
+    });
     this.#apolloServer.applyMiddleware({
       app: this.#server,
     });

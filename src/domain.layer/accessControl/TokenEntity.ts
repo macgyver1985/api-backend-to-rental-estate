@@ -1,13 +1,25 @@
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
+import { sign, verify } from 'jsonwebtoken';
 import validationMessageResources from '../resources';
+
+type Claims = { [prop: string]: string };
 
 interface ITokenEntity {
   identity: string;
   createdDate: Date;
   expiresDate: Date;
   expiresIn: number;
-  claims: { [prop: string]: string };
+  authorization: string;
+  claims: Claims;
 }
+
+type TokenLoad = {
+  identity: string;
+  createdDate: Date;
+  expiresDate: Date;
+  expiresIn: number;
+  claims: string;
+};
 
 export default class TokenEntity implements ITokenEntity {
   #identity: string;
@@ -18,16 +30,22 @@ export default class TokenEntity implements ITokenEntity {
 
   #expiresIn: number;
 
+  #authorization: string;
+
   #claims: { [prop: string]: string };
 
   #contractValidator: IContractValidator;
 
   private constructor(
-    identity: string,
+    data: ITokenEntity,
     contractValidator: IContractValidator,
   ) {
-    this.#identity = identity;
-    this.#createdDate = new Date();
+    this.#identity = data.identity;
+    this.#expiresIn = data.expiresIn;
+    this.#expiresDate = data.expiresDate;
+    this.#createdDate = data.createdDate;
+    this.#authorization = data.authorization;
+    this.#claims = data.claims;
     this.#contractValidator = contractValidator;
   }
 
@@ -45,6 +63,10 @@ export default class TokenEntity implements ITokenEntity {
 
   public get expiresIn(): number {
     return (this.#expiresIn / 60000);
+  }
+
+  public get authorization(): string {
+    return this.#authorization;
   }
 
   public get claims(): { [prop: string]: string; } {
@@ -65,16 +87,53 @@ export default class TokenEntity implements ITokenEntity {
         property: 'identity',
         message: validationMessageResources.IDENTITY_REQUIRED,
         value: identity,
-      }).isValid((t) => t === TokenEntity.name);
+      })
+      .isValid((t) => t === TokenEntity.name);
 
     if (!isValid) {
       return null;
     }
 
-    return new TokenEntity(
+    return new TokenEntity({
       identity,
-      contractValidator,
-    );
+      createdDate: new Date(),
+      authorization: null,
+      expiresDate: null,
+      claims: {},
+      expiresIn: null,
+    }, contractValidator);
+  }
+
+  public static validate(
+    authorization: string,
+    secretKey: string,
+    contractValidator: IContractValidator,
+  ): TokenEntity {
+    let data: TokenLoad = null;
+
+    try {
+      data = verify(authorization, secretKey) as TokenLoad;
+    } catch (err) {
+      contractValidator
+        .addNotification({
+          context: TokenEntity.name,
+          property: 'authorization',
+          message: validationMessageResources.AUTHORIZATION_INVALID,
+        });
+    }
+
+    contractValidator
+      .throwException('domain', (t) => t === TokenEntity.name);
+
+    return new TokenEntity({
+      authorization,
+      claims: <Claims>JSON.parse(data.claims),
+      createdDate: data.createdDate,
+      expiresDate: data.expiresDate,
+      expiresIn: data.expiresIn,
+      identity: data.identity,
+    },
+    contractValidator);
   }
 
   public addClaim(props: { [prop: string]: string }): TokenEntity {
@@ -123,6 +182,37 @@ export default class TokenEntity implements ITokenEntity {
     this.#expiresDate = new Date(
       this.#createdDate.getTime() + this.#expiresIn,
     );
+
+    return this;
+  }
+
+  public authorizationBuilder(secretKey: string): TokenEntity {
+    this.#contractValidator
+      .required({
+        context: TokenEntity.name,
+        property: 'expiresIn',
+        message: validationMessageResources.EXPIRES_IN_REQUIRED,
+        value: this.#expiresIn?.toString(),
+      })
+      .required({
+        context: TokenEntity.name,
+        property: 'secretKey',
+        message: validationMessageResources.SECRET_REQUIRED,
+        value: secretKey,
+      })
+      .throwException('domain', (t) => t === TokenEntity.name);
+
+    const load: TokenLoad = {
+      claims: JSON.stringify(this.#claims),
+      createdDate: this.#createdDate,
+      expiresDate: this.#expiresDate,
+      expiresIn: this.#expiresIn,
+      identity: this.#identity,
+    };
+
+    this.#authorization = sign(load, secretKey, {
+      expiresIn: `${this.expiresIn}min`,
+    });
 
     return this;
   }

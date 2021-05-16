@@ -10,7 +10,7 @@ import { ICompatibilityFactory, IObtainListOfRealEstateHandler } from '@layer/ap
 import CompatibilityFactory from '@layer/application/useCase-manageRealEstate/support';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
-import ObtainRealEstateController from '@layer/presentations/controllers';
+import { ObtainRealEstateController } from '@layer/presentations/controllers';
 import { IObtainRealEstateController } from '@layer/presentations/interfaces/controllers';
 
 describe('Test ObtainRealEstateController', () => {

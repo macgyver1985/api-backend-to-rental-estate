@@ -82,9 +82,9 @@ autoMapper.createMap<UserDTO, UserData>(
   Symbol.for('UserDTO'),
   Symbol.for('UserData'),
 )
-  .forMember('id', (t) => t.id)
-  .forMember('partnerId', (t) => t.partnerId)
-  .forMember('password', (t) => t.password)
-  .forMember('userName', (t) => t.userName);
+  .forMember('id', (t) => t?.id)
+  .forMember('partnerId', (t) => t?.partnerId)
+  .forMember('password', (t) => t?.password)
+  .forMember('userName', (t) => t?.userName);
 
 export default autoMapper;

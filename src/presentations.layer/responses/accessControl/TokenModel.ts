@@ -1,6 +1,6 @@
 type TokenModel = {
-  authorization: string,
-  expiresIn: string
+  authorization?: string,
+  expiresIn?: number
 };
 
 export default TokenModel;

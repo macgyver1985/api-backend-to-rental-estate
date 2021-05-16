@@ -13,7 +13,7 @@ export default class PartnerRepository implements IPartnerRepository {
   public constructor(
   @inject(baseRepositories.IReadingRepository) readingRepository: IReadingRepository,
   ) {
-    this.#TABLE = 'tb_partner';
+    this.#TABLE = 'tb_partners';
     this.#readingRepository = readingRepository;
   }
 

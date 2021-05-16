@@ -16,6 +16,11 @@ type GeoLocationType {
   precision: String
 }
 
+input GetAuthorizationType {
+  password: String!
+  userName: String!
+}
+
 input GetPageType {
   pageNumber: Int!
   pageSize: Int!
@@ -27,6 +32,10 @@ Modelo de dados que representa a latitude e longitude de uma localização.
 type LocationType {
   lat: Float
   lon: Float
+}
+
+type Mutation {
+  GetAuthorization(command: GetAuthorizationType!): TokenType
 }
 
 """Modelo de dados que contem os imóveis paginados."""
@@ -67,4 +76,10 @@ type RealEstateType {
   pricingInfos: PricingInfosType
   updatedAt: String
   usableAreas: Int
+}
+
+"""Modelo que representa a autorização de acesso."""
+type TokenType {
+  authorization: String
+  expiresIn: Int
 }

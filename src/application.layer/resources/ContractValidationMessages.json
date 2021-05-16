@@ -6,5 +6,6 @@
     "PERTNER_ID_REQUIRED": "A identificação do parceiro deve ser informada.",
     "PARTNER_ID_INVALID": "A identificação do parceiro deve ser uma chave válida.",
     "USERNAME_REQUIRED": "O nome de usuário deve ser informado.",
-    "PASSWORD_REQUIRED": "A senha de usuário deve ser informada."
+    "PASSWORD_REQUIRED": "A senha de usuário deve ser informada.",
+    "USER_NOT_FOUND": "Usuário não encontrado."
 }

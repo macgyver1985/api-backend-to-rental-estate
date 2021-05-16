@@ -57,6 +57,16 @@ export default class ContractValidator implements IContractValidator {
     return value?.trim().length > 0;
   }
 
+  public addNotification(data: INotification): IContractValidator {
+    this.#notifications.push({
+      context: data.context,
+      property: data.property,
+      message: data.message,
+    });
+
+    return this;
+  }
+
   public required(config: {
     context: string;
     property: string;

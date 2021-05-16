@@ -13,6 +13,8 @@ export default interface IContractValidator {
 
   throwException(layer: string, context?: (ctx: string) => boolean): void;
 
+  addNotification(data: INotification): IContractValidator;
+
   required(config: {
     context: string;
     property: string;
