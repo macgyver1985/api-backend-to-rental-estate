@@ -75,6 +75,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 - Controle de acesso por meio de Token JWT.
 - GraphQL para dar autonomia ao consumidor de quais dados deseja receber.
 - Apollo Server e Express para construção da camada de APIs.
+- Jest para testes e relatório de cobertura.
 
 ## Detalhamento da Solução
 
@@ -144,6 +145,14 @@ $ npm run build
 ```
 
 #### Iniciando
+
+```bash
+$ npm start
+```
+
+## Execução dos Testes
+
+Este comando irá executar os teste e disponibulizar o relatório de cobertura na pasta **coverage**.
 
 ```bash
 $ npm start
