@@ -38,6 +38,7 @@ describe('Test ObtainRealEstateController', () => {
         body: {
           pageNumber: 1,
           pageSize: 1,
+          identity: '4097a93d-dcf3-4e83-b3b8-729527fb2767',
         },
       });
 

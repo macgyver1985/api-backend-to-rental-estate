@@ -7,6 +7,7 @@ import { ContractValidator } from '@layer/crossCutting/fluentValidation';
 import { IContractValidator } from '@layer/crossCutting/fluentValidation/interfaces';
 import { AuthenticationController } from '@layer/presentations/controllers';
 import { IAuthenticationController } from '@layer/presentations/interfaces/controllers';
+import { TokenModel } from '@layer/presentations/responses/accessControl';
 
 describe('Test AuthenticationController', () => {
   const readingRepository: IReadingRepository = new JsonReadingRepository();
@@ -33,7 +34,7 @@ describe('Test AuthenticationController', () => {
     expect(result).not.toBeNull();
     expect(result.statusCode).toEqual(200);
     expect(result.data).not.toBeNull();
-    expect(result.data.authorization).not.toBeNull();
-    expect(result.data.expiresIn).toEqual('60min');
+    expect((result.data as TokenModel).authorization).not.toBeNull();
+    expect((result.data as TokenModel).expiresIn).toEqual(60);
   });
 });

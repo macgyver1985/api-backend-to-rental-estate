@@ -28,7 +28,7 @@ export default class AuthorizeController implements IAuthorizeController {
 
   public async handle(
     request: IHttpRequest<BearerToken>,
-  ): Promise<IHttpResponse<IdentityModel>> {
+  ): Promise<IHttpResponse<IdentityModel | Error>> {
     try {
       const command = AuthorizeCommand.create({
         authorization: request.body.authorization,
@@ -49,7 +49,7 @@ export default class AuthorizeController implements IAuthorizeController {
       return ok(result);
     } catch (err) {
       if (err instanceof ContractValidatorException) {
-        return badRequest<any>(err);
+        return badRequest<ContractValidatorException>(err);
       }
 
       return internalServerError(err);

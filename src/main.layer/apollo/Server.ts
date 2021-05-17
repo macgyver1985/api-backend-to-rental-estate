@@ -1,10 +1,10 @@
 import { ApolloServer } from 'apollo-server-express';
 import cookieParser from 'cookie-parser';
 import express, {
-  json, NextFunction, Request, Response,
+  json, NextFunction, Request, Response
 } from 'express';
 import { buildSchema } from 'type-graphql';
-import { authorizeMiddleware, errorMiddleware } from './middlewares';
+import { authorizeMiddleware } from './middlewares';
 import { RealEstateResolver, TokenResolver } from './resolvers';
 
 export default class Server {
@@ -40,7 +40,6 @@ export default class Server {
       validate: false,
       authChecker: authorizeMiddleware,
       authMode: 'error',
-      globalMiddlewares: [errorMiddleware],
     });
 
     this.#apolloServer = new ApolloServer({

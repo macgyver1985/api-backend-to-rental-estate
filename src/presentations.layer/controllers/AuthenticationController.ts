@@ -28,7 +28,7 @@ export default class AuthenticationController implements IAuthenticationControll
 
   public async handle(
     request: IHttpRequest<GetAuthorization>,
-  ): Promise<IHttpResponse<TokenModel>> {
+  ): Promise<IHttpResponse<TokenModel | Error>> {
     try {
       const command = AuthenticationCommand.create({
         userName: request.body.userName,
@@ -50,7 +50,7 @@ export default class AuthenticationController implements IAuthenticationControll
       return ok(result);
     } catch (err) {
       if (err instanceof ContractValidatorException) {
-        return badRequest<any>(err);
+        return badRequest<ContractValidatorException>(err);
       }
 
       return internalServerError(err);

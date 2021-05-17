@@ -30,7 +30,7 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
 
   public async handle(
     request: IHttpRequest<GetPage>,
-  ): Promise<IHttpResponse<PagedDataModel<RealEstateModel>>> {
+  ): Promise<IHttpResponse<PagedDataModel<RealEstateModel> | Error>> {
     try {
       const command = ObtainListOfRealEstateCommand.create({
         pageNumber: request.body.pageNumber,
@@ -53,7 +53,7 @@ export default class ObtainRealEstateController implements IObtainRealEstateCont
       return ok(result);
     } catch (err) {
       if (err instanceof ContractValidatorException) {
-        return badRequest<any>(err);
+        return badRequest<ContractValidatorException>(err);
       }
 
       return internalServerError(err);

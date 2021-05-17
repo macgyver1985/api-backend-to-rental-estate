@@ -35,6 +35,6 @@ export default class TokenResolver {
       }));
     }
 
-    return result.data;
+    return result.data as TokenType;
   }
 }

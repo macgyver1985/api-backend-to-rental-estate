@@ -1,30 +1,25 @@
 import container from '@layer/main/IoC';
-import { IAuthorizeController, IObtainRealEstateController, types as controllerTypes } from '@layer/presentations/interfaces/controllers';
+import { IObtainRealEstateController, types as controllerTypes } from '@layer/presentations/interfaces/controllers';
 import EHttpStatusCode from '@layer/presentations/resources';
-import { Request } from 'express';
 import 'reflect-metadata';
 import {
-  Arg, Authorized, Ctx, Info, Query, Resolver,
+  Arg, Authorized, Ctx, Query, Resolver,
 } from 'type-graphql';
 import GetPageType from '../typeDefs/request/common';
 import PagedRealEstateType from '../typeDefs/response/paged';
 import { RealEstateType } from '../typeDefs/response/realEstate';
 
 type Context = {
-  req: Request
+  identity: string
 };
 
 @Resolver(RealEstateType)
 export default class RealEstateResolver {
   #obtainRealEstateController: IObtainRealEstateController;
 
-  #authorizeController: IAuthorizeController;
-
   public constructor() {
     this.#obtainRealEstateController = container
       .get<IObtainRealEstateController>(controllerTypes.IObtainRealEstateController);
-    this.#authorizeController = container
-      .get<IAuthorizeController>(controllerTypes.IAuthorizeController);
   }
 
   @Authorized()
@@ -33,22 +28,13 @@ export default class RealEstateResolver {
     @Arg('command') command: GetPageType,
       @Ctx() context: Context,
   ): Promise<PagedRealEstateType> {
-    const { req } = context;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const auth = <string>req.cookies.authorization
-      ?? req.header('authorization');
-
-    const iden = await this.#authorizeController.handle({
-      body: {
-        authorization: auth,
-      },
-    });
-
-    command.identity = iden.data.indentity;
-
+    const { identity } = context;
     const result = await this.#obtainRealEstateController
       .handle({
-        body: command,
+        body: {
+          ...command,
+          identity,
+        },
       });
 
     if (result.statusCode !== EHttpStatusCode.OK) {
@@ -58,6 +44,6 @@ export default class RealEstateResolver {
       }));
     }
 
-    return result.data;
+    return result.data as PagedRealEstateType;
   }
 }
