@@ -97,7 +97,7 @@ Visando atender de uma melhor forma os aspectos de "organização, manutenibilid
        	|── presentations.layer		# Controllers para fazer abstração ao framework de APIs
 		└── _tests		# Testes unitários integrados
        	├── main.layer			# Configurações de IoC, framework de APIs e startup da aplicação
-		└── settings.layer	# Configurações para os ambientes (local, test, develop, production)
+	└── settings.layer		# Configurações para os ambientes (local, test, develop, production)
 ```
 
 ### Pastas X Clean Architecture
