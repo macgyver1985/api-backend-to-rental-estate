@@ -85,19 +85,19 @@ Visando atender de uma melhor forma os aspectos de "organização, manutenibilid
 ### Estrutura das Pastas
 
 ```
-	├── src                    		# Código Fonte
-		|── crossCutting.layer		# Bibliotecas e recursos que são usados por todas as camadas da aplicação
-			└── _tests		# Testes unitários isolados usando MOCKs para integrações
-       	|── domain.layer			# Entidades do domínio do negócio
-		└── _tests			# Testes unitários isolados usando MOCKs para integrações
-       	|── application.layer			# Contém a implementação dos casos de uso e fornece os sockets aos adaptadores
-		└── _tests			# Testes unitários isolados usando MOCKs para integrações
-	|── adapters.layer			# Implementação dos sockets demandados pela camada de application
-		└── _tests			# Testes unitários isolados usando MOCKs para integrações
-       	|── presentations.layer			# Controllers para fazer abstração ao framework de APIs
-		└── _tests			# Testes unitários integrados
-       	├── main.layer				# Configurações de IoC, framework de APIs e startup da aplicação
-		└── settings.layer		# Configurações para os ambientes (local, test, develop, production)
+	├── src                    	# Código Fonte
+	|── crossCutting.layer		# Bibliotecas e recursos que são usados por todas as camadas da aplicação
+		└── _tests		# Testes unitários isolados usando MOCKs para integrações
+       	|── domain.layer		# Entidades do domínio do negócio
+		└── _tests		# Testes unitários isolados usando MOCKs para integrações
+       	|── application.layer		# Contém a implementação dos casos de uso e fornece os sockets aos adaptadores
+		└── _tests		# Testes unitários isolados usando MOCKs para integrações
+	|── adapters.layer		# Implementação dos sockets demandados pela camada de application
+		└── _tests		# Testes unitários isolados usando MOCKs para integrações
+       	|── presentations.layer		# Controllers para fazer abstração ao framework de APIs
+		└── _tests		# Testes unitários integrados
+       	├── main.layer			# Configurações de IoC, framework de APIs e startup da aplicação
+		└── settings.layer	# Configurações para os ambientes (local, test, develop, production)
 ```
 
 ### Pastas X Clean Architecture
