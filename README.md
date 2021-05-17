@@ -79,5 +79,71 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 ## Detalhamento da Solução
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
-<br />
 <img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/CleanArchitecture.png" alt="Clean Architecture" width="600">
+
+### Estrutura das Pastas
+
+```
+    ├── src                    		# Código Fonte
+		|── crossCutting.layer		# Bibliotecas e recursos que são usados por todas as camadas da aplicação
+		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
+       	|── domain.layer			# Entidades do domínio do negócio
+		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
+       	|── application.layer		# Contém a implementação dos casos de uso e fornece os sockets aos adaptadores
+		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
+		|── adapters.layer			# Implementação dos sockets demandados pela camada de application
+		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
+       	|── presentations.layer		# Controllers para fazer abstração ao framework de APIs
+		   	└── _tests				# Testes unitários integrados
+       	├── main.layer				# Configurações de IoC, framework de APIs e startup da aplicação
+		└── settings.layer			# Configurações para os ambientes (local, test, develop, production)
+```
+
+### Pastas X Clean Architecture
+
+Abaixo tabela que mostra a qual camada da arquitetura que cada pasta pertence:
+
+| Pasta | Camada |
+| ------ | ------ |
+| crossCutting.layer | Transversal |
+| domain.layer | Enterprise Business Rule |
+| application.layer | Application Business Rule |
+| adapters.layer | Interface Adapters |
+| presentations.layer | Interface Adapters |
+| main.layer | Frameworks & Drivers |
+| settings.layer | Transversal |
+
+## Configurando Ambiente Local
+
+#### Pré-requisitos
+
+Para que a aplicação seja executada corretamente deve ser instalado os recursos abaixo:
+
+- NodeJS
+- NPM
+
+#### Repositório
+```bash
+$ git clone https://github.com/macgyver1985/eng-zap-challenge-typescript.git
+$ cd eng-zap-challenge-typescript
+```
+
+#### Dependencias
+
+```bash
+$ npm install
+```
+
+#### Transpilando
+
+Este comando irá converter o código de **typescript** para **javascript** e salvar na pasta **dist**.
+ 
+```bash
+$ npm run build
+```
+
+#### Iniciando
+
+```bash
+$ npm start
+```
