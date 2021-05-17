@@ -79,24 +79,25 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 ## Detalhamento da Solução
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
+
 <img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/CleanArchitecture.png" alt="Clean Architecture" width="600">
 
 ### Estrutura das Pastas
 
 ```
-    ├── src                    		# Código Fonte
+	├── src                    		# Código Fonte
 		|── crossCutting.layer		# Bibliotecas e recursos que são usados por todas as camadas da aplicação
-		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
+			└── _tests		# Testes unitários isolados usando MOCKs para integrações
        	|── domain.layer			# Entidades do domínio do negócio
-		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
-       	|── application.layer		# Contém a implementação dos casos de uso e fornece os sockets aos adaptadores
-		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
-		|── adapters.layer			# Implementação dos sockets demandados pela camada de application
-		   	└── _tests				# Testes unitários isolados usando MOCKs para integrações
-       	|── presentations.layer		# Controllers para fazer abstração ao framework de APIs
-		   	└── _tests				# Testes unitários integrados
+		└── _tests			# Testes unitários isolados usando MOCKs para integrações
+       	|── application.layer			# Contém a implementação dos casos de uso e fornece os sockets aos adaptadores
+		└── _tests			# Testes unitários isolados usando MOCKs para integrações
+	|── adapters.layer			# Implementação dos sockets demandados pela camada de application
+		└── _tests			# Testes unitários isolados usando MOCKs para integrações
+       	|── presentations.layer			# Controllers para fazer abstração ao framework de APIs
+		└── _tests			# Testes unitários integrados
        	├── main.layer				# Configurações de IoC, framework de APIs e startup da aplicação
-		└── settings.layer			# Configurações para os ambientes (local, test, develop, production)
+		└── settings.layer		# Configurações para os ambientes (local, test, develop, production)
 ```
 
 ### Pastas X Clean Architecture
