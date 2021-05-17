@@ -61,9 +61,23 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 
 ## Propósta Técnica
 
+### Arquitetura
+
+- Clean Architecture.
+- Paradigma Orientado a Objetos.
+- Dependency Injection.
+- SOLID
+- Design Patterns GoF
+
 ### Técnologias
 
 - Liguagem de programação NodeJS com TypeScript.
 - Controle de acesso por meio de Token JWT.
 - GraphQL para dar autonomia ao consumidor de quais dados deseja receber.
 - Apollo Server e Express para construção da camada de APIs.
+
+## Detalhamento da Solução
+
+Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
+<br />
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/docs/CleanArchitecture.png" alt="Clean Architecture" width="200">
