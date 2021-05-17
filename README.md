@@ -80,4 +80,4 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
 <br />
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/CleanArchitecture.png" alt="Clean Architecture" width="200">
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/CleanArchitecture.png" alt="Clean Architecture" width="600">
