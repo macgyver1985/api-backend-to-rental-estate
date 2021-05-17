@@ -13,12 +13,11 @@ const authorizationMiddleware: MiddlewareFn = async ({ context }, next): Promise
   const result = <TokenType>(await next());
 
   res.cookie('authorization', result.authorization, {
-    expires: new Date((new Date()).getTime() + 10000),
+    expires: new Date((new Date()).getTime() + (result.expiresIn * 60000)),
     path: '/',
     domain: 'localhost',
     httpOnly: false,
     secure: false,
-    sameSite: 'strict',
   });
 
   return result;

@@ -2,13 +2,15 @@ import { ICache, types as cacheTypes } from '@layer/application/interfaces/socke
 import { IServiceToObtainRealEstate } from '@layer/application/interfaces/sockets/services';
 import ResultOnDemandDTO from '@layer/application/models/common';
 import { RealEstateDTO } from '@layer/application/models/realEstate';
+import { IAppSettings, types as settingsTypes } from '@layer/crossCutting/appSettings/interfaces';
+import ISettings from '@layer/settings/interfaces';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import 'reflect-metadata';
 
 @injectable()
 class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
-  #urlService = 'http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json';
+  #urlService: string;
 
   #buffer: Buffer;
 
@@ -17,8 +19,11 @@ class ServiceToObtainRealEstate implements IServiceToObtainRealEstate {
   #cache: ICache;
 
   public constructor(
-  @inject(cacheTypes.ICache) cache: ICache,
+  @inject(settingsTypes.IAppSettings) settings: IAppSettings<ISettings>,
+    @inject(cacheTypes.ICache) cache: ICache,
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    this.#urlService = settings.configs()?.adapters.services.obtainRealEstate.endpoint;
     this.#cache = cache;
     this.#indexer = [];
   }

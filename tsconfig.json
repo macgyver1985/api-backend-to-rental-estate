@@ -15,6 +15,9 @@
       "@layer/crossCutting/*": [
         "./src/crossCutting.layer/*"
       ],
+      "@layer/settings/*": [
+        "./src/settings.layer/*"
+      ],
       "@layer/domain/*": [
         "./src/domain.layer/*"
       ],

@@ -6,6 +6,8 @@ import { IContractValidator, types as fluentValidationTypes } from '@layer/cross
 import { TokenEntity, UserData, UserEntity } from '@layer/domain/accessControl';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
+import { IAppSettings, types as settingsTypes } from '@layer/crossCutting/appSettings/interfaces';
+import ISettings from '@layer/settings/interfaces';
 import { AuthenticationCommand } from '..';
 import { IAuthenticationHandler } from '../interfaces';
 
@@ -15,10 +17,19 @@ export default class AuthenticationHandler implements IAuthenticationHandler {
 
   #userRepository: IUserRepository;
 
+  #secretKey: string;
+
+  #expiresIn: number;
+
   public constructor(
-  @inject(repositoriesTypes.IUserRepository) userRepository: IUserRepository,
+  @inject(settingsTypes.IAppSettings) settings: IAppSettings<ISettings>,
+    @inject(repositoriesTypes.IUserRepository) userRepository: IUserRepository,
     @inject(fluentValidationTypes.IContractValidator) contractValidator: IContractValidator,
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    this.#secretKey = settings.configs().application.useCase.authentication.secretkey;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    this.#expiresIn = settings.configs().application.useCase.authentication.expiresIn;
     this.#contractValidator = contractValidator;
     this.#userRepository = userRepository;
   }
@@ -53,8 +64,8 @@ export default class AuthenticationHandler implements IAuthenticationHandler {
         userName: user.userName,
         userId: user.id,
       })
-      .setExpiresIn(60)
-      .authorizationBuilder('askldfsjflasd');
+      .setExpiresIn(this.#expiresIn)
+      .authorizationBuilder(this.#secretKey);
 
     return token;
   }

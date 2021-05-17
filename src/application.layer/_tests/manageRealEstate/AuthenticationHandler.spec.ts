@@ -2,13 +2,17 @@ import { IUserRepository } from '@layer/application/interfaces/sockets/repositor
 import { AuthenticationCommand } from '@layer/application/useCase-authentication';
 import { AuthenticationHandler } from '@layer/application/useCase-authentication/handlers';
 import { IAuthenticationHandler } from '@layer/application/useCase-authentication/interfaces';
+import AppSettings from '@layer/crossCutting/appSettings';
 import { ContractValidator } from '@layer/crossCutting/fluentValidation';
+import ISettings from '@layer/settings/interfaces';
 import UserRepositoryMock from '../__manual-mock__/UserRepositoryMock';
 
 describe('Test AuthenticationHandler', () => {
+  const settings = AppSettings.create<ISettings>(`${__dirname}/../../../settings.layer`);
   const userRepository: IUserRepository = UserRepositoryMock();
   const contractValidator = new ContractValidator();
   const handler: IAuthenticationHandler = new AuthenticationHandler(
+    settings,
     userRepository,
     contractValidator,
   );
