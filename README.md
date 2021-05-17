@@ -48,7 +48,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 	- http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json
 	- http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2
 - O metadados de resposta deve conter os campos abaixo:
-```json
+```
 {
 	pageNumber: int32,
 	pageSize: int32,
