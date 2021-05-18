@@ -115,6 +115,18 @@ Abaixo tabela que mostra a qual camada da arquitetura que cada pasta pertence:
 | main.layer | Frameworks & Drivers |
 | settings.layer | Transversal |
 
+### Metadados de Resposta
+
+Abaixo tabela com os atributos do metadados e qual o dados que é apresentado em cada um:
+
+| Atributo | Descrição |
+| ------ | ------ |
+| pageNumber | Número da página atual |
+| pageSize | Quantidade de registros por página |
+| totalPages | Total de páginas existentes |
+| totalCount | Quantidade total de registros |
+| listings | Lista dos imoveis da pagina atual |
+
 # Configurando Ambientes
 
 ## Pré-requisitos
@@ -303,3 +315,4 @@ query {
 ```
 
 <img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">
+
