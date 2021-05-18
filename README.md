@@ -217,6 +217,10 @@ Para ter acesso aos imóveis disponíveis a cada portal basta gerar o token JWT 
 
 ### Apollo Playground
 
+Excelente forma de efetuar requisições à API pois já fornece toda a documentação dos "SCHEMAS" e ajuda muito na construção das chamadas do tipo "Mutation ou Query".
+
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/apollo-playground-example.jpg" alt="Apollo Playground" width="800">
+
 ##### Obter Token JWT
 
 - Acesso a url http://localhost:3333/graphql
@@ -236,4 +240,66 @@ mutation{
 }
 ```
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de Token JWT" width="800">
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/get-token-example.jpg" alt="Exemplo de Token JWT" width="800">
+
+##### Obter Lista de Imoveis
+
+- Acesso a url http://localhost:3333/graphql
+- Execute a query obtainRealEstate informando quais campos deseja receber
+
+```
+query {
+  obtainRealEstate(
+    command:{
+      pageNumber: 1,
+      pageSize: 10
+    }) {
+    pageNumber
+    pageSize
+    totalPages
+    totalCount
+    listings {
+      id
+      usableAreas
+      bathrooms
+      bedrooms
+      createdAt
+      updatedAt
+      listingType
+      listingStatus
+      parkingSpaces
+      owner
+      images
+      address {
+        city
+        neighborhood
+        geoLocation{
+          precision
+          location{
+            lon
+            lat
+          }
+        }
+      }
+      pricingInfos {
+        businessType
+        price
+        period
+        yearlyIptu
+        monthlyCondoFee
+        rentalTotalPrice
+      }
+    }
+  }
+}
+```
+
+- Configura o token em HTTP HEADERS incluindo o parâmetro "authorization"
+
+```
+{
+  "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOiJ7XCJ1c2VyTmFtZVwiOlwidml2YXJlYWx1c2VyXCIsXCJ1c2VySWRcIjpcIjI3OTQ5OGM5LTFmYTctNDY5Zi1iNmQ2LWIyYjYwMDY1NDI1NlwifSIsImNyZWF0ZWREYXRlIjoiMjAyMS0wNS0xOFQwNTowNDo0NS42ODRaIiwiZXhwaXJlc0RhdGUiOiIyMDIxLTA1LTE4VDA2OjA0OjQ1LjY4NFoiLCJleHBpcmVzSW4iOjM2MDAwMDAsImlkZW50aXR5IjoiMTQyY2UxZGQtNjRkYS00MGFiLTk0NTgtMGMzZjg4YTVmYTZhIiwiaWF0IjoxNjIxMzE0Mjg1LCJleHAiOjE2MjEzMTc4ODV9.-G_ShzMbwYN5kZgJWoDdc92kIxXuvmJ2ajf93D479QU"
+}
+```
+
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">

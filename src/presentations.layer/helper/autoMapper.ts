@@ -59,7 +59,9 @@ autoMapper.createMap<PricingInfosVO, PricingInfosModel>(
   .forMember('businessType', (t) => t.businessType)
   .forMember('monthlyCondoFee', (t) => t.monthlyCondoFee)
   .forMember('price', (t) => t.price)
-  .forMember('yearlyIptu', (t) => t.yearlyIptu);
+  .forMember('yearlyIptu', (t) => t.yearlyIptu)
+  .forMember('period', (t) => t.period)
+  .forMember('rentalTotalPrice', (t) => t.rentalTotalPrice);
 
 autoMapper.createMap<AddressVO, AddressModel>(
   Symbol.for('AddressVO'),

@@ -43,10 +43,26 @@ autoMapper.createMap<PricingInfosDTO, PricingInfosData>(
 )
   .forMember('period', (t) => t.period ?? null)
   .forMember('businessType', (t) => EBusinessType[t.businessType.toLowerCase()])
-  .forMember('monthlyCondoFee', (t) => Number(t.monthlyCondoFee))
+  .forMember('monthlyCondoFee', (t) => {
+    const v = Number(t.monthlyCondoFee);
+
+    if (Number.isNaN(v)) {
+      return null;
+    }
+
+    return v;
+  })
   .forMember('price', (t) => Number(t.price))
-  .forMember('yearlyIptu', (t) => Number(t.yearlyIptu))
-  .forMember('rentalTotalPrice', (t) => (t.rentalTotalPrice ? Number(t.rentalTotalPrice) : null));
+  .forMember('yearlyIptu', (t) => {
+    const v = Number(t.yearlyIptu);
+
+    if (Number.isNaN(v)) {
+      return null;
+    }
+
+    return v;
+  })
+  .forMember('rentalTotalPrice', (t) => (t.rentalTotalPrice ? Number(t.rentalTotalPrice) : 0));
 
 autoMapper.createMap<AddressDTO, AddressData>(
   Symbol.for('AddressDTO'),
