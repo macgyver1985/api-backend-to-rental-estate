@@ -26,7 +26,7 @@ const authorizeMiddleware: AuthChecker = async ({ context }): Promise<boolean> =
 
     const response = await controller.handle({
       body: {
-        authorization: auth,
+        authorization: auth.replace(/^(bearer )?/gmi, ''),
       },
     });
 

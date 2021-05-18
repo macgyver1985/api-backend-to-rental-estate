@@ -23,10 +23,10 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 - O metro quadrado "usableAreas" deve ser maior do que 0.
 - O preço do metro quadrado deve ser maior que R$ 3.500,00.
 - Caso o imóvel esteja dentro do "bounding box" abaixo, o valor mínimo passa a ser R$ 540.000,00.
-	minlon: -46.693419.
-	minlat -23.568704.
-	maxlon: -46.641146.
-	maxlat: -23.546686.
+	- minlon: -46.693419.
+	- minlat -23.568704.
+	- maxlon: -46.641146.
+	- maxlat: -23.546686.
 
 ##### Regras Potal Viva Real:
 
@@ -166,7 +166,7 @@ $ npm run dev
 
 Em seguida é só colocar o break point nos pontos que deseja debugar, veja exemplo abaixo:
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="600">
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="800">
 
 #### Execução dos Testes
 
@@ -195,3 +195,45 @@ $ docker run -d -e NODE_ENV=production -p 3333:3333 macgyver1985/engzap
 ```
 
 > Será executada no endereço http://localhost:3333/graphql
+
+# Executando Aplicação
+
+As opções descritas abaixo servem para instânicas da aplicação em ambiente local ou container.
+
+### Usuários
+
+Foram configurados dois usuários, onde uma está atralado ao Portal ZAP e o outro ao Viva Real.
+Para ter acesso aos imóveis disponíveis a cada portal basta gerar o token JWT com os respectivos usuários.
+
+###### Viva Real
+
+- Username: **vivarealuser**
+- Password: **vivarealpwd**
+
+###### Portal ZAP
+
+- Username: **zapuser**
+- Password: **zappwd**
+
+### Apollo Playground
+
+##### Obter Token JWT
+
+- Acesso a url http://localhost:3333/graphql
+- Execute a mutation GetAuthorization
+
+```
+mutation{
+  GetAuthorization (
+    command: {
+      userName: "zapuser"
+      password: "zappwd"
+    }
+  ) {
+    authorization,
+    expiresIn
+  }
+}
+```
+
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de Token JWT" width="800">
