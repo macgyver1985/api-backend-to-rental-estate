@@ -190,7 +190,17 @@ $ npm test
 
 ## Publicando em Docker
 
-A aplicação está preparada para ser executada em um container, para isso basta executar o comando:
+A aplicação está preparada para ser executada em container.
+
+Caso o ***npm run publish*** já tenha sido executado, execute os comandos abaixo:
+
+```bash
+$ docker stop -t 0 macgyver_application
+$ docker rm macgyver_application
+$ docker rmi macgyver1985/engzap
+```
+
+Para publicar no container execute o comando abaixo:
 
 ```bash
 $ npm run publish
