@@ -52,6 +52,8 @@ export default class Server {
 
         return context;
       },
+      playground: true,
+      introspection: true,
     });
     this.#apolloServer.applyMiddleware({
       app: this.#server,

@@ -12,7 +12,10 @@
     "build": "npm run clean-dist && tsc --project tsconfig.json && npm run copy-files && npm run tsc-paths && npm run clean-tests",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main.layer/startup.ts",
     "start": "node dist/main.layer/startup.js && npm run copy-file-gql",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --no-cache --detectOpenHandles",
+    "docker-build": "npm run build && docker build -f Dockerfile -t macgyver1985/engzap .",
+    "docker-start": "docker run --name macgyver_application -d -e NODE_ENV=production -p 3333:3333 macgyver1985/engzap",
+    "publish": "npm run docker-build && npm run docker-start"
   },
   "repository": {
     "type": "git",

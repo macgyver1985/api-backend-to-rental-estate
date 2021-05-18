@@ -1,0 +1,14 @@
+cache/
+coverage/
+docs/
+node_modules/
+src/
+.dockerignore
+.eslintignore
+.eslintrc.js
+.gitignore
+dockerfile
+jest.config.ts
+package-lock.json
+README.md
+tsconfig.json
