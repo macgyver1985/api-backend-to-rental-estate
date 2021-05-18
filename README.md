@@ -81,7 +81,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/CleanArchitecture.png" alt="Clean Architecture" width="600">
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/clean-architecture.png" alt="Clean Architecture" width="600">
 
 ### Estrutura das Pastas
 
@@ -115,14 +115,17 @@ Abaixo tabela que mostra a qual camada da arquitetura que cada pasta pertence:
 | main.layer | Frameworks & Drivers |
 | settings.layer | Transversal |
 
-## Configurando Ambiente Local
+# Configurando Ambientes
 
-#### Pré-requisitos
+## Pré-requisitos
 
 Para que a aplicação seja executada corretamente deve ser instalado os recursos abaixo:
 
 - NodeJS
 - NPM
+- Docker
+
+## Ambiente de Desenvolvimento
 
 #### Repositório
 ```bash
@@ -144,16 +147,51 @@ Este comando irá converter o código de **typescript** para **javascript** e sa
 $ npm run build
 ```
 
-#### Iniciando
+#### Iniciando sem Debug
 
 ```bash
 $ npm start
 ```
 
-## Execução dos Testes
+> Será executada no endereço http://localhost:3333/graphql
+
+#### Iniciando com Debug
+
+Basta abrir a pasta "eng-zap-challenge-typescript" pelo Visual Studio Code e executar o comando abaixo no terminal:
+
+```bash
+$ npm run dev
+```
+> Será executada no endereço http://localhost:3333/graphql
+
+Em seguida é só colocar o break point nos pontos que deseja debugar, veja exemplo abaixo:
+
+<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="600">
+
+#### Execução dos Testes
 
 Este comando irá executar os teste e disponibulizar o relatório de cobertura na pasta **coverage**.
 
 ```bash
-$ npm start
+$ npm test
 ```
+
+## Publicando em Docker
+
+A aplicação está preparada para ser executada em um container, para isso basta executar o comando:
+
+```bash
+$ npm run publish
+```
+
+> Será executada no endereço http://localhost:3333/graphql
+
+Caso queria subir a imagem da aplicação manualmente execute os comandos abaixo:
+
+```bash
+$ npm run build
+$ docker build -f Dockerfile -t macgyver1985/engzap .
+$ docker run -d -e NODE_ENV=production -p 3333:3333 macgyver1985/engzap
+```
+
+> Será executada no endereço http://localhost:3333/graphql
