@@ -1,5 +1,15 @@
 # API ENG-ZAP-CHALLENGE-TYPESCRIPT
 
+# Indice
+
+  - [Desafio Escolhido](#desafio-escolhido)
+  - [Requisitos Funcionais](#requisitos-funcionais)
+  - [Requisitos Não Funcionais](#requisitos-não-funcionais)
+  - [Propósta Técnica](#propósta-técnica)
+  - [Detalhamento da Solução](#detalhamento-da-solução)
+  - [Configurando Ambientes](#configurando-ambientes)
+  - [Executando Aplicação](#executando-aplicação)
+
 ## Desafio Escolhido
 
 - Opção B: Fazer uma API (backend)
