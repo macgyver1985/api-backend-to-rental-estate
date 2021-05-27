@@ -30,8 +30,8 @@ describe('Test AuthenticationController', () => {
     const result = await controller
       .handle({
         body: {
-          userName: 'zapuser',
-          password: 'zappwd',
+          userName: 'imoveiscomuser',
+          password: 'imoveiscompwd',
         },
       });
 

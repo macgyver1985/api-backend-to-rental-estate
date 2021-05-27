@@ -2,6 +2,7 @@
 
 # Indice
 
+  - [Introdução](#Introdução)
   - [Requisitos Funcionais](#requisitos-funcionais)
   - [Requisitos Não Funcionais](#requisitos-não-funcionais)
   - [Propósta Técnica](#propósta-técnica)
@@ -54,9 +55,8 @@ A API deve retornar a lista de imóveis habilitados para cada portal (Imóveis .
 
 - Faça essa API pensando que ela pode ser consumida por vários tipos de clientes e com diferentes propósitos.
 - Os dados devem ser trabalhados em memória não sendo permitido usar qualquer tipo de banco de dados.
-- Usar um dos sources abaixo:
-	- http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2.json
-	- http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-2
+- Usar o source abaixo:
+	- https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/resource/source.json
 - O metadados de resposta deve conter os campos abaixo:
 ```
 {
@@ -262,8 +262,8 @@ Excelente forma de efetuar requisições à API pois já fornece toda a document
 mutation{
   GetAuthorization (
     command: {
-      userName: "zapuser"
-      password: "zappwd"
+      userName: "imoveiscomuser"
+      password: "imoveiscompwd"
     }
   ) {
     authorization,
