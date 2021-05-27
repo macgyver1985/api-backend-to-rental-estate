@@ -1,8 +1,7 @@
-# API ENG-ZAP-CHALLENGE-TYPESCRIPT
+# API BACK-END-WITH-CLEAN-ARCHITECTURE-AND-TYPESCRIPT
 
 # Indice
 
-  - [Desafio Escolhido](#desafio-escolhido)
   - [Requisitos Funcionais](#requisitos-funcionais)
   - [Requisitos Não Funcionais](#requisitos-não-funcionais)
   - [Propósta Técnica](#propósta-técnica)
@@ -10,18 +9,19 @@
   - [Configurando Ambientes](#configurando-ambientes)
   - [Executando Aplicação](#executando-aplicação)
 
-## Desafio Escolhido
+## Introdução
 
-- Opção B: Fazer uma API (backend)
+Aqui está sendo proposto um cenário hipotético onde duas empresas de venda e locação de imóveis se uniram, porem ambas continuaram com as suas marcas e portais distintos, porem e um novo backe-end deve ser construído para fornecer qual imóvel deve aparecer em cada um dos portais.
+A primeira empresa é Imóveis .COM e Pronto pra Morar. 
 
 ## Requisitos Funcionais
 
-A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva Real).
+A API deve retornar a lista de imóveis habilitados para cada portal (Imóveis .COM e Pronto pra Morar).
 
 ##### Regras para ambos os portais:
 - Caso os atributos "lat" e "lon" sejam iguais a zero o imóvel não deve ser exibido em nenhum dos portais.
 
-##### Regras Potal Zap:
+##### Regras Imóveis .COM:
 
 ###### Imóveis para locação
 
@@ -38,12 +38,12 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 	- maxlon: -46.641146.
 	- maxlat: -23.546686.
 
-##### Regras Potal Viva Real:
+##### Regras Pronto pra Morar:
 
 ###### Imóveis para locação
 
 - O valor máximo deve ser R$ 4.000,00.
-- Caso o imóvel esteja dentro do bounding box do Potal ZAP o valor máximo do aluguel passa a ser R$ 6.000,00.
+- Caso o imóvel esteja dentro do bounding box do Potal Imóveis .COM o valor máximo do aluguel passa a ser R$ 6.000,00.
 - O valor de condomínio "monthlyCondoFee" deve ser numérico e menor que 30% do valor do aluguel.
 
 ###### Imóveis para venda
@@ -91,7 +91,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (ZAP e Viva
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/clean-architecture.png" alt="Clean Architecture" width="600">
+<img src="https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/docs/clean-architecture.png" alt="Clean Architecture" width="600">
 
 ### Estrutura das Pastas
 
@@ -151,7 +151,7 @@ Para que a aplicação seja executada corretamente deve ser instalado os recurso
 
 #### Repositório
 ```bash
-$ git clone https://github.com/macgyver1985/eng-zap-challenge-typescript.git
+$ git clone https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript.git
 $ cd eng-zap-challenge-typescript
 ```
 
@@ -188,7 +188,7 @@ $ npm run dev
 
 Em seguida é só colocar o break point nos pontos que deseja debugar, veja exemplo abaixo:
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="800">
+<img src="https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="800">
 
 #### Execução dos Testes
 
@@ -234,24 +234,24 @@ As opções descritas abaixo servem para instânicas da aplicação em ambiente 
 
 ### Usuários
 
-Foram configurados dois usuários, onde uma está atralado ao Portal ZAP e o outro ao Viva Real.
+Foram configurados dois usuários, onde uma está atralado ao Portal Imóveis .COM e o outro ao Pronto pra Morar.
 Para ter acesso aos imóveis disponíveis a cada portal basta gerar o token JWT com os respectivos usuários.
 
-###### Viva Real
+###### Pronto pra Morar
 
-- Username: **vivarealuser**
-- Password: **vivarealpwd**
+- Username: **prontopramoraruser**
+- Password: **prontopramorarpwd**
 
-###### Portal ZAP
+###### Imóveis .COM
 
-- Username: **zapuser**
-- Password: **zappwd**
+- Username: **imoveiscomuser**
+- Password: **imoveiscompwd**
 
 ### Apollo Playground
 
 Excelente forma de efetuar requisições à API pois já fornece toda a documentação dos "SCHEMAS" e ajuda muito na construção das chamadas do tipo "Mutation ou Query".
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/apollo-playground-example.jpg" alt="Apollo Playground" width="800">
+<img src="https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/docs/apollo-playground-example.jpg" alt="Apollo Playground" width="800">
 
 ##### Obter Token JWT
 
@@ -272,7 +272,7 @@ mutation{
 }
 ```
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/get-token-example.jpg" alt="Exemplo de Token JWT" width="800">
+<img src="https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/docs/get-token-example.jpg" alt="Exemplo de Token JWT" width="800">
 
 ##### Obter Lista de Imoveis
 
@@ -334,5 +334,5 @@ query {
 }
 ```
 
-<img src="https://github.com/macgyver1985/eng-zap-challenge-typescript/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">
+<img src="https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">
 
