@@ -19,8 +19,8 @@ describe('Test AuthenticationHandler', () => {
 
   it('Retorna um token de acesso válido.', async () => {
     const command = AuthenticationCommand.create({
-      userName: 'zapuser',
-      password: 'zappwd',
+      userName: 'imoveiscomuser',
+      password: 'imoveiscompwd',
     }, contractValidator);
 
     const result = await handler.execute(command);

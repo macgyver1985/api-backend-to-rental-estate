@@ -56,7 +56,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (Imóveis .
 - Faça essa API pensando que ela pode ser consumida por vários tipos de clientes e com diferentes propósitos.
 - Os dados devem ser trabalhados em memória não sendo permitido usar qualquer tipo de banco de dados.
 - Usar o source abaixo:
-	- https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript/blob/master/resource/source.json
+	- https://sharedby.blomp.com/qAqEbW
 - O metadados de resposta deve conter os campos abaixo:
 ```
 {
@@ -152,7 +152,7 @@ Para que a aplicação seja executada corretamente deve ser instalado os recurso
 #### Repositório
 ```bash
 $ git clone https://github.com/macgyver1985/back-end-with-clean-architecture-and-typescript.git
-$ cd eng-zap-challenge-typescript
+$ cd back-end-with-clean-architecture-and-typescript
 ```
 
 #### Dependencias
@@ -179,7 +179,7 @@ $ npm start
 
 #### Iniciando com Debug
 
-Basta abrir a pasta "eng-zap-challenge-typescript" pelo Visual Studio Code e executar o comando abaixo no terminal:
+Basta abrir a pasta "back-end-with-clean-architecture-and-typescript" pelo Visual Studio Code e executar o comando abaixo no terminal:
 
 ```bash
 $ npm run dev
@@ -207,7 +207,7 @@ Caso o ***npm run publish*** já tenha sido executado, execute os comandos abaix
 ```bash
 $ docker stop -t 0 macgyver_application
 $ docker rm macgyver_application
-$ docker rmi macgyver1985/engzap
+$ docker rmi macgyver1985/imoveis
 ```
 
 Para publicar no container execute o comando abaixo:
@@ -222,8 +222,8 @@ Caso queria subir a imagem da aplicação manualmente execute os comandos abaixo
 
 ```bash
 $ npm run build
-$ docker build -f Dockerfile -t macgyver1985/engzap .
-$ docker run -d -e NODE_ENV=production -p 3333:3333 macgyver1985/engzap
+$ docker build -f Dockerfile -t macgyver1985/imoveis .
+$ docker run -d -e NODE_ENV=production -p 3333:3333 macgyver1985/imoveis
 ```
 
 > Será executada no endereço http://localhost:3333/graphql

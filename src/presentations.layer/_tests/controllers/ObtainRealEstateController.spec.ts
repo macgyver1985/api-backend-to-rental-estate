@@ -52,5 +52,5 @@ describe('Test ObtainRealEstateController', () => {
     expect(result.data).not.toBeNull();
     expect((result.data as PagedDataModel<RealEstateModel>).totalCount).toEqual(3848);
     expect((result.data as PagedDataModel<RealEstateModel>).totalPages).toEqual(3848);
-  });
+  }, 10000);
 });
