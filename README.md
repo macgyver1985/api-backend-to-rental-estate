@@ -1,4 +1,4 @@
-# API GRAPHQL BACKEND-CLEAN-ARCHITECTURE-NODEJS-TYPESCRIPT
+# API-BACKEND-TO-RENTAL-ESTATE
 
 # Indice
 
@@ -91,7 +91,7 @@ A API deve retornar a lista de imóveis habilitados para cada portal (Imóveis .
 
 Visando atender de uma melhor forma os aspectos de "organização, manutenibilidade, rastreabilidade, testabilidade, performance e portabilidade" toda estrutura da aplicações foi baseada em Clean Architecture, abaixo diagrama conceitual dessa proposta:
 
-<img src="https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript/blob/master/docs/clean-architecture.png" alt="Clean Architecture" width="600">
+<img src="https://github.com/macgyver1985/api-backend-to-rental-estate/blob/master/docs/clean-architecture.png" alt="Clean Architecture" width="600">
 
 ### Estrutura das Pastas
 
@@ -151,8 +151,8 @@ Para que a aplicação seja executada corretamente deve ser instalado os recurso
 
 #### Repositório
 ```bash
-$ git clone https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript.git
-$ cd backend-clean-architecture-nodejs-typescript
+$ git clone https://github.com/macgyver1985/api-backend-to-rental-estate.git
+$ cd api-backend-to-rental-estate
 ```
 
 #### Dependencias
@@ -179,7 +179,7 @@ $ npm start
 
 #### Iniciando com Debug
 
-Basta abrir a pasta "backend-clean-architecture-nodejs-typescript" pelo Visual Studio Code e executar o comando abaixo no terminal:
+Basta abrir a pasta "api-backend-to-rental-estate" pelo Visual Studio Code e executar o comando abaixo no terminal:
 
 ```bash
 $ npm run dev
@@ -188,7 +188,7 @@ $ npm run dev
 
 Em seguida é só colocar o break point nos pontos que deseja debugar, veja exemplo abaixo:
 
-<img src="https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="800">
+<img src="https://github.com/macgyver1985/api-backend-to-rental-estate/blob/master/docs/debug-example.jpg" alt="Exemplo de debug" width="800">
 
 #### Execução dos Testes
 
@@ -251,7 +251,7 @@ Para ter acesso aos imóveis disponíveis a cada portal basta gerar o token JWT 
 
 Excelente forma de efetuar requisições à API pois já fornece toda a documentação dos "SCHEMAS" e ajuda muito na construção das chamadas do tipo "Mutation ou Query".
 
-<img src="https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript/blob/master/docs/apollo-playground-example.jpg" alt="Apollo Playground" width="800">
+<img src="https://github.com/macgyver1985/api-backend-to-rental-estate/blob/master/docs/apollo-playground-example.jpg" alt="Apollo Playground" width="800">
 
 ##### Obter Token JWT
 
@@ -272,7 +272,7 @@ mutation{
 }
 ```
 
-<img src="https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript/blob/master/docs/get-token-example.jpg" alt="Exemplo de Token JWT" width="800">
+<img src="https://github.com/macgyver1985/api-backend-to-rental-estate/blob/master/docs/get-token-example.jpg" alt="Exemplo de Token JWT" width="800">
 
 ##### Obter Lista de Imoveis
 
@@ -334,5 +334,5 @@ query {
 }
 ```
 
-<img src="https://github.com/macgyver1985/backend-clean-architecture-nodejs-typescript/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">
+<img src="https://github.com/macgyver1985/api-backend-to-rental-estate/blob/master/docs/obtain-real-etates-example.jpg" alt="Exemplo de Obter Imoveis" width="800">
 
